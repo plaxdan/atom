@@ -1,0 +1,27 @@
+{
+  "name": "gitmo",
+  "theme": "syntax",
+  "version": "0.5.0",
+  "private": false,
+  "description": "💀",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bradley/gitmo-theme"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "readme": "# Gitmo Theme\n\nThis is basically a port of the Sublime Text's (Facebook Theme)[https://github.com/mbixby/facebook-color-scheme] by @mbixby, converted to a Atom theme with adjustments for colors I (@bradley) prefer.\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/bradley/gitmo-theme/issues"
+  },
+  "homepage": "https://github.com/bradley/gitmo-theme",
+  "_id": "gitmo@0.5.0",
+  "dist": {
+    "shasum": "3ac3df31da2bc4e2fa01470ed289982b17622e16"
+  },
+  "_resolved": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114210-52592-t3wcnl/package.tgz",
+  "_from": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114210-52592-t3wcnl/package.tgz"
+}
