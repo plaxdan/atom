@@ -1,51 +1,34 @@
 # ----------------------------------------------------------------------------
-#  Color Picker
+#  ColorPicker
 # ----------------------------------------------------------------------------
 
         ConditionalContextMenu = require './conditional-contextmenu'
+        VariableInspector = require './variable-inspector'
 
-    # -------------------------------------
-    #  Color regex matchers
-    # -------------------------------------
-        COLOR_REGEXES = [
-            # Matches HEX + A: eg
-            # rgba(#fff, 0.3) and rgba(#000000, .8)
-            { type: 'hexa', regex: /(rgba\(((\#[a-f0-9]{6}|\#[a-f0-9]{3}))\s*,\s*(0|1|0*\.\d+)\))/ig }
-
-            # Matches RGB + A: eg.
-            # rgba(0, 99, 199, 0.3)
-            { type: 'rgba', regex: /(rgba\(((([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\s*,\s*([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\s*,\s*([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])))\s*,\s*(0|1|0*\.\d+)\))/ig }
-
-            # Matches RGB: eg.
-            # rgb(0, 99, 199)
-            { type: 'rgb', regex: /(rgb\(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\s*,\s*([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\s*,\s*([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\))/ig }
-
-            # Matches HEX:
-            # eg. #000 and #ffffff
-            { type: 'hex', regex: /(\#[a-f0-9]{6}|\#[a-f0-9]{3})/ig }
-        ]
+        _regexes = require './ColorPicker-regexes.coffee'
 
     # -------------------------------------
     #  Public functionality
     # -------------------------------------
         module.exports =
             view: null
-            color: null
+            match: null
 
             activate: ->
-                atom.workspaceView.command "color-picker:open", => @open()
+                atom.workspaceView.command "color-picker:open", => @open true
 
                 ConditionalContextMenu.item {
                     label: 'Color picker'
                     command: 'color-picker:open',
-                }, => return true if @color = @getColorAtCursor()
+                }, => return true if @match = @getMatchAtCursor()
 
                 ColorPickerView = require './ColorPicker-view'
                 @view = new ColorPickerView
 
             deactivate: -> @view.destroy()
 
-            getColorAtCursor: ->
+            # Get a match at the current cursor position
+            getMatchAtCursor: ->
                 _editor = atom.workspace.getActiveEditor()
                 return unless _editor
 
@@ -54,40 +37,107 @@
                 _cursorRow = _cursorBuffer.row
                 _cursorColumn = _cursorBuffer.column
 
-                _matches = []
+                return @matchAtPosition _cursorColumn, (@matchesOnLine _line, _cursorRow)
 
-                # Match the current line against the regexes to get the colors
-                for colorRegex in COLOR_REGEXES
-                    type = colorRegex.type
-                    regex = colorRegex.regex
+            # Match the current line against the regexes
+            # @String line
+            # @Number cursorRow
+            matchesOnLine: (line, cursorRow) ->
+                return unless line and cursorRow
 
-                    continue unless _colors = _line.match regex
+                _filteredMatches = []; for { type, regex } in _regexes
+                    continue unless _matches = line.match regex
 
-                    for color in _colors
-                        continue if (_index = _line.indexOf color) is -1
+                    for match in _matches
+                        # Skip if the match has “been used” already
+                        continue if (_index = line.indexOf match) is -1
 
-                        _matches.push
-                            color: color
+                        _filteredMatches.push
+                            match: match
+                            regexMatch: match.match RegExp regex.source, 'i'
                             type: type
                             index: _index
-                            end: _index + color.length
-                            row: _cursorRow
+                            end: _index + match.length
+                            row: cursorRow
 
                         # Make sure the indices are correct by removing
                         # the instances from the string after use
-                        _line = _line.replace color, (new Array color.length + 1).join ' '
-                return unless _matches.length > 0
+                        line = line.replace match, (Array match.length + 1).join ' '
+                return unless _filteredMatches.length > 0
 
-                # Find the "selected" color by looking at caret position
-                _color = do -> for color in _matches
-                    if color.index <= _cursorColumn and color.end >= _cursorColumn
-                        return color
-                return _color
+                return _filteredMatches
 
-            open: ->
-                return unless @color
+            # Get a single match on a position based on a match array
+            # as seen in matchesOnLine
+            # @Number column
+            # @Array matches
+            matchAtPosition: (column, matches) ->
+                return unless column and matches
 
+                _match = do -> for match in matches
+                    if match.index <= column and match.end >= column
+                        return match
+                return _match
+
+            open: (getMatch = false) ->
+                if getMatch then @match = @getMatchAtCursor()
+
+                return unless @match
+                @view.reset()
+                @setMatchColor()
                 @view.open()
-                @view.storage.selectedColor = @color
-                @view.inputColor @color
-                @view.selectColor()
+
+            # Set the color of a match to its object, and then send it
+            # to the color picker view
+            # @Object match
+            # @Function callback
+            setMatchColor: ->
+                return unless @match
+
+                @view.storage.selectedColor = null
+
+                if @match.hasOwnProperty 'color'
+                    @view.storage.selectedColor = @match
+                    @view.inputColor @match
+                    return
+
+                _callback = => @setMatchColor()
+
+                return switch @match.type
+                    when 'variable:sass' then @setVariableDefinitionColor @match, _callback
+                    when 'variable:less' then @setVariableDefinitionColor @match, _callback
+                    else do => @match.color = @match.match; _callback @match
+
+            # Set the variable definition by sending it through a
+            # provided callback when found
+            # @Object match
+            # @Function callback
+            setVariableDefinitionColor: (match, callback) ->
+                return unless match and callback
+
+                _matchRegex = regex for { type, regex } in _regexes when type is match.type
+                _variableName = (match.match.match RegExp _matchRegex.source, 'i')[2] # hahaha
+
+                (@findVariableDefinition _variableName, match.type).then ({ color, pointer }) ->
+                    match.color = color.match
+                    match.type = color.type
+                    match.pointer = pointer
+
+                    callback match
+
+            # Find variable definition by searching recursively until a
+            # non-variable (a color) is found
+            # @String name
+            # @String type
+            findVariableDefinition: (name, type, pointer) ->
+                return (VariableInspector.findDefinition name, type).then (definition) =>
+                    pointer ?= definition.pointer # remember the initial pointer
+                    _matches = @matchesOnLine definition.definition, 1
+
+                    return @view.error() unless _matches and _color = _matches[0]
+
+                    # Continue digging for the truth and real definition
+                    if (_color.type.split ':')[0] is 'variable'
+                        return @findVariableDefinition _color.regexMatch[2], _color.type, pointer
+
+                    return { color: _color, pointer: pointer }

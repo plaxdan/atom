@@ -1,10 +1,11 @@
 {
   "name": "sort-lines",
   "main": "./lib/sort-lines",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Sorts your lines. Never gets tired.",
   "activationEvents": [
-    "sort-lines:sort"
+    "sort-lines:sort",
+    "sort-lines:reverse-sort"
   ],
   "repository": {
     "type": "git",
@@ -21,10 +22,10 @@
     "url": "https://github.com/atom/sort-lines/issues"
   },
   "homepage": "https://github.com/atom/sort-lines",
-  "_id": "sort-lines@0.2.0",
+  "_id": "sort-lines@0.3.0",
   "dist": {
-    "shasum": "a98c6dc1ff1e2eab1c87fd2f562a6f834bfa1078"
+    "shasum": "1136298e03bf5ae449ee9be4d8ebf14742c04162"
   },
-  "_resolved": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11429-48774-6zogi1/package.tgz",
-  "_from": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11429-48774-6zogi1/package.tgz"
+  "_resolved": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114225-50751-18jybb1/package.tgz",
+  "_from": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114225-50751-18jybb1/package.tgz"
 }

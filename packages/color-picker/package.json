@@ -1,7 +1,7 @@
 {
   "name": "color-picker",
   "main": "./lib/ColorPicker",
-  "version": "0.8.0",
+  "version": "0.14.2",
   "private": true,
   "description": "A Color Picker for the Atom Editor. Right click a color and select color picker to open it.",
   "repository": {
@@ -12,16 +12,16 @@
   "engines": {
     "atom": ">0.50.0"
   },
-  "readme": "# A Color Picker for Atom\n\nA color picker for Atom. Either right click a color and select `Color picker`, or place the cursor on a color and hit `CMD-SHIFT-C`. Currently reads HEXA, RGBA, RGB and HEX.\n\n## Preview\n\n![Color Picker in action](http://f.cl.ly/items/3B1L3z0p2Q0R0y2Y0M2I/colorpicker.gif)\n\n## Incoming\n\n- Sass/Less color variable lookup\n- Code cleanup\n- Edit the color value\n- If RGB is read, spit RGB\n- If HEXA is read, spit HEXA\n- Tests\n",
+  "readme": "# A Color Picker for Atom\n\nA color picker for Atom. Either right click a color and select `Color picker`, or place the cursor on a color and hit `CMD-SHIFT-C`. Currently reads HEX, HEXA, RGB, RGBA, HSL and HSLA.\n\nInspects Sass/LESS variables! [Take a look here.](http://t.hom.as/colorpicker4.mov)\n\n**NEW:** Now also reads HSL and HSLA!\n\n## Preview\n\n![Color Picker in action](http://f.cl.ly/items/3g3T401o0o0F2m2O1z1K/output.gif)\n\n## To do\n\n- Code cleanup\n- Preview color manipulation functions (lighten, darken)\n- Convertions\n- Stylus variable lookup\n- Edit the color value\n- Tests\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/thomaslindstrom/color-picker/issues"
   },
   "homepage": "https://github.com/thomaslindstrom/color-picker",
-  "_id": "color-picker@0.8.0",
+  "_id": "color-picker@0.14.2",
   "dist": {
-    "shasum": "eef5ecf647561f5138777eef8e2d7d14f605b327"
+    "shasum": "928ea195473e8b9a046a800a694ba8a0fb1e6140"
   },
-  "_resolved": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114210-52108-7jphhg/package.tgz",
-  "_from": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114210-52108-7jphhg/package.tgz"
+  "_resolved": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11438-61846-1sb0vmr/package.tgz",
+  "_from": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11438-61846-1sb0vmr/package.tgz"
 }
