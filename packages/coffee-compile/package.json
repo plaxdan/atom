@@ -1,7 +1,7 @@
 {
   "name": "coffee-compile",
   "main": "./lib/coffee-compile",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "description": "Preview/save compiled Javascript in Atom",
   "repository": {
@@ -20,16 +20,16 @@
     "wrench": "^1.5.8",
     "temp": "^0.7.0"
   },
-  "readme": "# coffee-compile package\n\nPreview/save compiled Javascript in Atom\n- `cmd+shift+c` Compiles Coffeescript\n\n![](https://raw.github.com/adrianlee44/atom-coffee-compile/master/screenshot.png)\n\n## TODO\n- Recompile on change option\n- Line numbers\n- Add tests\n- Travis integration\n- Open compiled JS in pane if `compile on save` option is enabled\n\n## Changelog\n- 2014-04-08   v0.3.1   Added `focus editor after compile` option (disabled by default)\n- 2014-03-25   v0.3.0   Added `compile on save` feature (disabled by default)\n- 2014-03-11   v0.2.1   Compiled view style now matches editor style\n- 2014-03-10   v0.2.0   Litcoffee support, Top-level wrapper function option, Grammar config option\n- 2014-03-09   v0.1.4   Fixed spliting pane in certain pane arrangement breaks Atom\n- 2014-03-07   v0.1.3   Fixed view breaking with jshint\n- 2014-03-01   v0.1.2   Code cleanup\n- 2014-03-01   v0.1.1   Fixed README screenshot\n- 2014-03-01   v0.1.0   Initial Release\n",
+  "readme": "# coffee-compile package\n\nPreview/save compiled Javascript in Atom\n- `cmd+shift+c` Compiles Coffeescript\n\n![](https://raw.github.com/adrianlee44/atom-coffee-compile/master/screenshot.png)\n\n## TODO\n- Recompile on change option\n- Line numbers\n- Add tests\n- Travis integration\n- Open compiled JS in pane if `compile on save` option is enabled\n\n## Changelog\n- 2014-04-24   v0.3.2   Fixed horizontal scrolling\n- 2014-04-08   v0.3.1   Added `focus editor after compile` option (disabled by default)\n- 2014-03-25   v0.3.0   Added `compile on save` feature (disabled by default)\n- 2014-03-11   v0.2.1   Compiled view style now matches editor style\n- 2014-03-10   v0.2.0   Litcoffee support, Top-level wrapper function option, Grammar config option\n- 2014-03-09   v0.1.4   Fixed spliting pane in certain pane arrangement breaks Atom\n- 2014-03-07   v0.1.3   Fixed view breaking with jshint\n- 2014-03-01   v0.1.2   Code cleanup\n- 2014-03-01   v0.1.1   Fixed README screenshot\n- 2014-03-01   v0.1.0   Initial Release\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/adrianlee44/atom-coffee-compile/issues"
   },
   "homepage": "https://github.com/adrianlee44/atom-coffee-compile",
-  "_id": "coffee-compile@0.3.1",
+  "_id": "coffee-compile@0.3.2",
   "dist": {
-    "shasum": "98a95fdea67c6691f38e5e3bccc14e54df2ce935"
+    "shasum": "2de6bc60ba4d9d8005bb1a04fcd40fe391d0d950"
   },
-  "_resolved": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11438-62430-92czhe/package.tgz",
-  "_from": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11438-62430-92czhe/package.tgz"
+  "_resolved": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114416-998-1wjar16/package.tgz",
+  "_from": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114416-998-1wjar16/package.tgz"
 }

@@ -1,15 +1,15 @@
 'exception-reporting':
   'userId': 'c07cc71f-3a08-5ab6-3e13-bfcd07248ce8'
 'release-notes':
-  'viewedVersion': '0.84.0'
+  'viewedVersion': '0.95.0'
 'welcome':
   'showOnStartup': false
 'metrics':
   'userId': '40500e3fd44453a1e0c923aff91cee272f96181a'
 'editor':
-  'fontSize': 14
   'fontFamily': 'Inconsolata for Powerline'
   'showIndentGuide': true
+  'fontSize': 12
 'core':
   'themes': [
     'spacegray-dark-ui'
@@ -27,6 +27,7 @@
     'language-ruby-on-rails'
     'language-ruby'
   ]
+  'useReactEditor': true
 'markdown-preview':
   'grammars': [
     'source.gfm'
@@ -34,6 +35,7 @@
     'text.plain'
     'text.plain.null-grammar'
   ]
+  'breakOnSingleNewline': true
 'coffee-compile':
   'grammars': [
     'source.coffee'
