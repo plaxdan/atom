@@ -2,10 +2,20 @@ class Side
   constructor: (@originalText, @ref, @marker, @refBannerMarker, @position) ->
     @conflict = null
     @isDirty = false
+    @followingMarker = null
 
   resolve: -> @conflict.resolveAs this
 
   wasChosen: -> @conflict.resolution is this
+
+  lineClass: ->
+    if @wasChosen()
+      'conflict-resolved'
+    else if @isDirty
+      'conflict-dirty'
+    else
+      "conflict-#{@klass()}"
+
 
 class OurSide extends Side
 

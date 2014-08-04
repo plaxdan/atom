@@ -1,4 +1,4 @@
-CoveringView = require './covering-view'
+{CoveringView} = require './covering-view'
 
 module.exports =
 class SideView extends CoveringView
@@ -19,35 +19,48 @@ class SideView extends CoveringView
     @prependKeystroke @side.eventName(), @useMeBtn
     @prependKeystroke 'merge-conflicts:revert-current', @revertBtn
 
+    @decoration = null
+
     @side.conflict.on 'conflict:resolved', =>
       @deleteMarker @side.refBannerMarker
       @deleteMarker @side.marker unless @side.wasChosen()
       @remove()
 
-    @side.marker.on 'changed', (event) =>
-      marker = @side.marker
-
-      tailSame = event.oldTailBufferPosition.isEqual marker.getTailBufferPosition()
-      headDifferent = not event.oldHeadBufferPosition.isEqual marker.getHeadBufferPosition()
-
-      @detectDirty() if tailSame and headDifferent
-
   cover: -> @side.refBannerMarker
+
+  decorate: ->
+    args =
+      type: 'line'
+      class: @side.lineClass()
+    if @decoration?
+      @decoration.update(args)
+    else
+      @decoration = @editor().decorateMarker(@side.marker, args)
 
   conflict: -> @side.conflict
 
   isDirty: -> @side.isDirty
 
-  useMe: -> @side.resolve()
+  includesCursor: (cursor) ->
+    m = @side.marker
+    [h, t] = [m.getHeadBufferPosition(), m.getTailBufferPosition()]
+    p = cursor.getBufferPosition()
+    t.isLessThanOrEqual(p) and h.isGreaterThanOrEqual(p)
+
+  useMe: ->
+    @side.resolve()
+    @decorate()
 
   revert: ->
     @editor().setTextInBufferRange @side.marker.getBufferRange(),
       @side.originalText
+    @decorate()
 
   detectDirty: ->
-    wasDirty = @side.isDirty
     currentText = @editor().getTextInBufferRange @side.marker.getBufferRange()
     @side.isDirty = currentText isnt @side.originalText
 
-    @addClass 'dirty' if @side.isDirty and not wasDirty
-    @removeClass 'dirty' if not @side.isDirty and wasDirty
+    @decorate()
+
+    @removeClass 'dirty'
+    @addClass 'dirty' if @side.isDirty

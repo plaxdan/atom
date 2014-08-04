@@ -1,0 +1,1 @@
+{"digest":"01703ab852b1cfb2fdabb7b3222c6bde2f4518b2","css":".wrap-guide {\n  height: 100%;\n  width: 1px;\n  z-index: 100;\n  position: absolute;\n  top: 0;\n  background-color: rgba(197, 200, 198, 0.1);\n}\n","imports":[{"path":"node_modules/atom-dark-syntax/stylesheets/syntax-variables.less","digest":"033fd05f4c99a21dcd02382c8eaacdd4441b481c"}],"version":1}

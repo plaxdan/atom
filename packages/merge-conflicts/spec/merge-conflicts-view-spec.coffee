@@ -4,7 +4,7 @@ _ = require 'underscore-plus'
 MergeConflictsView = require '../lib/merge-conflicts-view'
 MergeState = require '../lib/merge-state'
 Conflict = require '../lib/conflict'
-GitBridge = require '../lib/git-bridge'
+{GitBridge} = require '../lib/git-bridge'
 util = require './util'
 
 describe 'MergeConflictsView', ->
@@ -17,10 +17,10 @@ describe 'MergeConflictsView', ->
     atom.project.getRepo().relativize fullPath(fname)
 
   beforeEach ->
-    conflictPaths = _.map ['file1.txt', 'file2.txt'], (fname) ->
-      path.join 'spec', 'fixtures', 'path', fname
+    conflicts = _.map ['file1.txt', 'file2.txt'], (fname) ->
+      { path: path.join('spec', 'fixtures', 'path', fname), message: 'both modified' }
     editorView = util.openPath 'triple-2way-diff.txt'
-    state = new MergeState conflictPaths, false
+    state = new MergeState conflicts, false
     conflicts = Conflict.all state, editorView.getEditor()
 
     view = new MergeConflictsView state
@@ -57,6 +57,7 @@ describe 'MergeConflictsView', ->
       GitBridge.process = ({stdout, exit}) ->
         stdout("UU #{repoPath 'file2.txt'}")
         exit(0)
+        { process: { on: (err) -> } }
 
       atom.emit 'merge-conflicts:staged', file: fullPath('file1.txt')
       expect(isMarkedWith 'file1.txt', 'check').toBe(true)

@@ -1,11 +1,14 @@
-{View, $} = require 'atom'
+{EditorView, View, $} = require 'atom'
 _ = require 'underscore-plus'
+{EditorAdapter} = require './editor-adapter'
 
-module.exports =
+
 class CoveringView extends View
 
   initialize: (@editorView) ->
-    @appendTo @editorView.overlayer
+    @adapter = EditorAdapter.adapt(@editorView)
+
+    @adapter.append(this)
     @reposition()
 
     @cover().on "changed", => @reposition()
@@ -18,11 +21,17 @@ class CoveringView extends View
 
   isDirty: -> false
 
+  # Override to determine if the content of this Side has been modified.
+  detectDirty: -> null
+
+  # Override to apply a decoration to a marker as appropriate.
+  decorate: -> null
+
   getModel: -> null
 
   reposition: ->
     marker = @cover()
-    anchor = @editorView.renderedLines.offset()
+    anchor = @adapter.linesElement().offset()
     ref = @offsetForMarker marker
 
     @offset top: ref.top + anchor.top
@@ -31,6 +40,8 @@ class CoveringView extends View
   editor: -> @editorView.getEditor()
 
   buffer: -> @editor().getBuffer()
+
+  includesCursor: (cursor) -> false
 
   offsetForMarker: (marker) ->
     position = marker.getTailBufferPosition()
@@ -48,3 +59,6 @@ class CoveringView extends View
     for e in bindings when e.command is eventName
       original = element.text()
       element.text(_.humanizeKeystroke(e.keystroke) + " #{original}")
+
+module.exports =
+  CoveringView: CoveringView

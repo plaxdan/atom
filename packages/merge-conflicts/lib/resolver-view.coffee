@@ -1,5 +1,6 @@
 {View} = require 'atom'
-GitBridge = require './git-bridge'
+{GitBridge} = require './git-bridge'
+handleErr = require './error-view'
 
 module.exports =
 class ResolverView extends View
@@ -13,19 +14,24 @@ class ResolverView extends View
         @div class: 'block text-info', =>
           @span outlet: 'actionText', 'Save and stage'
           @text ' this file for commit?'
+      @div class: 'pull-left', =>
+        @button class: 'btn btn-primary', click: 'dismiss', 'Maybe Later'
       @div class: 'pull-right', =>
-        @button class: 'btn btn-primary', click: 'resolve', 'Mark Resolved'
+        @button class: 'btn btn-primary', click: 'resolve', 'Stage'
 
   initialize: (@editor) ->
     @refresh()
     @editor.getBuffer().on 'saved', => @refresh()
+    @subscribe atom, 'merge-conflicts:quit', (event) => @dismiss()
 
   getModel: -> null
 
   relativePath: -> atom.project.getRepo().relativize @editor.getUri()
 
   refresh: ->
-    GitBridge.isStaged @relativePath(), (staged) =>
+    GitBridge.isStaged @relativePath(), (err, staged) =>
+      return if handleErr(err)
+
       modified = @editor.isModified()
 
       needsSaved = modified
@@ -43,4 +49,10 @@ class ResolverView extends View
 
   resolve: ->
     @editor.save()
-    GitBridge.add @relativePath(), => @refresh()
+    GitBridge.add @relativePath(), (err) =>
+      return if handleErr(err)
+
+      @refresh()
+
+  dismiss: ->
+    @hide 'fast', => @remove()

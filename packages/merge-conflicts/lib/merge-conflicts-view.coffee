@@ -3,14 +3,17 @@ _ = require 'underscore-plus'
 path = require 'path'
 {Subscriber} = require 'emissary'
 
-GitBridge = require './git-bridge'
+{GitBridge} = require './git-bridge'
 MergeState = require './merge-state'
+ResolverView = require './resolver-view'
 ConflictMarker = require './conflict-marker'
 {SuccessView, MaybeLaterView, NothingToMergeView} = require './message-views'
+handleErr = require './error-view'
 
 module.exports =
 class MergeConflictsView extends View
 
+  instance: null
   Subscriber.includeInto this
 
   @content: (state) ->
@@ -21,11 +24,12 @@ class MergeConflictsView extends View
         @span class: 'pull-right icon icon-unfold', click: 'restore', 'Show'
       @div outlet: 'body', =>
         @ul class: 'block list-group', outlet: 'pathList', =>
-          for p in state.conflicts
+          for {path: p, message} in state.conflicts
             @li click: 'navigate', class: 'list-item navigate', =>
               @span class: 'inline-block icon icon-diff-modified status-modified path', p
               @div class: 'pull-right', =>
-                @span class: 'inline-block text-subtle', "modified by both"
+                @button click: 'stageFile', class: 'btn btn-xs btn-success inline-block-tight stage-ready', style: 'display: none', 'Stage'
+                @span class: 'inline-block text-subtle', message
                 @progress class: 'inline-block', max: 100, value: 0
                 @span class: 'inline-block icon icon-dash staged'
         @div class: 'block pull-right', =>
@@ -43,6 +47,8 @@ class MergeConflictsView extends View
         progress.value = event.resolved
       else
         console.log "Unrecognized conflict path: #{p}"
+      if event.total is event.resolved
+        @pathList.find("li:contains('#{p}') .stage-ready").eq(0).show()
 
     @subscribe atom, 'merge-conflicts:staged', => @refresh()
 
@@ -67,17 +73,20 @@ class MergeConflictsView extends View
     @finish(MaybeLaterView)
 
   refresh: ->
-    @state.reread =>
+    @state.reread (err, state) =>
+      return if handleErr(err)
+
       # Any files that were present, but aren't there any more, have been
       # resolved.
       for item in @pathList.find('li')
         p = $(item).find('.path').text()
         icon = $(item).find('.staged')
         icon.removeClass 'icon-dash icon-check text-success'
-        if _.contains @state.conflicts, p
+        if _.contains @state.conflictPaths(), p
           icon.addClass 'icon-dash'
         else
           icon.addClass 'icon-check text-success'
+          @pathList.find("li:contains('#{p}') .stage-ready").eq(0).hide()
 
       if @state.isEmpty()
         atom.emit 'merge-conflicts:done'
@@ -96,19 +105,39 @@ class MergeConflictsView extends View
 
   sideResolver: (side) ->
     (event) ->
-      p = $(event.target).find('.path').text()
-      GitBridge.checkoutSide side, p, ->
+      p = $(event.target).closest('li').find('.path').text()
+      GitBridge.checkoutSide side, p, (err) ->
+        return if handleErr(err)
+
         full = path.join atom.project.path, p
         atom.emit 'merge-conflicts:resolved', file: full, total: 1, resolved: 1
         atom.workspace.open p
 
-  instance: null
+  editorView: (filePath) ->
+    if filePath
+      for _editorView in atom.workspaceView.getEditorViews()
+        return _editorView if _editorView.getEditor().getPath() is filePath
+    return null
+
+  editor: (filePath) ->
+    @editorView(filePath)?.getEditor()
+
+  stageFile: (event, element) ->
+    repoPath = element.closest('li').find('.path').text()
+    filePath = path.join atom.project.getRepo().getWorkingDirectory(), repoPath
+    @editor(filePath)?.save()
+    GitBridge.add repoPath, (err) ->
+      return if handleErr(err)
+
+      atom.emit 'merge-conflicts:staged', file: filePath
 
   @detect: ->
     return unless atom.project.getRepo()
     return if @instance?
 
-    MergeState.read (state) =>
+    MergeState.read (err, state) =>
+      return if handleErr(err)
+
       if not state.isEmpty()
         view = new MergeConflictsView(state)
         @instance = view
@@ -126,6 +155,6 @@ class MergeConflictsView extends View
 
     fullPath = editorView.getEditor().getPath()
     repoPath = atom.project.getRepo().relativize fullPath
-    return unless _.contains state.conflicts, repoPath
+    return unless _.contains state.conflictPaths(), repoPath
 
     new ConflictMarker(state, editorView)

@@ -1,28 +1,26 @@
-temp   = require "temp"
-wrench = require "wrench"
-path   = require "path"
-
 CoffeeCompileView = require '../lib/coffee-compile-view'
 {WorkspaceView} = require 'atom'
 
 describe "CoffeeCompile", ->
   beforeEach ->
-    fixturesPath = path.join __dirname, "fixtures"
-    tempPath     = temp.mkdirSync "atom"
-    wrench.copyDirSyncRecursive fixturesPath, tempPath, forceDelete: true
-    atom.project.setPath tempPath
-
     jasmine.unspy window, "setTimeout"
 
     atom.workspaceView = new WorkspaceView
     atom.workspace     = atom.workspaceView.model
     spyOn(CoffeeCompileView.prototype, "renderCompiled")
 
-    waitsForPromise ->
+    waitsForPromise "coffee-compile package to activate", ->
       atom.packages.activatePackage('coffee-compile')
 
-    waitsForPromise ->
+    waitsForPromise "language-coffee-script to activate", ->
       atom.packages.activatePackage('language-coffee-script')
+
+    atom.config.set('coffee-compile.grammars', [
+      'source.coffee'
+      'source.litcoffee'
+      'text.plain'
+      'text.plain.null-grammar'
+    ])
 
     atom.workspaceView.attachToDom()
 
@@ -30,13 +28,13 @@ describe "CoffeeCompile", ->
     beforeEach ->
       atom.workspaceView.attachToDom()
 
-      waitsForPromise ->
-        atom.workspace.open "test.coffee"
+      waitsForPromise "fixture file to open", ->
+        atom.workspace.open "coffee-compile-fixtures.coffee"
 
       runs ->
         atom.workspaceView.getActiveView().trigger "coffee-compile:compile"
 
-      waitsFor ->
+      waitsFor "renderCompiled to be called", ->
         CoffeeCompileView::renderCompiled.callCount > 0
 
     it "should always split to the right", ->
@@ -65,15 +63,25 @@ describe "CoffeeCompile", ->
     it "should focus on compiled pane", ->
       runs ->
         [editorPane, compiledPane] = atom.workspaceView.getPanes()
-        compiled = compiledPane.getActiveItem()
-
         expect(compiledPane).toHaveFocus()
+
+  describe "focus editor after compile", ->
+    beforeEach ->
+      atom.config.set "coffee-compile.focusEditorAfterCompile", true
+      atom.workspaceView.attachToDom()
+
+      waitsForPromise ->
+        atom.workspace.open "test.coffee"
+
+      runs ->
+        atom.workspaceView.getActiveView().trigger "coffee-compile:compile"
+
+      waitsFor ->
+        CoffeeCompileView::renderCompiled.callCount > 0
 
     it "should focus editor when option is set", ->
       runs ->
-        atom.config.set "coffee-compile.focusEditorAfterCompile", true
         [editorPane, compiledPane] = atom.workspaceView.getPanes()
-
         expect(editorPane).toHaveFocus()
 
   describe "when the editor's grammar is not coffeescript", ->
@@ -82,7 +90,7 @@ describe "CoffeeCompile", ->
       atom.workspaceView.attachToDom()
 
       waitsForPromise ->
-        atom.workspace.open "test.coffee"
+        atom.workspace.open "coffee-compile-fixtures.coffee"
 
       runs ->
         spyOn(atom.workspace, "open").andCallThrough()

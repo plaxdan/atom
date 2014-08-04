@@ -6,12 +6,7 @@ Conflict = require './conflict'
 SideView = require './side-view'
 NavigationView = require './navigation-view'
 ResolverView = require './resolver-view'
-
-CONFLICT_CLASSES = "conflict-line resolved ours theirs parent dirty"
-OUR_CLASSES = "conflict-line ours"
-THEIR_CLASSES = "conflict-line theirs"
-RESOLVED_CLASSES = "conflict-line resolved"
-DIRTY_CLASSES = "conflict-line dirty"
+{EditorAdapter} = require './editor-adapter'
 
 module.exports =
 class ConflictMarker
@@ -20,6 +15,7 @@ class ConflictMarker
 
   constructor: (@state, @editorView) ->
     @conflicts = Conflict.all(@state, @editorView.getEditor())
+    @adapter = EditorAdapter.adapt(@editorView)
 
     @editorView.addClass 'conflicted' if @conflicts
 
@@ -39,14 +35,19 @@ class ConflictMarker
           source: this
 
     if @conflicts.length > 0
-      @remark()
+      cv.decorate() for cv in @coveringViews
       @installEvents()
       @focusConflict @conflicts[0]
     else
+      atom.emit 'merge-conflicts:resolved',
+        file: @editor().getPath(),
+        total: 1, resolved: 1,
+        source: this
       @conflictsResolved()
 
   installEvents: ->
-    @editorView.on 'editor:display-updated', => @remark()
+    @subscribe @editor(), 'contents-modified', => @detectDirty()
+    @subscribe @editorView, 'editor:will-be-removed', => @cleanup()
 
     @editorView.command 'merge-conflicts:accept-current', => @acceptCurrent()
     @editorView.command 'merge-conflicts:accept-ours', => @acceptOurs()
@@ -61,9 +62,6 @@ class ConflictMarker
       if file is @editor().getPath() and total is resolved
         @conflictsResolved()
 
-    @subscribe @editorView, 'editor:will-be-removed', =>
-      @cleanup()
-
   cleanup: ->
     @unsubscribe()
     v.remove() for v in @coveringViews
@@ -73,9 +71,14 @@ class ConflictMarker
     @cleanup()
     @editorView.append new ResolverView(@editor())
 
-  remark: ->
-    @editorView.renderedLines.children().removeClass(CONFLICT_CLASSES)
-    @withConflictSideLines (lines, classes) -> lines.addClass classes
+  detectDirty: ->
+    # Only detect dirty regions within CoveringViews that have a cursor within them.
+    potentials = []
+    for c in @editor().getCursors()
+      for v in @coveringViews
+        potentials.push(v) if v.includesCursor(c)
+
+    v.detectDirty() for v in _.uniq(potentials)
 
   acceptCurrent: ->
     sides = @active()
@@ -98,17 +101,11 @@ class ConflictMarker
 
   acceptOursThenTheirs: ->
     for side in @active()
-      point = @combineSides side.conflict.ours, side.conflict.theirs
-      m = side.conflict.navigator.separatorMarker
-      m.setTailBufferPosition point
-      side.conflict.ours.resolve()
+      @combineSides side.conflict.ours, side.conflict.theirs
 
   acceptTheirsThenOurs: ->
     for side in @active()
-      point = @combineSides side.conflict.theirs, side.conflict.ours
-      m = side.conflict.theirs.refBannerMarker
-      m.setTailBufferPosition point
-      side.conflict.theirs.resolve()
+      @combineSides side.conflict.theirs, side.conflict.ours
 
   nextUnresolved: ->
     final = _.last @active()
@@ -178,43 +175,15 @@ class ConflictMarker
 
   editor: -> @editorView.getEditor()
 
-  linesForMarker: (marker) ->
-    fromBuffer = marker.getTailBufferPosition()
-    fromScreen = @editor().screenPositionForBufferPosition fromBuffer
-    toBuffer = marker.getHeadBufferPosition()
-    toScreen = @editor().screenPositionForBufferPosition toBuffer
-
-    low = @editorView.getFirstVisibleScreenRow()
-    high = @editorView.getLastVisibleScreenRow()
-
-    result = $()
-    for row in _.range(fromScreen.row, toScreen.row)
-      if low <= row and row <= high
-        result = result.add @editorView.lineElementForScreenRow row
-    result
+  linesForMarker: (marker) -> @adapter.linesForMarker(marker)
 
   combineSides: (first, second) ->
     text = @editor().getTextInBufferRange second.marker.getBufferRange()
     e = first.marker.getBufferRange().end
     insertPoint = @editor().setTextInBufferRange([e, e], text).end
     first.marker.setHeadBufferPosition insertPoint
-    insertPoint
-
-  withConflictSideLines: (callback) ->
-    for c in @conflicts
-      if c.isResolved()
-        callback(@linesForMarker(c.resolution.marker), RESOLVED_CLASSES)
-        continue
-
-      if c.ours.isDirty
-        callback(@linesForMarker(c.ours.marker), DIRTY_CLASSES)
-      else
-        callback(@linesForMarker(c.ours.marker), OUR_CLASSES)
-
-      if c.theirs.isDirty
-        callback(@linesForMarker(c.theirs.marker), DIRTY_CLASSES)
-      else
-        callback(@linesForMarker(c.theirs.marker), THEIR_CLASSES)
+    first.followingMarker.setTailBufferPosition insertPoint
+    first.resolve()
 
   focusConflict: (conflict) ->
     st = conflict.ours.marker.getBufferRange().start
