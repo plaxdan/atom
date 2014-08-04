@@ -7,9 +7,9 @@
 'metrics':
   'userId': '40500e3fd44453a1e0c923aff91cee272f96181a'
 'editor':
-  'fontFamily': 'Inconsolata for Powerline'
+  'fontFamily': 'Menlo for Powerline'
   'showIndentGuide': true
-  'fontSize': 14
+  'fontSize': 13
 'core':
   'ignoredNames': [
     '.git'
