@@ -8,6 +8,8 @@
  * http://www.lesscss.org
  */
 
+@lineNumberColor: #65737F;
+
 .tree-view {
 
 }
@@ -21,9 +23,13 @@
 }
 
 .line-numbers:hover > .line-number {
-  color: #65737F;
+  color: @lineNumberColor;
 }
 
-.line-number {
+.line-number, .cursor-line {
+  color: @lineNumberColor;
+}
+
+.line-number:not(.cursor-line) {
   color: transparent;
 }

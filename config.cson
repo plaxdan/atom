@@ -9,7 +9,7 @@
 'editor':
   'fontFamily': 'Menlo for Powerline'
   'showIndentGuide': true
-  'fontSize': 13
+  'fontSize': 12
 'core':
   'ignoredNames': [
     '.git'
@@ -24,10 +24,6 @@
     'language-ruby'
   ]
   'useReactEditor': true
-  'themes': [
-    'spacegray-dark-ui'
-    'base16-ocean-dark-spacegray'
-  ]
 'markdown-preview':
   'grammars': [
     'source.gfm'
