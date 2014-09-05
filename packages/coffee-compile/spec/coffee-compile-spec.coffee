@@ -3,11 +3,11 @@ CoffeeCompileView = require '../lib/coffee-compile-view'
 
 describe "CoffeeCompile", ->
   beforeEach ->
-    jasmine.unspy window, "setTimeout"
+    atom.config.set 'core.useReactEditor', false
 
     atom.workspaceView = new WorkspaceView
     atom.workspace     = atom.workspaceView.model
-    spyOn(CoffeeCompileView.prototype, "renderCompiled")
+    spyOn(CoffeeCompileView.prototype, "renderCompiled").andCallThrough()
 
     waitsForPromise "coffee-compile package to activate", ->
       atom.packages.activatePackage('coffee-compile')
@@ -21,8 +21,6 @@ describe "CoffeeCompile", ->
       'text.plain'
       'text.plain.null-grammar'
     ])
-
-    atom.workspaceView.attachToDom()
 
   describe "should open a new pane", ->
     beforeEach ->
@@ -39,8 +37,8 @@ describe "CoffeeCompile", ->
 
     it "should always split to the right", ->
       runs ->
-        expect(atom.workspaceView.getPanes()).toHaveLength 2
-        [editorPane, compiledPane] = atom.workspaceView.getPanes()
+        expect(atom.workspaceView.getPaneViews()).toHaveLength 2
+        [editorPane, compiledPane] = atom.workspaceView.getPaneViews()
 
         expect(editorPane.items).toHaveLength 1
 
@@ -48,21 +46,21 @@ describe "CoffeeCompile", ->
 
     it "should have the same instance", ->
       runs ->
-        [editorPane, compiledPane] = atom.workspaceView.getPanes()
+        [editorPane, compiledPane] = atom.workspaceView.getPaneViews()
         compiled = compiledPane.getActiveItem()
 
         expect(compiled).toBeInstanceOf(CoffeeCompileView)
 
     it "should have the same path as active pane", ->
       runs ->
-        [editorPane, compiledPane] = atom.workspaceView.getPanes()
+        [editorPane, compiledPane] = atom.workspaceView.getPaneViews()
         compiled = compiledPane.getActiveItem()
 
-        expect(compiled.getPath()).toBe atom.workspaceView.getActivePaneItem().getPath()
+        expect(compiled.getUri()).toBe atom.workspace.getActivePaneItem().getUri()
 
     it "should focus on compiled pane", ->
       runs ->
-        [editorPane, compiledPane] = atom.workspaceView.getPanes()
+        [editorPane, compiledPane] = atom.workspaceView.getPaneViews()
         expect(compiledPane).toHaveFocus()
 
   describe "focus editor after compile", ->
@@ -81,7 +79,7 @@ describe "CoffeeCompile", ->
 
     it "should focus editor when option is set", ->
       runs ->
-        [editorPane, compiledPane] = atom.workspaceView.getPanes()
+        [editorPane, compiledPane] = atom.workspaceView.getPaneViews()
         expect(editorPane).toHaveFocus()
 
   describe "when the editor's grammar is not coffeescript", ->

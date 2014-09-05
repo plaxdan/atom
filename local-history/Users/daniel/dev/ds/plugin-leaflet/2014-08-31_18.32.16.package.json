@@ -1,0 +1,68 @@
+{
+  "name": "datasplice-plugin-leaflet",
+  "version": "0.0.1",
+  "main": "index.js",
+  "files": [
+    "index.css",
+
+    "vendor/global.js",
+    "vendor/leaflet/leaflet.css",
+    "vendor/leaflet/images/layers-2x.png",
+    "vendor/leaflet/images/layers.png",
+    "vendor/leaflet/images/marker-icon-2x.png",
+    "vendor/leaflet/images/marker-icon.png",
+    "vendor/leaflet/images/marker-shadow.png",
+
+    "vendor/leaflet-locatecontrol/L.Control.Locate.css",
+    "vendor/leaflet-locatecontrol/L.Control.Locate.ie.css",
+    "vendor/leaflet-locatecontrol/css/animation.css",
+    "vendor/leaflet-locatecontrol/css/locate-fa-codes.css",
+    "vendor/leaflet-locatecontrol/css/locate-fa-embedded.css",
+    "vendor/leaflet-locatecontrol/css/locate-fa-ie7-codes.css",
+    "vendor/leaflet-locatecontrol/css/locate-fa-ie7.css",
+    "vendor/leaflet-locatecontrol/css/locate-fa.css",
+
+    "vendor/leaflet-locatecontrol/font/config.json",
+    "vendor/leaflet-locatecontrol/font/locate-fa.eot",
+    "vendor/leaflet-locatecontrol/font/locate-fa.svg",
+    "vendor/leaflet-locatecontrol/font/locate-fa.ttf",
+    "vendor/leaflet-locatecontrol/font/locate-fa.woff"
+  ],
+  "dependencies": {
+    "leaflet": "^0.7.2"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "coffee-loader": "^0.7.2",
+    "coffeeify": "~0.5.2",
+    "connect": "^2.13.0",
+    "css-loader": "^0.7.0",
+    "event-stream": "~3.1.0",
+    "file-loader": "^0.5.1",
+    "gulp": "^3.7.0",
+    "gulp-bower": "0.0.2",
+    "gulp-browserify": "~0.3.4",
+    "gulp-cached": "0.0.3",
+    "gulp-coffee": "~1.2.5",
+    "gulp-concat": "~2.1.7",
+    "gulp-embedlr": "^0.5.2",
+    "gulp-livereload": "^1.2.0",
+    "gulp-load-plugins": "^0.5.3",
+    "gulp-minify-css": "~0.2.0",
+    "gulp-mocha": "~0.4.1",
+    "gulp-plumber": "^0.5.6",
+    "gulp-rename": "~0.2.2",
+    "gulp-rimraf": "^0.1.0",
+    "gulp-sass": "~0.5.2",
+    "gulp-uglify": "~0.1.0",
+    "gulp-util": "~2.2.10",
+    "lodash": "^2.4.1",
+    "mocha": "~1.17.1",
+    "sass-loader": "^0.2.0",
+    "script-loader": "^0.5.2",
+    "style-loader": "^0.6.4",
+    "tiny-lr": "0.0.5",
+    "url-loader": "^0.5.5",
+    "webpack": "^1.3.1-beta4"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "leaflet-playground",
+  "dependencies": {
+    "esri-leaflet": "~0.0.1-beta.4",
+<<<<<<< HEAD
+    "leaflet-locatecontrol": "https://github.com/DataSplice/leaflet-locatecontrol.git"
+=======
+    "leaflet.locatecontrol": "~0.30.0"
+>>>>>>> abandon leaflet-locatecontrol fork. fixes #25
+  },
+  "devDependencies": {}
+}

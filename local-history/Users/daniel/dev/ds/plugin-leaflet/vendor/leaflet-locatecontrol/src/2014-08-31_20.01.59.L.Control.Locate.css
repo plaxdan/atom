@@ -1,0 +1,48 @@
+/* Compatible with Leaflet 0.7 */
+
+/*
+TODO: webpack/css-loader can't handle the woff for some reason. We'll provide fonts
+in our own sass file.
+
+ERROR in ./~/css-loader!./build/vendor/leaflet-locatecontrol/font/locate-fa.woff
+Module build failed: Error: Please check the validity of the CSS block starting from the line #1016
+  at throwError (/Users/daniel/dev/ds/plugin-leaflet/node_modules/css-loader/node_modules/csso/lib/gonzales.cssp.node.js:399:15)
+  at checkStylesheet (/Users/daniel/dev/ds/plugin-leaflet/node_modules/css-loader/node_modules/csso/lib/gonzales.cssp.node.js:1921:22)
+  at Object.CSSPRules.stylesheet (/Users/daniel/dev/ds/plugin-leaflet/node_modules/css-loader/node_modules/csso/lib/gonzales.cssp.node.js:365:40)
+  at _getAST (/Users/daniel/dev/ds/plugin-leaflet/node_modules/css-loader/node_modules/csso/lib/gonzales.cssp.node.js:409:38)
+  at exports.srcToCSSP (/Users/daniel/dev/ds/plugin-leaflet/node_modules/css-loader/node_modules/csso/lib/gonzales.cssp.node.js:2287:16)
+  at Object.exports.srcToCSSP (/Users/daniel/dev/ds/plugin-leaflet/node_modules/css-loader/node_modules/csso/lib/gonzales.cssp.node.js:2292:16)
+  at Object.exports.parse (/Users/daniel/dev/ds/plugin-leaflet/node_modules/css-loader/node_modules/csso/lib/cssoapi.js:7:21)
+  at Object.module.exports (/Users/daniel/dev/ds/plugin-leaflet/node_modules/css-loader/index.js:13:18)
+ @ ./~/css-loader!./build/vendor/leaflet-locatecontrol/L.Control.Locate.css 2:1-103
+
+@import url('font/locate-fa.woff');
+*/
+@import url('css/locate-fa.css');
+@import url('css/animation.css');
+
+.leaflet-touch .leaflet-bar-part-single {
+	-webkit-border-radius: 7px 7px 7px 7px;
+	        border-radius: 7px 7px 7px 7px;
+	border-bottom: none;
+}
+
+.leaflet-control-locate a {
+	font-size: 1.4em;
+	margin-left: 1px;
+    color: #444;
+}
+
+.leaflet-control-locate.active a {
+	color: #265B86;
+}
+
+.leaflet-control-locate.active.following a {
+	color: #FC8428;
+}
+
+.leaflet-touch .leaflet-control-locate {
+	box-shadow: none;
+	border: 2px solid rgba(0,0,0,0.2);
+	background-clip: padding-box;
+}

@@ -1,0 +1,8 @@
+{
+  "name": "leaflet-playground",
+  "dependencies": {
+    "esri-leaflet": "~0.0.1-beta.4",
+    "leaflet.locatecontrol", "~0.30.0"
+  },
+  "devDependencies": {}
+}

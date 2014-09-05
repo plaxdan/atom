@@ -22,8 +22,13 @@
     'language-python'
     'language-ruby-on-rails'
     'language-ruby'
+    'todo-show'
   ]
   'useReactEditor': true
+  'themes': [
+    'atom-dark-ui'
+    'no-caffeine-syntax'
+  ]
 'markdown-preview':
   'grammars': [
     'source.gfm'
@@ -48,3 +53,11 @@
 'minimap':
   'autoToggle': true
   'plugins': {}
+'todo-show': {}
+'highlight-selected':
+  'highlightBackgorund': false
+  'hideHighlightOnSelectedWord': true
+  'highlightBackground': true
+  'lightTheme': true
+'atom-beautify':
+  '_analyticsUserId': '13a9ebb4-3214-4a69-b0d5-c6c30f2d0481'

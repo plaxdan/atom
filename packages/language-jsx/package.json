@@ -1,0 +1,33 @@
+{
+  "name": "language-jsx",
+  "version": "0.1.4",
+  "main": "./lib/jsx",
+  "description": "JSX language support in Atom",
+  "engines": {
+    "atom": "*",
+    "node": "*"
+  },
+  "activationEvents": [
+    "jsx:run"
+  ],
+  "dependencies": {
+    "jsx": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yosuke-furukawa/language-jsx.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yosuke-furukawa/language-jsx/issues"
+  },
+  "readme": "# JSX language support in Atom\n\nAdds syntax highlighting and snippets to JSX file in Atom.\n\n[JSX](http://jsx.github.io/) language is alternative javascript.\n\nimportant: this is **not** React-jsx plugin\n\nContributions are greatly appreciated. Please fork this repository and open a\npull request to add snippets, make grammar tweaks, etc.\n\n# user can set node path\n\nYou can set the command that will run the script by editing `~/.atom/config.cson`\nand adding:\n\n```cson\n'language-jsx':\n  'nodepath': '/Users/furukawa.yosuke/.nodebrew/current/bin/node'\n```\n\nif you does not set the path, this plugin uses `ATOM_SHELL_INTERNAL_RUN_AS_NODE=1 '/Applications/Atom.app/Contents/Frameworks/Atom Helper.app/Contents/MacOS/Atom Helper'` instead of `node`.\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/yosuke-furukawa/language-jsx",
+  "_id": "language-jsx@0.1.4",
+  "dist": {
+    "shasum": "0abaaee9e43f79240587d5ba6743cb44e627ee10"
+  },
+  "_resolved": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114725-1457-1ifnjr4/package.tgz",
+  "_from": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114725-1457-1ifnjr4/package.tgz"
+}

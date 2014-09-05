@@ -23,7 +23,9 @@ module.exports =
       pathname = querystring.unescape(pathname) if pathname
 
       return unless protocol is 'coffeecompile:'
-      new CoffeeCompileView(editorId: pathname.substr(1))
+
+      new CoffeeCompileView
+        sourceEditorId: pathname.substr(1)
 
   display: ->
     editor     = atom.workspace.getActiveEditor()
@@ -38,16 +40,15 @@ module.exports =
 
     uri = "coffeecompile://editor/#{editor.id}"
 
-    # If a pane with the uri
-    pane = atom.workspace.paneContainer.paneForUri uri
-    # If not, always split right
-    pane ?= activePane.splitRight()
-
-    atom.workspace.openUriInPane(uri, pane, {}).done (coffeeCompileView) ->
+    atom.workspace.open uri,
+      searchAllPanes: true
+      split: "right"
+    .done (coffeeCompileView) ->
       if coffeeCompileView instanceof CoffeeCompileView
         coffeeCompileView.renderCompiled()
 
         if atom.config.get('coffee-compile.compileOnSave')
           coffeeCompileView.saveCompiled()
+
         if atom.config.get('coffee-compile.focusEditorAfterCompile')
           activePane.activate()

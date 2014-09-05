@@ -1,0 +1,75 @@
+// Override the 'locate-fa' font face to point to the global fontawesome
+@font-face {
+  font-family: 'locate-fa';
+  src: url('/font/fontawesome-webfont.eot?9201824');
+  src: url('/font/fontawesome-webfont.eot?9201824#iefix') format('embedded-opentype'),
+       url('/font/fontawesome-webfont.woff?9201824') format('woff'),
+       url('/font/fontawesome-webfont.ttf?9201824') format('truetype'),
+       url('/font/fontawesome-webfont.svg?9201824#locate-fa') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+<<<<<<< HEAD
+[class^="icon-"]:before, [class*=" icon-"]:before {
+ font-family: "locate-fa";
+ font-style: normal;
+ font-weight: normal;
+ speak: none;
+
+ display: inline-block;
+ text-decoration: inherit;
+ width: 1em;
+ margin-right: .2em;
+ text-align: center;
+ /* opacity: .8; */
+
+ /* For safety - reset parent styles, that can break glyph codes*/
+ font-variant: normal;
+ text-transform: none;
+
+ /* fix buttons height, for twitter bootstrap */
+ line-height: 1em;
+
+ /* Animation center compensation - margins should be symmetric */
+ /* remove if not needed */
+ margin-left: .2em;
+
+ /* you can be more comfortable with increased icons size */
+ /* font-size: 120%; */
+
+ /* Uncomment for 3D effect */
+ /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-direction:before { content: '\e800'; } /* '' */
+.icon-spinner:before { content: '\e801'; } /* '' */
+.icon-location:before { content: '\e802'; } /* '' */
+
+=======
+>>>>>>> 2512789ca0217f17dc7b9cc603a5d34d7ebd82c6
+.leaflet-container {
+  background-color: white;
+}
+
+.gps-pin {
+  color: #006fa2;
+  font-size: 300%;
+
+  & > i {
+    margin-top: -35px;
+    margin-left: -5px;
+    display: block;
+  }
+}
+
+.leaflet-legend {
+  background-color: white;
+}
+.leaflet-legend > .body {
+  margin-top: 27px;
+  display: none;
+}
+.leaflet-legend.open > .body {
+  display: block;
+}
