@@ -1,0 +1,107 @@
+describe 'Basic Environment Tests', ->
+
+  it 'should provide a consistent global variable that works across environments', ->
+    expect(global).to.exist
+
+  it 'should ensure console.debug is available', ->
+    expect(console).to.exist
+    expect(console.debug).to.be.a.function
+
+describe 'flags', ->
+  describe 'DEBUG', ->
+    it 'should set window.React if truthy', ->
+      if DEBUG
+        console.log 'DEBUG'
+        (window.React?).should.be.true
+
+    it 'should NOT set window.React if falsy', ->
+      unless DEBUG
+        console.log 'NOT DEBUG'
+        (window.React?).should.be.false
+
+describe 'Promise Handling', ->
+
+  it 'test behavior of catch',  ->
+    rejects = new Promise (resolve, reject) ->
+      alert "FAIL"
+      reject 'fail'
+    throws = new Promise (resolve, reject) ->
+      alert "ERROR"
+      throw new Error 'waa waa'
+    resolves = new Promise (resolve, reject) ->
+      alert "YAY"
+      resolve 'yay!'
+
+    Promise.resolve true
+      .then ->
+        do resolves
+      .then (arg) ->
+        console.log arg
+        do rejects
+      .then (arg) ->
+        console.log arg
+        do throws
+      .catch (arg) ->
+        console.log arg
+
+  it 'should support native ES6 promises', (done) ->
+    (
+      new Promise (resolve, reject) ->
+        resolve 'win!'
+    ).then (result) ->
+      expect(result).to.equal 'win!'
+      done()
+
+  it 'should catch failed promises', (done) ->
+    (
+      new Promise (resolve, reject) ->
+        reject 'fail!'
+    ).then (result) ->
+      throw new Error 'Promise resolved somehow'
+    .catch (error) ->
+      expect(error).to.equal 'fail!'
+      done()
+
+  it 'should support Promise.done', (done) ->
+    (
+      new Promise (resolve, reject) ->
+        resolve 'done'
+    ).done (result) ->
+      expect(result).to.equal 'done'
+      done()
+
+  it 'should support Promise.resolve for values that are not promises', (done) ->
+    (Promise.resolve 'static')
+      .done (result) ->
+        expect(result).to.equal 'static'
+        done()
+
+  it 'should support Promise.resolve for values that are promises', (done) ->
+    p = new Promise (resolve) ->
+      resolve 'promise'
+
+    (Promise.resolve p)
+      .done (result) ->
+        expect(result).to.equal 'promise'
+        done()
+
+  it 'should throw unhandled errors from Promise.done', (done) ->
+    # this seems fairly evil, but the error is thrown asynchronously
+    # so our only opportunity is to intercept mocha's error handler and
+    # ensure the exception was thrown
+    if window?
+      mochaError = window.onerror
+      window.onerror = (error) ->
+        expect(error).to.match /blam!/
+        window.onerror = mochaError
+        done()
+
+      (
+        new Promise (resolve, reject) ->
+          reject 'blam!'
+      ).done (result) ->
+        throw new Error 'Promise resolved unexpectedly'
+    # also I can't get the node runner to not fail from the thrown error
+    # so we'll skip the test in that environment
+    else
+      done()

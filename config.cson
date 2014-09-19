@@ -9,7 +9,7 @@
 'editor':
   'fontFamily': 'Menlo for Powerline'
   'showIndentGuide': true
-  'fontSize': 11
+  'fontSize': 12
   'invisibles': {}
 'core':
   'ignoredNames': [
@@ -59,7 +59,6 @@
 'todo-show': {}
 'highlight-selected':
   'highlightBackgorund': false
-  'highlightBackground': true
   'lightTheme': true
   'hideHighlightOnSelectedWord': true
 'atom-beautify':

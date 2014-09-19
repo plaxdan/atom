@@ -1,0 +1,1 @@
+Server = require '../models/server'

@@ -1,0 +1,29 @@
+{
+  "name": "change-case",
+  "main": "./lib/change-case",
+  "version": "0.2.0",
+  "description": "Change the case of selected text using node-change-case",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robhurring/atom-change-case.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "change-case": "~1.0.6"
+  },
+  "readme": "# Change Case Plugin\n\nA wrapper around [node-change-case](https://github.com/blakeembrey/node-change-case) for atom.\n\nA quick way to change the case of the current selection.\n\n## Commands\n\n* change-case:camel\n* change-case:snake\n* change-case:dot\n* change-case:param\n* change-case:path\n* change-case:constant\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/robhurring/atom-change-case/issues"
+  },
+  "homepage": "https://github.com/robhurring/atom-change-case",
+  "_id": "change-case@0.2.0",
+  "dist": {
+    "shasum": "d8130adf3caeb41526257355efdff4899468c391"
+  },
+  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114818-99669-hn4ajv/package.tgz",
+  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114818-99669-hn4ajv/package.tgz"
+}

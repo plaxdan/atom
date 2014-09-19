@@ -1,0 +1,138 @@
+/application.coffee:      @pubSub.trigger 'displayNotification',
+/application.coffee:      @pubSub.trigger 'displayNotification',
+/application.coffee:    @pubSub.trigger 'displayModal', ModalDialog
+/application.coffee:    @viewFactory.pubSub.trigger 'displayError', details if details
+/connectionmanager.coffee:        @pubSub.trigger 'displayNotification', message: options.message
+/connectionmanager.coffee:          @pubSub.trigger 'restartSession', { promise }
+/connectionmanager.coffee:            @pubSub.trigger 'displayModal', ConfirmPasswordPrompt
+/connectionmanager.coffee:              @pubSub.trigger 'displayNotification',
+/connectionmanager.coffee:    @pubSub.trigger 'displayModal', ConfirmPasswordPrompt
+/connectionmanager.coffee:    @pubSub.trigger 'displayModal',
+/connectionmanager.coffee:      @pubSub.trigger 'logOut', force: true
+/connectionmanager.coffee:          @pubSub.trigger 'displayNotification',
+/connectionmanager.coffee:                @pubSub.trigger 'displayError', new UserError { message }
+/connectionmanager.coffee:      @pubSub.trigger 'displayNotification',
+/connectionmanager.coffee:          @factory.pubSub.trigger 'restartSession', authenticated: wasEmpty
+/connectionmanager.coffee:    @pubSub.trigger 'connectionStateChanged'
+/connectionmanager.coffee:        @pubSub.trigger 'displayNotification', message: response.message
+/connectionmanager.coffee:        @pubSub.trigger 'sync.offlineData', response.data, (error) ->
+/connectionmanager.coffee:        @pubSub.trigger 'sync.purgeRecords', response.purgeRecords, (error) ->
+/connectionmanager.coffee:        @pubSub.trigger 'displayError', new UserError response.error
+/connectionmanager.coffee:    @pubSub.trigger 'displayModal', @_syncStatus
+/connectionmanager.coffee:          @pubSub.trigger 'sync.complete'
+/controller.coffee:    @pubSub.trigger 'showWait'
+/controller.coffee:            @pubSub.trigger 'serverLoaded'
+/controller.coffee:              @pubSub.trigger 'serverLoaded'
+/controller.coffee:        @pubSub.trigger 'serverError'
+/controller.coffee:        @pubSub.trigger 'hideWait'
+/controller.coffee:        @pubSub.trigger 'displayNotification',
+/controller.coffee:          @pubSub.trigger 'displayNotification',
+/controller.coffee:        @pubSub.trigger 'hideWait'
+/controller.coffee:        @pubSub.trigger 'sessionError'
+/controller.coffee:      @pubSub.trigger 'showWait'
+/controller.coffee:        @pubSub.trigger 'hideWait'
+/controller.coffee:    @pubSub.trigger 'showWait'
+/controller.coffee:        @pubSub.trigger 'hideWait'
+/controller.coffee:        @pubSub.trigger 'restartSession', authenticated: true
+/controller.coffee:        @pubSub.trigger 'hideWait'
+/controller.coffee:        @pubSub.trigger 'displayNotification',
+/controller.coffee:      @factory.pubSub.trigger 'displayModal',
+/controller.coffee:            @pubSub.trigger 'loggedOut'
+/controller.coffee:    @pubSub.trigger 'sessionLoaded', options
+/controller.coffee:    @pubSub.trigger 'hideWait'
+/data/binaryresourcehandler.coffee:      @factory.pubSub.trigger 'displayModal',
+/data/binaryresourcehandler.coffee:          @factory.pubSub.trigger 'displayNotification',
+/data/binaryresourcehandler.coffee:      @factory.pubSub.trigger 'displayModal',
+/data/datacontroller.coffee:        @factory.pubSub.trigger 'displayNotification',
+/data/datacontroller.coffee:        @factory.pubSub.trigger 'displayNotification',
+/data/displaystatecontroller.coffee:    trigger 'stack:push', childState unless options?.silent
+/data/displaystatecontroller.coffee:    trigger 'stack:pop', oldChild unless options?.silent
+/data/displaystatecontroller.coffee:    @factory.pubSub.trigger 'displayModal',
+/data/displaystatecontroller.coffee:        @factory.pubSub.trigger 'displayModal',
+/data/displaystatecontroller.coffee:    @factory.pubSub.trigger 'showWait'
+/data/displaystatecontroller.coffee:    hideWait = => @factory.pubSub.trigger 'hideWait'
+/data/displaystatecontroller.coffee:        @factory.pubSub.trigger 'displayNotification',
+/data/displaystatecontroller.coffee:    @pubSub.trigger 'commitCurrentEdit'
+/data/displaystatecontroller.coffee:      @factory.pubSub.trigger 'displayModal', ModalDataAction
+/data/modificationhandler.coffee:                    @factory.pubSub.trigger 'recordRemoved', record
+/data/modificationhandler.coffee:        @factory.pubSub.trigger 'displayModal', status
+/data/modificationhandler.coffee:            @factory.pubSub.trigger 'displayNotification',
+/data/modificationhandler.coffee:          @factory.pubSub.trigger 'recordModified', record, fieldNames
+/data/modificationhandler.coffee:            @factory.pubSub.trigger 'recordCreated', record
+/data/modificationhandler.coffee:      @factory.pubSub.trigger 'recordModified', record
+/data/modificationhandler.coffee:              @factory.pubSub.trigger 'recordModified', record
+/data/modificationhandler.coffee:        @factory.pubSub.trigger 'displayModal', ModalRecordAction
+/data/modificationhandler.coffee:                @factory.pubSub.trigger 'displayModal',
+/event/displaystateinterface.coffee:    _.defer => @controller.trigger 'field:select', field
+/event/displaystateinterface.coffee:    _.defer => @controller.trigger 'field:edit', field, action
+/event/eventhandler.coffee:        @context.factory.pubSub.trigger 'displayModal',
+/event/eventhandler.coffee:      @context.factory.pubSub.trigger 'displayPrompt',
+/event/eventhandler.coffee:    factory.pubSub.trigger 'showWait', message: action.statusLabelOption
+/event/eventhandler.coffee:    hideWait = -> factory.pubSub.trigger 'hideWait'
+/expressions/configurationmanager.coffee:                @factory.pubSub.trigger 'displayNotification',
+/expressions/configurationmanager.coffee:                @factory.pubSub.trigger 'displayNotification',
+/expressions/configurationmanager.coffee:                @factory.pubSub.trigger 'displayNotification',
+/expressions/contextfunctionhandler.coffee:          @props.factory.pubSub.trigger 'currentEventContext', (context) =>
+/expressions/contextfunctionhandler.coffee:        @factory.pubSub.trigger 'displayModal',
+/expressions/contextfunctionhandler.coffee:    @factory.pubSub.trigger 'dataSync'
+/expressions/contextfunctionhandler.coffee:    @factory.pubSub.trigger 'logOut', logoutOptions
+/expressions/contextfunctionhandler.coffee:    @factory.pubSub.trigger 'displayHome'
+/hardware/barcodescannercontroller.coffee:    @factory.pubSub.trigger 'currentEventContext', (context) ->
+/hardware/barcodescannercontroller.coffee:    @factory.pubSub.trigger 'barcodeScan', scanResult
+/hardware/barcodescannercontroller.coffee:        @factory.pubSub.trigger 'barcodeScan', results.text,
+/hardware/barcodescannercontroller.coffee:      @factory.pubSub.trigger 'displayNotification',
+/hardware/barcodescannercontroller.coffee:      @factory.pubSub.trigger 'barcodeScan', results.data
+/hardware/barcodescannercontroller.coffee:      @factory.pubSub.trigger 'barcodeScan', @_scanData
+/hardware/barcodescannercontroller.coffee:    @factory.pubSub.trigger 'displayModal', SimulateScannerPrompt
+/hardware/barcodescannercontroller.coffee:        @factory.pubSub.trigger 'barcodeScan', input,
+/hardware/barcodescannercontroller.coffee:        factory.pubSub.trigger 'barcodeScan', data, { symbology }
+/models/dataset.coffee:        @query.pubSub.trigger 'cacheMiss', @, index: key
+/models/dataset.coffee:    @query.pubSub.trigger 'createRecord', @, options
+/models/query.coffee:    trigger 'fetchQuery', @
+/models/query.coffee:    @pubSub.trigger 'fetchQuery', @, options, ->
+/models/query.coffee:    trigger 'fetchError', @, error
+/models/query.coffee:          trigger 'resolved', @
+/models/query.coffee:      trigger 'resolved', @
+/models/record.coffee:    @pubSub.trigger 'verifyRecordChanges', @, changes,
+/models/record.coffee:    @pubSub.trigger 'resetRecord', @ if @modification
+/models/record.coffee:    @pubSub.trigger 'markDeleted', @
+/models/recordmodification.coffee:    record.pubSub.trigger 'recordModified', record if not options?.silent
+/models/recordmodification.coffee:    record.pubSub.trigger 'recordModified', record if not options?.silent
+/ui/data/modalrecordaction.coffee:    @props.factory.pubSub.trigger 'displayError', error if error
+/ui/feedback/offlinesyncstatus.coffee:      @props.factory.pubSub.trigger 'displayModal', PostponedErrors
+/ui/feedback/userprompt.coffee:      @props.context.factory.pubSub.trigger 'displayNotification',
+/ui/feedback/userprompt.coffee:          @props.context.factory.pubSub.trigger 'displayNotification',
+/ui/feedback/userprompt.coffee:    trigger 'rendered'
+/ui/header.coffee:    @props.factory.pubSub.trigger 'dataSync'
+/ui/header.coffee:    @props.factory.pubSub.trigger 'logOut'
+/ui/header.coffee:    @props.factory.pubSub.trigger 'displaySettings'
+/ui/header.coffee:    @props.factory.pubSub.trigger 'displaySettings', 'modifications'
+/ui/header.coffee:          pubSub.trigger 'displayModal', ModalRecordAction
+/ui/header.coffee:    @props.factory.pubSub.trigger 'displayNavigationAction', action
+/ui/startcenter.coffee:    @props.factory.pubSub.trigger 'displayNavigationAction', action, controller
+/views/common/baseform.coffee:    @parent.trigger 'sync', @input.binding.key
+/views/common/inputbehavior.coffee:    options.factory.pubSub.trigger 'displayModal', editor
+/views/common/inputbehavior.coffee:    pubSub.trigger 'showWait'
+/views/common/inputbehavior.coffee:      pubSub.trigger 'hideWait'
+/views/common/inputbehavior.coffee:      pubSub.trigger 'displayModal',
+/views/common/inputcontrolfactory.coffee:      @factory.pubSub.trigger 'displayModal', ModalDataAction
+/views/common/inputcontrolfactory.coffee:    @$el.on 'changeDate', => @defaultEl().trigger 'change'
+/views/common/slickgridview.coffee:        trigger 'scroll', event, details
+/views/common/slickgridview.coffee:        trigger 'selectedRowsChanged', ev, cell
+/views/common/slickgridview.coffee:        trigger 'activeCellChanged', ev, cell
+/views/data/datagridview.coffee:    trigger 'defaultCommand'
+/views/data/datagridview.coffee:    trigger 'toggleDetails'
+/views/data/datagridview.coffee:        @parent.trigger 'initialized'
+/views/data/datasearchview.coffee:      trigger 'defaultCommand'
+/views/input/checkboxview.coffee:    @$el.trigger 'change'
+/views/settings/appaboutview.coffee:    @pubSub.trigger 'displayModal', UpdatePasswordPrompt
+/views/settings/appaboutview.coffee:          @options.factory.pubSub.trigger 'displayNotification',
+/views/settings/datamanagement.coffee:    @options.pubSub.trigger 'displayModal',
+/views/settings/datamanagement.coffee:    @options.pubSub.trigger 'displayModal',
+/views/settings/datamanagement.coffee:            @options.pubSub.trigger 'displayNotification',
+/views/settings/datamanagement.coffee:    factory.pubSub.trigger 'displayModal', ModalDataAction
+/views/settings/datamanagement.coffee:    @options.pubSub.trigger 'displayModal',
+/views/settings/datamanagement.coffee:        @options.factory.pubSub.trigger 'displayModal',
+/views/settings/localmodifications.coffee:    @options.pubSub.trigger 'displayModal',
+/views/settings/localmodifications.coffee:        @options.pubSub.trigger 'displayNotification',
+/views/settings/localmodifications.coffee:            @options.pubSub.trigger 'displayModal', ModalRecordAction
