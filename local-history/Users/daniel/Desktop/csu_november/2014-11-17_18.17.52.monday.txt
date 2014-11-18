@@ -1,0 +1,5 @@
+
+
+Fetch ESRI layer by name (because indexes change over time)
+Import default styling from ESRI service
+Import default zoom levels from ESRI service

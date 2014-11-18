@@ -1,0 +1,7 @@
+
+
+Desired ESRI Plugin Features
+----------------------------
+Fetch ESRI layer by name (because indexes change over time)
+Import default styling from ESRI service
+Import default zoom levels (thresholds) from ESRI service?

@@ -1,0 +1,6 @@
+
+
+class SplicerService
+
+  constructor: (@serverAddress) ->
+    

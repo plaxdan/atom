@@ -1,0 +1,283 @@
+// Swatch 2.3.2
+// Bootswatch
+// -----------------------------------------------------
+
+// square everything up
+@baseBorderRadius: 0;
+@borderRadiusLarge: 0;
+@borderRadiusSmall: 0;
+@inputBorderRadius: 0;
+
+// make borders 'chunky'
+div.accordion,
+.modal,
+.alert,
+.well,
+.form-horizontal,
+.select2-drop,
+.select2-drop.select2-drop-above,
+.select2-drop.select2-drop-below,
+.select2-dropdown-open .select2-choice {
+  border-width: 2px;
+}
+
+.login-form {
+  border-width: 2px;
+
+  .btn {
+    border-width: 2px;
+    background-image: none;
+  }
+}
+
+div.page-banner,
+div.page-footer {
+  background-image: none;
+
+  .nav {
+    .active > a,
+    .active > a:hover,
+    a.active,
+    a.active:hover {
+      background-color: @navbarBorder;
+      color: @textColor;
+    }
+
+    a {
+      margin: 0;
+    }
+
+    li.disabled {
+      border-bottom: 2px solid @navbarBorder;
+    }
+  }
+}
+div.page-banner .common-actions li.action {
+  background-color: darken(@navbarBackground, 5%);
+  border-bottom: 2px solid @brand-color-primary-light;
+  &:hover {
+    border-color: @brand-color-primary;
+  }
+}
+div.page-footer .common-actions li.action {
+  background-color: lighten(@brand-color-tertiary-light, 25%);
+  border-bottom: 2px solid @brand-color-tertiary-light;
+  &:hover {
+    border-color: @brand-color-tertiary;
+  }
+}
+
+div.message-center {
+  padding: 0;
+  border-width: 2px;
+
+  .section.wide {
+    border-right: none;
+  }
+
+  .home-category {
+    border-width: 2px;
+  }
+
+  .btn-group-vertical {
+    padding: 0;
+    border-left: 2px solid @messageCenterBorder;
+    overflow: hidden;
+    .btn {
+      padding: 8px 12px;
+      border: none;
+      border-bottom: 2px solid @messageCenterBorder;
+
+      &:last-child {
+        // border-bottom: none;
+        margin-bottom: -2px;
+      }
+
+      &:hover {
+        background-color: @brand-color-tertiary-light;
+        background-image: none;
+      }
+    }
+  }
+}
+
+// modal and select2 don't respond to bootstrap variables
+.label,
+.modal,
+.select2-container .select2-choice,
+.select2-container .select2-choice div,
+.select2-drop {
+  .border-radius(0);
+}
+
+.select2-container-active.select2-dropdown-open .select2-choice,
+.select2-container-active.select2-dropdown-open .select2-choices {
+  .border-radius(0);
+  border-width: 2px;
+  border-color: #aaa;
+}
+
+// DataSplice Data Views
+// -----------------------------------------------------
+
+div.slick-header div.slick-header-columns div.slick-header-column {
+  background-image: none;
+  border-width: 2px;
+}
+
+// bing - temporary hack, can go away once text styles work
+div.slick-cell.label:empty {
+  display: block;
+}
+
+div.search-options .navbar-inner {
+  border: 2px solid @navbarBorder;
+  .box-shadow(none);
+
+  .nav-pills > li > a {
+    margin: 1px 0;
+  }
+}
+
+// TYPOGRAPHY
+// -----------------------------------------------------
+
+// set global fonts
+body,
+input {
+  font-family: 'Segoe UI', 'Helvetica', sans-serif;
+}
+
+// SCAFFOLDING
+// -----------------------------------------------------
+
+// NAVBAR
+// -----------------------------------------------------
+
+.navbar {
+  .navbar-inner {
+    border: none;
+    background-image: none;
+  }
+
+  .nav > li.active,
+  .nav > .active > a,
+  .nav > .active > a:hover,
+  .nav > .active > a:focus {
+    .box-shadow(none);
+    background-color: @brand-color-secondary;
+  }
+
+  .brand {
+    text-shadow: none;
+  }
+}
+.navbar-inverse {
+  .navbar-inner {
+    border-bottom: 2px solid @navbarInverseBorder;
+  }
+}
+
+.nav-toolbar {
+  border-width: 2px;
+}
+// NAV
+// -----------------------------------------------------
+
+.nav {
+  & > li > a {
+    .border-radius(0);
+  }
+}
+
+// BUTTONS
+// -----------------------------------------------------
+
+.navbar .btn,
+.form-actions .btn {
+  border-width: 2px;
+  background-image: none;
+  .box-shadow(none);
+}
+
+// TABLES
+// -----------------------------------------------------
+
+// FORMS
+// -----------------------------------------------------
+
+.form-horizontal input,
+.form-horizontal textarea {
+  .box-shadow(none);
+}
+// this improves appearance on iOS by hiding the native input shadow
+.form-horizontal input[type="text"],
+.form-horizontal input[type="number"],
+.form-horizontal textarea {
+  -webkit-appearance: none;
+}
+
+// DROPDOWNS
+// -----------------------------------------------------
+
+.dropdown-menu {
+  border-width: 2px;
+  .border-radius(0);
+
+  li.item-group {
+    background-image: none;
+  }
+
+  li > a:hover {
+    background-image: none;
+  }
+}
+.nav-tabs .dropdown-menu,
+.nav-pills .dropdown-menu {
+  .border-radius(0);
+}
+
+// ALERTS, LABELS, BADGES
+// -----------------------------------------------------
+
+// MISC
+// -----------------------------------------------------
+
+.accordion {
+  .accordion-body.in {
+    border-top: 2px solid #e5e5e5;
+  }
+  .accordion-inner {
+    border-top: none;
+  }
+}
+
+// make header buttons in modal stand out more
+.modal-header .nav-pills {
+  & > li > a {
+    text-shadow: none;
+  }
+  & > li > a:hover {
+    background-color: @navbarBorder;
+  }
+  & > li > a.info:hover {
+    background-color: @navbarInverseBackground;
+  }
+}
+
+// have buttons fill the footer bar vertically (more of an Android look)
+.modal-footer {
+  padding: 0;
+  border-top: 2px solid @navbarBorder;
+  .btn {
+    line-height: 40px;
+    min-width: 80px;
+    border: 0;
+    border-left: 2px solid @navbarBorder;
+    background-image: none;
+    .box-shadow(none);
+  }
+}
+
+// MEDIA QUERIES
+// -----------------------------------------------------

@@ -1,29 +1,44 @@
 {
   "name": "change-case",
   "main": "./lib/change-case",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "Change the case of selected text using node-change-case",
   "repository": {
     "type": "git",
     "url": "https://github.com/robhurring/atom-change-case.git"
   },
   "license": "MIT",
+  "author": {
+    "name": "Rob Hurring"
+  },
+  "contributors": [
+    {
+      "name": "Philip Blyth"
+    },
+    {
+      "name": "Sergey Fedorov"
+    },
+    {
+      "name": "Timo Sand",
+      "email": "timo.j.sand@gmail.com"
+    }
+  ],
   "engines": {
     "atom": ">0.50.0"
   },
   "dependencies": {
     "change-case": "~1.0.6"
   },
-  "readme": "# Change Case Plugin\n\nA wrapper around [node-change-case](https://github.com/blakeembrey/node-change-case) for atom.\n\nA quick way to change the case of the current selection.\n\n## Commands\n\n* change-case:camel\n* change-case:snake\n* change-case:dot\n* change-case:param\n* change-case:path\n* change-case:constant\n",
+  "readme": "# Change Case Plugin\n[![Build Status](https://travis-ci.org/robhurring/atom-change-case.svg)](https://travis-ci.org/robhurring/atom-change-case)\n\nA wrapper around [node-change-case](https://github.com/blakeembrey/node-change-case) for atom.\n\nA quick way to change the case of the current selection.\n\n## Commands\n\n* change-case:camel\n* change-case:constant\n* change-case:dot\n* change-case:lower\n* change-case:param\n* change-case:pascal\n* change-case:path\n* change-case:sentence\n* change-case:snake\n* change-case:swap\n* change-case:title\n* change-case:upper\n* change-case:upperFirst\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/robhurring/atom-change-case/issues"
   },
   "homepage": "https://github.com/robhurring/atom-change-case",
-  "_id": "change-case@0.2.0",
+  "_id": "change-case@0.4.0",
   "dist": {
-    "shasum": "d8130adf3caeb41526257355efdff4899468c391"
+    "shasum": "67d32b7254d5e04ac205bfed94afbcb41e731b6f"
   },
-  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114818-99669-hn4ajv/package.tgz",
-  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114818-99669-hn4ajv/package.tgz"
+  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114829-1237-15etdiw/package.tgz",
+  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114829-1237-15etdiw/package.tgz"
 }

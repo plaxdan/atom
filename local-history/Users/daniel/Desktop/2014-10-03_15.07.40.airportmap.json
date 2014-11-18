@@ -1,0 +1,28 @@
+{
+  "initialZoom": 15,
+  "initialCenter": [39.875625, -75.2369365],
+  "locateControl": {
+    "position": "topright",
+    "icon": "icon-location-arrow",
+    "follow": true
+  },
+  "attributions": [
+    "<a href=\"http://www.datasplice.com\">&copy; DataSplice, 2014</a>"
+  ],
+  "layers": {
+    "Runways": {
+      "style": {
+        "color": "#18480b",
+        "weight": 1,
+        "fillColor": "#D9ECD9"
+      }
+    },
+    "Terminals": {
+      "style": {
+        "color": "#2d4799",
+        "weight": 1,
+        "fillColor": "#CDE9F7"
+      }
+    }
+  }
+}

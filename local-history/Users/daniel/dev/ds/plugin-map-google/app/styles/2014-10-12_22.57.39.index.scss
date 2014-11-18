@@ -1,0 +1,25 @@
+.leaflet-container {
+  background-color: white;
+}
+
+.gps-pin {
+  color: #006fa2;
+  font-size: 300%;
+
+  & > i {
+    margin-top: -35px;
+    margin-left: -5px;
+    display: block;
+  }
+}
+
+.leaflet-legend {
+  background-color: white;
+}
+.leaflet-legend > .body {
+  margin-top: 27px;
+  display: none;
+}
+.leaflet-legend.open > .body {
+  display: block;
+}

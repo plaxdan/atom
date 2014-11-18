@@ -1,0 +1,1 @@
+{".platform-darwin .workspace .editor":{"cmd-r":"runner:run"},".platform-darwin .workspace":{"ctrl-c":"runner:stop"}}

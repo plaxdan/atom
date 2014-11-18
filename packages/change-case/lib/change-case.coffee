@@ -2,11 +2,19 @@ ChangeCase = require 'change-case'
 
 Commands =
   camel: 'camelCase'
-  snake: 'snakeCase'
-  dot: 'dotCase'
-  param: 'paramCase'
-  path: 'pathCase'
   constant: 'constantCase'
+  dot: 'dotCase'
+  lower: 'lowerCase'
+  lowerFirst: 'lowerCaseFirst'
+  param: 'paramCase'
+  pascal: 'pascalCase'
+  path: 'pathCase'
+  sentence: 'sentenceCase'
+  snake: 'snakeCase'
+  switch: 'switchCase'
+  title: 'titleCase'
+  upper: 'upperCase'
+  upperFirst: 'upperCaseFirst'
 
 module.exports =
   activate: (state) ->
@@ -21,15 +29,12 @@ makeCommand = (command) ->
     method = Commands[command]
     converter = ChangeCase[method]
 
-    updateCurrentWord editor, (word) ->
-      converter(word)
+    options = {}
+    options.wordRegex = /^[\t ]*$|[^\s\/\\\(\)"':,\.;<>~!@#\$%\^&\*\|\+=\[\]\{\}`\?]+/g
+    for cursor in editor.getCursors()
+      position = cursor.getBufferPosition()
 
-updateCurrentWord = (editor, callback) ->
-  selection = editor.getSelection()
-
-  text = selection.getText()
-
-  # make sure we have a current selection
-  if text
-    newText = callback(text)
-    selection.insertText(newText)
+      range = cursor.getCurrentWordBufferRange(options)
+      text = editor.getTextInBufferRange(range)
+      newText = converter(text)
+      editor.setTextInBufferRange(range, newText)

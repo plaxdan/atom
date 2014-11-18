@@ -9,7 +9,7 @@ languages = beautifier.languages
 defaultLanguageOptions = beautifier.defaultLanguageOptions
 # Lazy loaded dependencies
 fs = null
-path = null
+path = require("path")
 strip = null
 yaml = null
 LoadingView = null
@@ -125,7 +125,7 @@ getConfigOptionsFromSettings = (langs) ->
   # console.log(options);
   options
 
-beautify = ->
+beautify = ({onSave})->
   path ?= require("path")
   MessagePanelView ?= require('atom-message-panel').MessagePanelView
   PlainMessageView ?= require('atom-message-panel').PlainMessageView
@@ -133,16 +133,17 @@ beautify = ->
   @messagePanel ?= new MessagePanelView title: 'Atom Beautify Error Messages'
   @loadingView ?= new LoadingView()
   @loadingView.show()
-  forceEntireFile = atom.config.get("atom-beautify.beautifyEntireFileOnSave")
+  forceEntireFile = onSave && atom.config.get("atom-beautify.beautifyEntireFileOnSave")
   # Show error
   showError = (e) =>
-      # console.log(e)
       @loadingView.hide()
-      @messagePanel.attach()
-      @messagePanel.add(new PlainMessageView({
-        message: e.message,
-        className: 'text-error'
-      }))
+      if not atom.config.get("atom-beautify.muteAllErrors")
+        # console.log(e)
+        @messagePanel.attach()
+        @messagePanel.add(new PlainMessageView({
+          message: e.message,
+          className: 'text-error'
+        }))
   # Look for .jsbeautifierrc in file and home path, check env variables
   getConfig = (startPath, upwards=true) ->
     # Verify that startPath is a string
@@ -185,7 +186,9 @@ beautify = ->
   # Asynchronously and callback-style
   beautifyCompleted = (text) =>
     # console.log 'beautifyCompleted'
-    if text instanceof Error
+    if not text?
+      # Do nothing, is undefined
+    else if text instanceof Error
       showError(text)
     else if oldText isnt text
       # console.log "Replacing current editor's text with new text"
@@ -303,16 +306,19 @@ handleSaveEvent = =>
     plugin.unsubscribe buffer
     if atom.config.get("atom-beautify.beautifyOnSave")
       events = "will-be-saved"
-      plugin.subscribe buffer, events, beautify.bind(@)
+      plugin.subscribe buffer, events, beautify.bind(@, {onSave:true})
     return
   return
 
-Subscriber = require("emissary").Subscriber
+{Subscriber} = require path.join(atom.packages.resourcePath, 'node_modules', 'emissary')
 Subscriber.extend plugin
 plugin.configDefaults = _.merge(
   analytics: true
   beautifyOnSave: false
   beautifyEntireFileOnSave: true
+  muteUnsupportedLanguageErrors: false
+  muteAllErrors: false
+  disabledLanguages: []
 , defaultLanguageOptions)
 plugin.activate = ->
   handleSaveEvent()

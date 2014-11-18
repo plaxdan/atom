@@ -1,6 +1,8 @@
 # [atom-beautify](https://github.com/donaldpipowitch/atom-beautify)
 
 [![Gitter chat](https://badges.gitter.im/Glavin001/atom-beautify.png)](https://gitter.im/Glavin001/atom-beautify)
+[![Issue Stats](http://issuestats.com/github/glavin001/atom-beautify/badge/pr?style=flat)](http://issuestats.com/github/glavin001/atom-beautify)
+[![Issue Stats](http://issuestats.com/github/glavin001/atom-beautify/badge/issue?style=flat)](http://issuestats.com/github/glavin001/atom-beautify)
 
 > [Beautify](https://github.com/einars/js-beautify)
 HTML (including [Handlebars](http://handlebarsjs.com/)),
@@ -21,6 +23,7 @@ Or Settings/Preferences ➔ Packages ➔ Search for `atom-beautify`
 - [x] JavaScript and JSON
 - [x] HTML, including
   - [x] [Handlebars](http://handlebarsjs.com/)
+  - [x] [Mustache](http://mustache.github.io)
   - [x] [Embedded Ruby (ERB)](https://github.com/Glavin001/atom-beautify/issues/80)
     - Requires [htmlbeautifier](https://github.com/threedaymonk/htmlbeautifier)
   - [x] XML
@@ -29,6 +32,9 @@ Or Settings/Preferences ➔ Packages ➔ Search for `atom-beautify`
   - [LESS](http://lesscss.org/)
 - [x] [SQL](https://github.com/Glavin001/atom-beautify/pull/67)
   - Requires [python-sqlparse](https://github.com/andialbrecht/sqlparse)
+- [x] [Markdown](https://github.com/Glavin001/atom-beautify/issues/93#issuecomment-55642483)
+  - Requires [Pandoc](http://johnmacfarlane.net/pandoc/) to be already installed
+- [X] [Perl](https://github.com/Glavin001/atom-beautify/issues/33)
 - [x] [PHP](https://github.com/donaldpipowitch/atom-beautify/issues/26)  
   - Requires [PHP_Beautifier](http://pear.php.net/package/PHP_Beautifier) to be already installed.
 - [x] [Python](https://github.com/donaldpipowitch/atom-beautify/issues/24)
@@ -53,14 +59,7 @@ Or Settings/Preferences ➔ Packages ➔ Search for `atom-beautify`
   - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)
 - [x] [Vala](https://github.com/Glavin001/atom-beautify/issues/57)
   - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)
-
-### Road Map
-
-#### Language support
-
-- [ ] [TypeScript](https://github.com/Glavin001/atom-beautify/issues/49)
-- [ ] [Perl](https://github.com/Glavin001/atom-beautify/issues/33)
-
+- [x] [TypeScript](https://github.com/Glavin001/atom-beautify/issues/49)
 
 ## Usage
 
@@ -85,10 +84,28 @@ For example:
 
 ### Package Options
 
-- `beautifyOnSave`  
+- `beautifyOnSave`  (Default *false*)
 You can also choose to beautify on every file save.
 
-- `analytics`  
+- `beautifyEntireFileOnSave` (Default *true*)
+Beautification will normally only beautify your selected text.
+However, when beautification occurs on save then it will
+be forced to beautify the entire file's contents,
+not just selected text.
+
+- `disabledLanguages` (Default *empty array*)
+An array of Grammar names to disable beautification for.
+Note: If using the Atom's Package Settings then an array is
+represented as comma-separated string.
+
+- `muteUnsupportedLanguageErrors` (Default *false*)
+Mute only *unsupported language* errors.
+
+- `muteAllErrors` (Default *false*)
+Do not show the *Atom Beautify Error Messages* panel
+for any of the errors occurring while beautifying.
+
+- `analytics`  (Default *true*)
 There is [Segment.io](https://segment.io/),
 which forwards the data to [Google Analytics](http://www.google.com/analytics/),
 to track what languages

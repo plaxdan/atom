@@ -1,0 +1,171 @@
+h1, h2, h3, h4, h5 {
+  cursor: default;
+}
+// spruce up the accordions a bit
+div.accordion-pad {
+  margin-left: 10px;
+}
+
+div.accordion {
+  div.accordion-heading {
+    .border-top-left-radius(@baseBorderRadius);
+  }
+  div.accordion-body {
+    .border-bottom-left-radius(@baseBorderRadius);
+  }
+
+  div.accordion-group {
+    margin-bottom: 10px;
+  }
+
+  div.accordion-group:nth-child(3n+1) {
+    .accordion-heading {
+      background-color: @brand-color-tertiary;
+    }
+    .accordion-body {
+      background-color: @brand-color-tertiary-light;
+    }
+  }
+
+  div.accordion-group:nth-child(3n+2) {
+    .accordion-heading {
+      background-color: @brand-color-secondary;
+    }
+    .accordion-body {
+      background-color: @brand-color-secondary-light;
+    }
+  }
+
+  div.accordion-group:nth-child(3n) {
+    .accordion-heading {
+      background-color: @brand-color-primary;
+    }
+    .accordion-body {
+      background-color: @brand-color-primary-light;
+    }
+  }
+
+  .accordion-heading .accordion-pad {
+    background-color: lighten(@btnBackgroundHighlight, 5%);
+  }
+  .accordion-body .accordion-pad {
+    background-color: @bodyBackground;
+  }
+}
+
+div.accordion-body .btn-group {
+  padding-bottom: 10px;
+}
+
+// application settings - about
+.app-about {
+  max-width: 700px;
+
+  .form-horizontal {
+    margin: 0;
+
+    span.uneditable-input {
+      color: @textColor;
+      background-color: @bodyBackground;
+      border: 0;
+      .box-shadow(none);
+      padding: 5px;
+      overflow: visible;
+      white-space: normal;
+      height: auto;
+      cursor: default;
+    }
+  }
+}
+
+// icon that shows in red
+i.icon-error {
+  color: @errorText;
+  // would be better to inherit directly from .icon-fire, but not sure
+  // how to do that
+  &:before {
+    content: "\f06d";
+  }
+}
+
+// default color is too muted
+@iconMuted: @grayLight;
+
+.alert-muted {
+  background-color: @navbarBackground;
+  border: 1px solid @navbarBorder;
+  color: @textColor;
+
+  & > ul {
+    margin-bottom: 0;
+  }
+}
+.alert-error > a {
+  color: @errorText;
+}
+
+// use normal text colors for icon links with tables
+table a i {
+  color: @textColor;
+}
+
+// spinning icons/buttons look strange if they have a background
+.nav a.active.icon-spin,
+.nav a.icon-spin:hover {
+  background-color: transparent;
+  background-image: none;
+}
+
+// align select2 height with bootstrap
+.select2-container > .select2-choice {
+  height: @inputHeight - 2;
+  line-height: @inputHeight - 2;
+}
+
+// ensure invisible inputs for select2 don't alter contents
+.select2-offscreen {
+  position: absolute !important;
+}
+
+// this fixes icons in datetimepicker with different base sizes
+.date.input-prepend .add-on i,
+.date.input-append .add-on i {
+  display: inline;
+}
+
+.dropdown-menu > .highlight {
+  background-color: @btnBackgroundHighlight;
+}
+
+.transform(@transform) {
+  -webkit-transform: @transform;
+          transform: @transform;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+// disable text selection by default
+* {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+// turn it back on for legitimate cases
+input,
+textarea,
+span.editable-input,
+span.uneditable-input {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}

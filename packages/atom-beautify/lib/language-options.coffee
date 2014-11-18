@@ -10,6 +10,7 @@ beautifyJS = null
 beautifyHTML = null
 beautifyCSS = null
 beautifySQL = null
+beautifyPerl = null
 beautifyPHP = null
 beautifyPython = null
 beautifyRuby = null
@@ -18,9 +19,13 @@ beautifyCoffeeScript = null
 uncrustifyBeautifier = null
 beautifyHTMLERB = null
 beautifyMarkdown = null
+beautifyTypeScript = null
+Analytics = null
 
 # Misc
-Analytics = require("analytics-node")
+{allowUnsafeEval} = require 'loophole'
+allowUnsafeEval ->
+  Analytics = require("analytics-node")
 pkg = require("../package.json")
 
 # Analytics
@@ -34,6 +39,7 @@ module.exports =
     "html"
     "css"
     "sql"
+    "perl"
     "php"
     "python"
     "ruby"
@@ -47,6 +53,7 @@ module.exports =
     "d"
     "pawn"
     "vala"
+    "typescript"
   ]
 
   # Default options per language
@@ -88,9 +95,13 @@ module.exports =
     sql_keywords: "upper"
     sql_identifiers: "lower"
     sql_sqlformat_path: ""
-    
+
     # Markdown
     markdown_pandoc_path: ""
+
+    # Perl
+    perl_perltidy_path: "perltidy"
+    perl_perltidy_profile: ""
 
     # PHP
     php_beautifier_path: ""
@@ -144,6 +155,8 @@ module.exports =
     # Beautify!
     unsupportedGrammar = false
     options = undefined
+    if atom.config.get("atom-beautify.disabledLanguages").indexOf(grammar) > - 1
+      return beautifyCompleted(null)
     switch grammar
       # Treat JSON as JavaScript, because it will support comments.
       # And Glavin001 has tested JSON beauifying with beautifyJS.
@@ -154,15 +167,18 @@ module.exports =
       when "CoffeeScript"
         beautifyCoffeeScript ?= require("./langs/coffeescript-beautify")
         beautifyCoffeeScript text, self.getOptions("js", allOptions), beautifyCompleted
-      when "Handlebars"
+      when "Handlebars", "HTML (Mustache)"
         # jshint ignore: start
         allOptions.push indent_handlebars: true # Force jsbeautify to indent_handlebars
-      # jshint ignore: end
+        # jshint ignore: end
+        beautifyHTML ?= require("js-beautify").html
+        text = beautifyHTML(text, self.getOptions("html", allOptions))
+        beautifyCompleted text
       when "HTML (Liquid)", "HTML", "XML"
         beautifyHTML ?= require("js-beautify").html
         text = beautifyHTML(text, self.getOptions("html", allOptions))
         beautifyCompleted text
-      when "HTML (Ruby - ERB)"
+      when "HTML (Ruby - ERB)", "HTML (Rails)"
         beautifyHTMLERB ?= require("./langs/html-erb-beautify")
         beautifyHTMLERB text, self.getOptions("html", allOptions), beautifyCompleted
       when "CSS"
@@ -175,13 +191,16 @@ module.exports =
       when "SQL (Rails)", "SQL"
         beautifySQL ?= require("./langs/sql-beautify")
         beautifySQL text, self.getOptions("sql", allOptions), beautifyCompleted
+      when "Perl"
+        beautifyPerl ?= require("./langs/perl-beautify")
+        beautifyPerl text, self.getOptions("perl", allOptions), beautifyCompleted
       when "PHP"
         beautifyPHP ?= require("./langs/php-beautify")
         beautifyPHP text, self.getOptions("php", allOptions), beautifyCompleted
       when "Python"
         beautifyPython ?= require("./langs/python-beautify")
         beautifyPython text, self.getOptions("python", allOptions), beautifyCompleted
-      when "Ruby"
+      when "Ruby", "Ruby on Rails"
         beautifyRuby ?= require("./langs/ruby-beautify")
         beautifyRuby text, self.getOptions("ruby", allOptions), beautifyCompleted
       when "GitHub Markdown"
@@ -227,6 +246,9 @@ module.exports =
         options.languageOverride = "JAVA"
         uncrustifyBeautifier ?= require("./langs/uncrustify/")
         uncrustifyBeautifier text, options, beautifyCompleted
+      when "TypeScript"
+        beautifyTypeScript ?= require("./langs/typescript-beautify")
+        beautifyTypeScript text, self.getOptions("js", allOptions), beautifyCompleted
       else
         unsupportedGrammar = true
 
@@ -252,7 +274,10 @@ module.exports =
           category: version
     #
     if unsupportedGrammar
-      throw new Error("Unsupported language for grammar '#{grammar}'.")
+      if atom.config.get("atom-beautify.muteUnsupportedLanguageErrors")
+        return beautifyCompleted(null)
+      else
+        throw new Error("Unsupported language for grammar '#{grammar}'.")
     return
 
   getOptions: (selection, allOptions) ->
