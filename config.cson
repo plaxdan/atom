@@ -8,11 +8,12 @@
   'metrics':
     'userId': '40500e3fd44453a1e0c923aff91cee272f96181a'
   'editor':
-    'fontFamily': 'Menlo for Powerline'
     'showIndentGuide': true
-    'fontSize': 10
+    'fontSize': 11
     'scrollPastEnd': true
     'normalizeIndentOnPaste': false
+    'fontFamily': 'Menlo for Powerline'
+    'invisibles': {}
   'core':
     'ignoredNames': [
       '.git'
