@@ -1,0 +1,16 @@
+{
+  "framework": "mocha",
+  "src_files": [
+    "dist/test.js"
+  ],
+  "launchers": {
+    "PhantomJS": {
+      "command": "./node_modules/.bin/mocha-phantomjs -R tap dist/test.html",
+      "protocol": "tap"
+    }
+  },
+  "launch_in_dev": [
+    "PhantomJS",
+    "Chrome"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "launch_in_dev": [
+    "PhantomJS"
+  ],
+  "framework": "mocha",
+  "src_files": [
+    "dist/test.html"
+  ]
+}

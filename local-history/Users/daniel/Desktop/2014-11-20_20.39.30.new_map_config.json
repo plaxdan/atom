@@ -1,0 +1,201 @@
+{
+  "initialZoom": 16,
+  "initialCenter": [32.1613722, -110.8939361],
+  "showScale": true,
+  "classNames": [
+    "default-inspection-work-orders": {
+      "marker": "circle",
+      "stroke": true,
+      "weight": 3,
+      "color": "orange",
+      "fillColor": "#ccc"
+    },
+    "my-inspection-work-orders": {
+      "marker": "circle",
+      "stroke": true,
+      "weight": 3,
+      "color": "orange",
+      "fillColor": "#ccc"
+    },
+    "other-inspection-work-orders": {
+      "marker": "square",
+      "stroke": true,
+      "weight": 3,
+      "color": "orange",
+      "fillColor": "#ccc"
+    }
+  ],
+  "locateControl": {
+    "position": "topleft",
+    "icon": "icon-location-arrow",
+    "follow": true,
+    "stopFollowingOnDrag": true,
+    "keepCurrentZoomLevel": true
+  },
+  "attributions": [
+    "<a href=\"http://www.datasplice.com\">&copy; DataSplice, 2014</a>"
+  ],
+  "gpsSensor": {
+    "endpoint": "http://localhost:8000/gps/location",
+    "interval": 1000,
+    "timeout": 30000
+  },
+  "legend": [
+    "<div style='padding: 5px'><span style='border-bottom: 3px solid #e74c3c'>Assigned</span></div>",
+    "<div style='background-color: #e08283; padding: 5px'>WAPPR</div>",
+    "<div style='background-color: #27ae60; padding: 5px'>READY</div>",
+    "<div style='background-color: #e67e22; padding: 5px'>INPRG</div>",
+    "<div style='background-color: #2980b9; padding: 5px'>FIELDCOMP</div>",
+    "<div style='background-color: #d35400; padding: 5px'>REWORK</div>",
+    "<div style='background-color: #8e44ad; padding: 5px'>Open Labor</div>"
+  ],
+  "selection": {
+    "dataMapping": "Latitude = ${lat} and Longitude = ${lng}"
+  },
+  "layers": {
+    "Major Streets": {
+      "maxZoomVisible": 16,
+      "style": {
+        "color": "#aaa",
+        "weight": 5
+      }
+    },
+    "Major Street Labels": {
+      "minZoomVisible": 14,
+      "maxZoomVisible": 15,
+      "style": {
+        "marker": "text",
+        "className": "no-wrap",
+        "html": "${TextString}",
+        "rotation": "${Angle}"
+      }
+    },
+    "User Streets": {
+      "minZoomVisible": 14,
+      "maxZoomVisible": 16,
+      "style": {
+        "color": "#ccc",
+        "weight": 3
+      },
+      "events": {
+        "click": "Select Street"
+      }
+    },
+    "Street Labels": {
+      "minZoomVisible": 16,
+      "style": {
+        "marker": "text",
+        "className": "no-wrap",
+        "html": "${TextString}",
+        "rotation": "${Angle}"
+      }
+    },
+    "Primary Span": {
+      "minZoomVisible": 16,
+      "style": {
+        "color": "#3498db",
+        "weight": 5
+      },
+      "dynamicStyle": {
+        "${HAS_CIRCUIT_WORKORDER}": {
+          "color": "#e74c3c"
+        }
+      },
+      "selection": {
+        "groupBy": "CIRCUIT_NAME",
+        "label": "Circuit ${CIRCUIT_NAME}",
+        "style": {
+          "color": "${CIRCUIT_COLOR}",
+          "weight": 8
+        }
+      },
+      "selection:OH Premise": {
+        "groupBy": "CIRCUIT_NAME",
+        "style": {
+          "color": "${CIRCUIT_COLOR}",
+          "weight": 8
+        }
+      },
+      "selection:UG Premise": {
+        "groupBy": "CIRCUIT_NAME",
+        "style": {
+          "color": "${CIRCUIT_COLOR}",
+          "weight": 8
+        }
+      }
+    },
+    "Pole": null,
+    "User Lot Line": {
+      "minZoomVisible": 17
+    },
+    "User Right of Way": {
+      "minZoomVisible": 16
+    },
+    "UG Premise": {
+      "minZoomVisible": 16,
+      "style": {
+        "marker": "circle",
+        "stroke": true,
+        "weight": 3,
+        "color": "#999",
+        "fillColor": "#ccc",
+        "radius": 10
+      },
+      "dynamicStyles": [
+        {
+          "properties": {
+            "PROPERTY_NAME_1": "HARD_CODED_VALUE_1",
+            "PROPERTY_NAME_2": "/regex goes here/"
+          },
+          "className": "the-class-from-above"
+        },
+        {
+          "properties": {
+            "PROPERTY_NAME_A": "HARD_CODED_VALUE_A"
+          },
+          "className": "another-class-from-above"
+        }
+      ],
+      "selection": {
+        "label": "${ADDRESS} (UG)",
+        "groupBy": "CIRCUIT_NAME",
+        "dataMapping": "'Premise ID' = ${PREMISE_ID_NUMBER}",
+        "style": {
+          "color": "${PREMISE_BORDER_COLOR('#3498db')}"
+        }
+      },
+      "selection:Primary Span": {
+        "groupBy": "CIRCUIT_NAME",
+        "style": {
+          "color": "${PREMISE_BORDER_COLOR('#3498db')}"
+        }
+      }
+    }
+  },
+  "dataLayers": {
+    "Inspection Work Orders": {
+      "query": "'Work Type' is 'Inspection'",
+      "mapping": {
+        "lat": "NAME_OF_FIELD_WITH_LAT",
+        "lng": "NAME_OF_FIELD_WITH_LNG",
+        "feature": {
+          "layerName": "Premise",
+          "properties": {
+            "FEATURE_PROP_1": "DATA_PROP_1",
+            "FEATURE_PROP_2": "DATA_PROP_2",
+            "FEATURE_PROP_3": "DATA_PROP_3",
+            "FEATURE_PROP_4": "DATA_PROP_4"
+          }
+        }
+      },
+      "classSet": {
+        "default-inspection-work-orders": "true",
+        "my-inspection-work-orders": "${ASSIGNED_TO_ME}",
+        "other-inspection-work-orders": "${ASSIGNED_TO_OTHERS}"
+      },
+      "selection": {
+        "label": "${Description} (${Work Order})"
+      }
+    }
+  }
+}

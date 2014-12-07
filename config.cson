@@ -27,6 +27,8 @@
       'language-ruby-on-rails'
       'language-ruby'
       'todo-show'
+      'glist'
+      'omnisharp-atom'
     ]
     'useReactEditor': true
     'themes': [
@@ -62,9 +64,8 @@
   'atom-beautify':
     '_analyticsUserId': '13a9ebb4-3214-4a69-b0d5-c6c30f2d0481'
     'analytics': false
-  'gist-it':
-    'newGistsDefaultToPrivate': true
   'git-diff':
     'showIconsInEditorGutter': true
+  'autocomplete-plus-async': {}
 '.diff.source':
   'editor': {}

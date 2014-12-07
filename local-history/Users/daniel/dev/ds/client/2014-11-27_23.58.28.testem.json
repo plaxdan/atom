@@ -1,0 +1,9 @@
+{
+  "framework": "mocha",
+  "src_files": [
+    "build/app/test.js"
+  ],
+  "launch_in_dev": [
+    "Chrome"
+  ]
+}

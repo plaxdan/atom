@@ -1,0 +1,15 @@
+{
+  "framework": "mocha",
+  "src_files": [
+    "src/app/test.coffee"
+  ],
+  "launchers": {
+    "PhantomJS": {
+      "command": "./node_modules/.bin/mocha-phantomjs -R tap src/app/test.coffee",
+      "protocol": "tap"
+    }
+  },
+  "launch_in_dev": [
+    "PhantomJS"
+  ]
+}

@@ -1,0 +1,138 @@
+(function() {
+  var AtomUngitView, child_process, config, getOptions, http, isWin, path, url;
+
+  url = require('url');
+
+  child_process = require('child_process');
+
+  path = require('path');
+
+  http = require('http');
+
+  AtomUngitView = require('./atom-ungit-view');
+
+  config = require('./atom-ungit-config');
+
+  isWin = /^win/.test(process.platform);
+
+  if (!isWin) {
+    if (process.env.PATH.indexOf("/usr/local/bin") < 0) {
+      process.env["PATH"] = process.env.PATH + ":/usr/local/bin";
+    }
+  }
+
+  getOptions = function(path) {
+    return {
+      host: "127.0.0.1",
+      port: config.port,
+      path: path,
+      method: "POST"
+    };
+  };
+
+  module.exports = {
+    ungitView: null,
+    ungit: null,
+    uri: config.uri,
+    isViewExist: function() {
+      var n, panes;
+      panes = atom.workspace.getPanes();
+      n = panes.length - 1;
+      while (n > -1) {
+        if (panes[n].itemForUri(config.uri)) {
+          return panes[n];
+        }
+        n--;
+      }
+    },
+    activate: function() {
+      atom.workspaceView.command('ungit:toggle', (function(_this) {
+        return function() {
+          return _this.toggle();
+        };
+      })(this));
+      atom.workspaceView.command('ungit:kill', (function(_this) {
+        return function() {
+          return _this.kill();
+        };
+      })(this));
+      return atom.workspace.registerOpener(function(uriToOpen) {
+        var error, host, pathname, protocol, _ref;
+        try {
+          _ref = url.parse(uriToOpen), protocol = _ref.protocol, host = _ref.host, pathname = _ref.pathname;
+        } catch (_error) {
+          error = _error;
+          return;
+        }
+        if (protocol !== 'ungit:') {
+          return;
+        }
+        return new AtomUngitView();
+      });
+    },
+    kill: function() {
+      this.closeUngit();
+      http.request(getOptions("/api/testing/cleanup")).end();
+      http.request(getOptions("/api/testing/shutdown")).end();
+    },
+    closeUngit: function() {
+      var previewPane;
+      previewPane = atom.workspace.paneForUri(this.uri);
+      if (previewPane) {
+        previewPane.destroyItem(previewPane.itemForUri(this.uri));
+        return true;
+      }
+      return false;
+    },
+    toggle: function() {
+      var activeItem, execCmd, globalUngitExec, localUngitExec, self;
+      activeItem = atom.workspace.getActivePane().getActiveItem();
+      if (activeItem && activeItem.getUri() === config.uri) {
+        this.closeUngit();
+        return;
+      }
+      localUngitExec = 'node ' + path.join(__dirname, '../node_modules/ungit/bin/ungit') + ' --no-b --dev --maxNAutoRestartOnCrash=0';
+      globalUngitExec = 'ungit --no-b --dev --maxNAutoRestartOnCrash=0';
+      if (isWin) {
+        execCmd = localUngitExec;
+      } else {
+        execCmd = 'if [ ! -z "`command -v ungit`" ]; then ' + globalUngitExec + '; else ' + localUngitExec + '; fi';
+      }
+      this.ungit = child_process.exec(execCmd);
+      this.ungit.unref();
+      self = this;
+      this.ungit.stdout.on("data", function(data) {
+        var item, message, n, openers, paneToAddAtomUngit, paneWithAtomUngit;
+        message = data.toString();
+        if (message.contains('## Ungit started ##') || message.contains('Ungit server already running')) {
+          paneWithAtomUngit = self.isViewExist();
+          if (paneWithAtomUngit) {
+            paneWithAtomUngit.activateItemForUri(config.uri);
+          } else {
+            item = null;
+            paneToAddAtomUngit = atom.workspace.getActivePane();
+            openers = atom.workspace.openers;
+            n = openers.length - 1;
+            while (n > -1 && !item) {
+              item = openers[n](config.uri, null);
+              n--;
+            }
+            paneToAddAtomUngit.addItem(item, 0);
+            if (item instanceof AtomUngitView) {
+              item.loadUngit();
+            }
+            paneToAddAtomUngit.activateItemAtIndex(0);
+          }
+        }
+        console.log(message);
+      });
+      return this.ungit.stderr.on("data", function(data) {
+        console.error(data.toString());
+      });
+    }
+  };
+
+}).call(this);
+
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAiZmlsZSI6ICIiLAogICJzb3VyY2VSb290IjogIiIsCiAgInNvdXJjZXMiOiBbCiAgICAiIgogIF0sCiAgIm5hbWVzIjogW10sCiAgIm1hcHBpbmdzIjogIkFBQUE7QUFBQSxNQUFBLHdFQUFBOztBQUFBLEVBQUEsR0FBQSxHQUFNLE9BQUEsQ0FBUSxLQUFSLENBQU4sQ0FBQTs7QUFBQSxFQUNBLGFBQUEsR0FBZ0IsT0FBQSxDQUFRLGVBQVIsQ0FEaEIsQ0FBQTs7QUFBQSxFQUVBLElBQUEsR0FBTyxPQUFBLENBQVEsTUFBUixDQUZQLENBQUE7O0FBQUEsRUFHQSxJQUFBLEdBQU8sT0FBQSxDQUFRLE1BQVIsQ0FIUCxDQUFBOztBQUFBLEVBSUEsYUFBQSxHQUFnQixPQUFBLENBQVEsbUJBQVIsQ0FKaEIsQ0FBQTs7QUFBQSxFQUtBLE1BQUEsR0FBUyxPQUFBLENBQVEscUJBQVIsQ0FMVCxDQUFBOztBQUFBLEVBT0EsS0FBQSxHQUFRLE1BQU0sQ0FBQyxJQUFQLENBQVksT0FBTyxDQUFDLFFBQXBCLENBUFIsQ0FBQTs7QUFXQSxFQUFBLElBQUEsQ0FBQSxLQUFBO0FBQUEsSUFBQSxJQUErRCxPQUFPLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxPQUFqQixDQUF5QixnQkFBekIsQ0FBQSxHQUE2QyxDQUE1RztBQUFBLE1BQUEsT0FBTyxDQUFDLEdBQUksQ0FBQSxNQUFBLENBQVosR0FBc0IsT0FBTyxDQUFDLEdBQUcsQ0FBQyxJQUFaLEdBQW1CLGlCQUF6QyxDQUFBO0tBQUE7R0FYQTs7QUFBQSxFQWFBLFVBQUEsR0FBYSxTQUFDLElBQUQsR0FBQTtXQUNYO0FBQUEsTUFBQSxJQUFBLEVBQU0sV0FBTjtBQUFBLE1BQ0EsSUFBQSxFQUFNLE1BQU0sQ0FBQyxJQURiO0FBQUEsTUFFQSxJQUFBLEVBQU0sSUFGTjtBQUFBLE1BR0EsTUFBQSxFQUFRLE1BSFI7TUFEVztFQUFBLENBYmIsQ0FBQTs7QUFBQSxFQW1CQSxNQUFNLENBQUMsT0FBUCxHQUNFO0FBQUEsSUFBQSxT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
+//# sourceURL=/Users/daniel/.atom/packages/atom-ungit/lib/atom-ungit.coffee
