@@ -1,0 +1,37 @@
+{
+  "name": "language-batch",
+  "main": "./lib/language-batch",
+  "version": "0.3.2",
+  "description": "Adds syntax highlighting for Windows Batch files in Atom.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/footballhead/language-batch"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "readme": "Batch Syntax Highlighting for Atom\n===============================================================================\n\nAdds syntax highlighting for Windows Batch (`.bat`) files.\n\nIt's sorta limited right now; please bear with me.\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/footballhead/language-batch/issues"
+  },
+  "homepage": "https://github.com/footballhead/language-batch",
+  "_id": "language-batch@0.3.2",
+  "dist": {
+    "shasum": "7c60a377e00a790819a369cb0ad5c29b1966c533"
+  },
+  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-1141111-18898-1dcvwgc/package.tgz",
+  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-1141111-18898-1dcvwgc/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}

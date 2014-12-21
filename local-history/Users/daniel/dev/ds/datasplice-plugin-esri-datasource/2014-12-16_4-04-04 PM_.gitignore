@@ -1,0 +1,10 @@
+*.suo
+bin/
+obj/
+*.vsmdi
+TestResults/
+*.testrunconfig
+*.trx
+node_modules/
+build/
+dist/

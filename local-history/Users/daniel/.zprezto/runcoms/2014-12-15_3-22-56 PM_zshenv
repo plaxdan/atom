@@ -1,0 +1,17 @@
+#
+# Defines environment variables.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Ensure that a non-login, non-interactive shell has a defined environment.
+if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprofile"
+fi
+
+# Custom for DataSplice dev
+export DS5PROXY_HOST='10.255.255.30'
+export DS5PROXY_PORT='4180'
+ulimit -n 1024
+alias ds='echo $DS5PROXY_HOST:$DS5PROXY_PORT'

@@ -1,0 +1,55 @@
+{
+  "initialZoom": 15,
+  "initialCenter": [
+    38.8633,
+    -104.7919
+  ],
+  "showScale": true,
+  "attributions": [
+    "<a href=\"http://www.datasplice.com\">&copy; DataSplice, 2015</a>"
+  ],
+  "layers": {
+    "Subbasins": {
+      "style": {
+        "color": "#000000",
+        "fillColor": "grey",
+        "weight": 1
+      }
+    },
+    "Gravity Main - CSU": {
+      "minZoomVisible": 14,
+      "style": {
+        "color": "#0051ff",
+        "weight": 2
+      }
+    },
+    "Gravity Main - Private": {
+      "minZoomVisible": 14,
+      "style": {
+        "color": "grey",
+        "dashArray": "5, 5",
+        "weight": 2
+      }
+    },
+    "Hydrant": {
+      "minZoomVisible": 15,
+      "style": {
+        "marker": "circle",
+        "stroke": false,
+        "radius": 3,
+        "weight": 1,
+        "fillColor": "red"
+      }
+    },
+    "Manhole": {
+      "minZoomVisible": 15,
+      "style": {
+        "marker": "circle",
+        "stroke": false,
+        "radius": 3,
+        "weight": 1,
+        "fillColor": "black"
+      }
+    }
+  }
+}
