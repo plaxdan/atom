@@ -1,9 +1,0 @@
-*.suo
-bin/
-obj/
-*.vsmdi
-TestResults/
-*.trx
-node_modules/
-build/
-dist/

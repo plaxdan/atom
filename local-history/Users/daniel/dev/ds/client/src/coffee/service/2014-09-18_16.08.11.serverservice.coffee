@@ -1,1 +1,0 @@
-Server = require '../models/server'

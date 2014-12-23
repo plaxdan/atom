@@ -1,1 +1,0 @@
-{"digest":"cb2d6173dd1535a0cbe0138d4b9baf433b0fc4a1","css":".release-notes-status {\n  color: #3ea1e4;\n}\n.update-instructions {\n  display: none;\n}\n","imports":[{"path":"/Users/daniel/.atom/packages/unicorn-ui/stylesheets/ui-variables.less","digest":"725c562dfe283a5e23a837245dcd9eddf4152acf"}],"version":1}

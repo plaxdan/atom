@@ -1,3 +1,0 @@
-
-
-Fetch ESRI layer by name (because indexes change over time)

@@ -1,4 +1,0 @@
-
-
-Fetch ESRI layer by name (because indexes change over time)
-Import default styling from ESRI service

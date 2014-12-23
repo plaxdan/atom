@@ -1,6 +1,0 @@
-
-
-class SplicerService
-
-  constructor: (@serverAddress) ->
-    

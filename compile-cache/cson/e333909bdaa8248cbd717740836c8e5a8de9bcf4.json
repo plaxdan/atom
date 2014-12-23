@@ -1,1 +1,0 @@
-{"context-menu":{".overlayer":{"Enable js2coffee":"js2coffee:convert"}},"menu":[{"label":"Packages","submenu":[{"label":"js2coffee","submenu":[{"label":"Toggle","command":"js2coffee:convert"}]}]}]}

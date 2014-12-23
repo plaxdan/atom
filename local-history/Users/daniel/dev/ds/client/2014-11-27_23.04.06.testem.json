@@ -1,7 +1,0 @@
-{
-  "framework": "mocha",
-  "src_files": [
-    "src/*.js",
-    "tests/*_tests.js"
-  ]
-}
