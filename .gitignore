@@ -1,3 +1,5 @@
 .git/
 .node-gyp/
 storage/
+compile-cache/
+local-history/

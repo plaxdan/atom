@@ -1,1 +1,0 @@
-{"context-menu":{".overlayer":[{"label":"Coffee Compile","command":"coffee-compile:compile"}]},"menu":[{"submenu":[{"label":"Coffee Compile","submenu":[{"label":"coffee-compile:compile"}]}]}]}

@@ -1,1 +1,0 @@
-{"context-menu":{".overlayer":{"Enable refactor":"refactor:toggle"}},"menu":[{"label":"Packages","submenu":[{"label":"refactor","submenu":[{"label":"Toggle","command":"refactor:toggle"}]}]}]}
