@@ -1,7 +1,7 @@
 {
   "name": "last-cursor-position",
   "main": "./lib/last-cursor-position",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Keeps a history of past cursor position to travel back to",
   "repository": {
     "type": "git",
@@ -18,12 +18,12 @@
     "url": "https://github.com/fcharron/last-cursor-position/issues"
   },
   "homepage": "https://github.com/fcharron/last-cursor-position",
-  "_id": "last-cursor-position@0.5.0",
+  "_id": "last-cursor-position@0.6.0",
   "dist": {
-    "shasum": "c668268ede683b99c106daa07223b65bdc75dbeb"
+    "shasum": "285c990dc9b70a6e88461367623f946fbf4dcf1b"
   },
-  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114926-64958-v79azn/package.tgz",
-  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114926-64958-v79azn/package.tgz",
+  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-1141131-57637-1543qk6/package.tgz",
+  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-1141131-57637-1543qk6/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

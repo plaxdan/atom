@@ -1,7 +1,7 @@
 {
   "name": "atom-color-highlight",
   "main": "./lib/atom-color-highlight",
-  "version": "2.0.14",
+  "version": "2.0.16",
   "private": true,
   "description": "Highlights color in files",
   "repository": {
@@ -30,12 +30,12 @@
     "url": "https://github.com/abe33/atom-color-highlight/issues"
   },
   "homepage": "https://github.com/abe33/atom-color-highlight",
-  "_id": "atom-color-highlight@2.0.14",
+  "_id": "atom-color-highlight@2.0.16",
   "dist": {
-    "shasum": "ef3dda75658cc5f9d873b096b2d73ffb345c9465"
+    "shasum": "c90661ff39bc928f2e844634dbeed70d4b7dcb4e"
   },
-  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114117-40060-34nxfk/package.tgz",
-  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114117-40060-34nxfk/package.tgz",
+  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-1141131-57633-1ggtmxo/package.tgz",
+  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-1141131-57633-1ggtmxo/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -136,7 +136,7 @@
       },
       {
         "name": "space-pen",
-        "version": "4.2.2",
+        "version": "4.3.0",
         "path": "node_modules/space-pen/lib/space-pen.js"
       },
       {
@@ -146,7 +146,7 @@
       },
       {
         "name": "underscore-plus",
-        "version": "1.6.1",
+        "version": "1.6.6",
         "path": "node_modules/underscore-plus/lib/underscore-plus.js"
       },
       {

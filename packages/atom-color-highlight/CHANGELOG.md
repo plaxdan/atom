@@ -1,3 +1,18 @@
+<a name="v2.0.16"></a>
+# v2.0.16 (2014-12-31)
+
+## :bug: Bug Fixes
+
+- Fix marker display issue when scrolling ([01aba50e](https://github.com/abe33/atom-color-highlight/commit/01aba50e0fd89262275895c4274f74115db27242))
+
+<a name="v2.0.15"></a>
+# v2.0.15 (2014-12-30)
+
+## :bug: Bug Fixes
+
+- Fix broken update check method ([f1f9c992](https://github.com/abe33/atom-color-highlight/commit/f1f9c992197a081cb7489fdef93293d4a8fc8df8))
+- Fix remaining deprecations ([c186b932](https://github.com/abe33/atom-color-highlight/commit/c186b93207d5a516cd7d425e8abbf306385e3135))
+
 <a name="v2.0.14"></a>
 # v2.0.14 (2014-12-02)
 
