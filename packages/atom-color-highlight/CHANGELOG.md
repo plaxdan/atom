@@ -1,3 +1,20 @@
+<a name="v3.0.2"></a>
+# v3.0.2 (2015-01-05)
+
+## :bug: Bug Fixes
+
+- Fix colors marker not rendered when editor is not active when opened ([5f291f66](https://github.com/abe33/atom-color-highlight/commit/5f291f6620273ad120cbcb265f6d9d8698b7a930))
+
+<a name="v3.0.1"></a>
+# v3.0.1 (2015-01-03)
+
+- Add missing CHANGELOG entries for v3.0.0.
+
+<a name="v3.0.0"></a>
+# v3.0.0 (2015-01-03)
+
+- The major changes in v3.0.0 concerns the view appended to the DOM. Now views are handled through custom elements instead of `space-pen` views.
+
 <a name="v2.0.16"></a>
 # v2.0.16 (2014-12-31)
 
