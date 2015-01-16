@@ -1,7 +1,7 @@
 {
   "name": "no-caffeine-syntax",
   "theme": "syntax",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "description": "A dark, crisp and clean Atom Editor syntax theme with no caffeine",
   "repository": {
@@ -18,10 +18,19 @@
     "url": "https://github.com/thomaslindstrom/no-caffeine-syntax/issues"
   },
   "homepage": "https://github.com/thomaslindstrom/no-caffeine-syntax",
-  "_id": "no-caffeine-syntax@0.6.0",
+  "_id": "no-caffeine-syntax@0.7.0",
   "dist": {
-    "shasum": "aff7dcfd3493ada2bc3b60f9897172b52efe79d6"
+    "shasum": "da4619aadebd6fcc1f9054865782ce61c50466d9"
   },
-  "_resolved": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11478-7604-98l3gf/package.tgz",
-  "_from": "/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11478-7604-98l3gf/package.tgz"
+  "_from": "/Users/daniel/.atom/.node-gyp/.atom/.apm/no-caffeine-syntax/0.7.0/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

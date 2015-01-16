@@ -31,8 +31,7 @@
   "dist": {
     "shasum": "542d712abd31829ebc6744f788f62919ea863ba4"
   },
-  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11505-92509-pz11xr/package.tgz",
-  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11505-92509-pz11xr/package.tgz",
+  "_from": "/Users/daniel/.atom/.node-gyp/.atom/.apm/minimap-color-highlight/3.1.0/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -43,12 +42,12 @@
       },
       {
         "name": "event-kit",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "path": "node_modules/event-kit/lib/event-kit.js"
       },
       {
         "name": "grim",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "path": "node_modules/event-kit/node_modules/grim/lib/grim.js"
       },
       {
@@ -68,7 +67,7 @@
       },
       {
         "name": "source-map",
-        "version": "0.1.42",
+        "version": "0.1.43",
         "path": "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map.js"
       },
       {
@@ -160,6 +159,7 @@
         "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64-vlq.js",
         "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64.js",
         "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/binary-search.js",
+        "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/mapping-list.js",
         "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-consumer.js",
         "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-generator.js",
         "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-node.js",

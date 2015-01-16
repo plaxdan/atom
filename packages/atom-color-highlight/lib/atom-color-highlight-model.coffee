@@ -3,14 +3,14 @@ _ = require 'underscore-plus'
 
 module.exports =
 class AtomColorHighlightModel
-  @idCouter: 0
+  @idCounter: 0
 
   @markerClass: 'color-highlight'
   @bufferRange: [[0,0], [Infinity,Infinity]]
 
   constructor: (@editor) ->
     @buffer = @editor.getBuffer()
-    @id = AtomColorHighlightModel.idCouter++
+    @id = AtomColorHighlightModel.idCounter++
     @dirty = false
     @emitter = new Emitter
     @subscriptions = new CompositeDisposable
@@ -31,8 +31,9 @@ class AtomColorHighlightModel
 
   subscribeToBuffer: ->
     @subscriptions.add @editor.onDidChange => @dirty = true
-    @subscriptions.add @editor.onDidStopChanging @update
-    @subscriptions.add @editor.getBuffer().onDidDestroy => @destroy()
+    @subscriptions.add @editor.onDidStopChanging => @update()
+    @subscriptions.add @editor.displayBuffer.onDidTokenize => @update()
+    @subscriptions.add @editor.onDidDestroy => @destroy()
 
   unsubscribeFromBuffer: ->
     @subscriptions.dispose()
@@ -44,8 +45,11 @@ class AtomColorHighlightModel
     @update()
 
   destroy: ->
+    @destroyed = true
     @emitter.emit('did-destroy')
     @unsubscribeFromBuffer() if @buffer?
+
+  isDestroyed: -> @destroyed
 
   eachColor: (block) ->
     return @constructor.Color.scanBufferForColors(@buffer, block) if @buffer?
@@ -68,6 +72,8 @@ class AtomColorHighlightModel
         results = [] unless results?
 
         for res in results
+          continue unless res?
+
           {bufferRange: range, match, color} = res
 
           continue if color.isInvalid

@@ -1,7 +1,7 @@
 {
   "name": "atom-color-highlight",
   "main": "./lib/atom-color-highlight",
-  "version": "3.0.2",
+  "version": "3.0.4",
   "private": true,
   "description": "Highlights color in files",
   "repository": {
@@ -29,12 +29,12 @@
     "url": "https://github.com/abe33/atom-color-highlight/issues"
   },
   "homepage": "https://github.com/abe33/atom-color-highlight",
-  "_id": "atom-color-highlight@3.0.2",
+  "_id": "atom-color-highlight@3.0.4",
   "dist": {
-    "shasum": "6d08918930ebdabb35fc552c5f3009b95c59bfcc"
+    "shasum": "afcb322b4374886808c7a145ba8e4d43f99536a4"
   },
-  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11505-86131-ua4e1n/package.tgz",
-  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11505-86131-ua4e1n/package.tgz",
+  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-115014-7024-bpd4mn/package.tgz",
+  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-115014-7024-bpd4mn/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -70,7 +70,7 @@
       },
       {
         "name": "grim",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "path": "node_modules/grim/lib/grim.js"
       },
       {
@@ -90,7 +90,7 @@
       },
       {
         "name": "source-map",
-        "version": "0.1.42",
+        "version": "0.1.43",
         "path": "node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map.js"
       },
       {
@@ -302,6 +302,7 @@
         "node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64-vlq.js",
         "node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64.js",
         "node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/binary-search.js",
+        "node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/mapping-list.js",
         "node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-consumer.js",
         "node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-generator.js",
         "node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-node.js",

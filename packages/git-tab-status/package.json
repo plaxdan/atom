@@ -22,6 +22,18 @@
   "dist": {
     "shasum": "6bff5e7e8c80d285ab98ae98a1878a567599be8d"
   },
-  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114912-7662-1e9uywl/package.tgz",
-  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114912-7662-1e9uywl/package.tgz"
+  "_from": "/Users/daniel/.atom/.node-gyp/.atom/.apm/git-tab-status/1.3.0/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/git-tab-status.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

@@ -11,6 +11,15 @@ class AtomColorHighlightElement extends HTMLElement
     @markerViews = {}
     @subscriptions = new CompositeDisposable
 
+  attach: ->
+    requestAnimationFrame =>
+      editorElement = atom.views.getView(@model.editor)
+      editorRoot = editorElement.shadowRoot ? editorElement
+      editorRoot.querySelector('.lines')?.appendChild this
+
+  detachedCallback: ->
+    @attach() unless @model.isDestroyed()
+
   setModel: (@model) ->
     {@editor} = @model
     @editorElement = atom.views.getView(@editor)

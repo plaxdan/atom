@@ -26,8 +26,7 @@
   "dist": {
     "shasum": "d50584b7d3d8919c0a923972dd30db92dec6add7"
   },
-  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11505-92522-uxgwjk/package.tgz",
-  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11505-92522-uxgwjk/package.tgz",
+  "_from": "/Users/daniel/.atom/.node-gyp/.atom/.apm/minimap-highlight-selected/3.1.0/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -38,12 +37,12 @@
       },
       {
         "name": "event-kit",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "path": "node_modules/event-kit/lib/event-kit.js"
       },
       {
         "name": "grim",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "path": "node_modules/event-kit/node_modules/grim/lib/grim.js"
       },
       {
@@ -63,7 +62,7 @@
       },
       {
         "name": "source-map",
-        "version": "0.1.42",
+        "version": "0.1.43",
         "path": "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map.js"
       },
       {
@@ -150,6 +149,7 @@
         "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64-vlq.js",
         "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64.js",
         "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/binary-search.js",
+        "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/mapping-list.js",
         "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-consumer.js",
         "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-generator.js",
         "node_modules/event-kit/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-node.js",
