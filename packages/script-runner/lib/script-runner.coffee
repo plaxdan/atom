@@ -19,12 +19,17 @@ class ScriptRunner
   ]
 
   destroy: ->
-    @killProcess()
+    @killAllProcesses()
 
   activate: ->
-    @runnerView = null
-    atom.workspaceView.command 'run:script', => @run()
-    atom.workspaceView.command 'run:terminate', => @stop()
+    @runners = [] # this is just for keeping track of runners
+    # keeps track of runners as {editor: editor, view: ScriptRunnerView, process: ScriptRunnerProcess}
+    @runnerPane = null
+    
+    # register commands
+    atom.commands.add 'atom-workspace',
+      'run:script': (event) => @run(),
+      'run:terminate': (event) => @stop()
 
   fetchShellEnvironment: (callback) ->
     # I tried using ChildProcess.execFile but there is no way to set detached and this causes the child shell to lock up. This command runs an interactive login shell and executes the export command to get a list of environment variables. We then use these to run the script:
@@ -42,33 +47,64 @@ class ScriptRunner
     child.on 'close', (code, signal) ->
       environment = {}
       for definition in buffer.split('\n')
-        [key, value] = definition.split('=', 2)
-        environment[key] = value if key != ''
+        # Only process the output from export, lines that don't start with 'declare -x' could be from
+        # login scripts and etc.
+        if definition.startsWith('declare -x')
+          # Remove the 'declare -x' from start of each line
+          [key, value] = definition.slice(10).trim().split('=', 2)
+          
+          # Sometimes env variables are not set, but declared and thus no value is returned
+          if value
+            # Remove potential quotation marks from the values that might be printed by export
+            if value.endsWith('"') then value = value.slice(0, -1)
+            if value.startsWith('"') then value = value.slice(1)
+            
+          # Then add all non-empty values to the extracted environment
+          environment[key] = value if key != ''
       callback(environment)
 
-  killProcess: (detach = false)->
-    if @process?
-      @process.stop('SIGTERM')
-      if detach
-        # Don't render into the view any more:
-        @process.detach()
-        @process = null
+  killProcess: (runner, detach = false)->
+    if runner?
+      if runner.process?
+        runner.process.stop('SIGTERM')
+        if detach
+          # Don't render into the view any more:
+          runner.process.detach()
+          runner.process = null
+  
+  killAllProcesses: (detach = false) ->
+    # Kills all the running processes
+    for runner in @runners
+      if runner.process?
+        runner.process.stop('SIGTERM')
+        
+        if detach
+          runner.process.detach()
+          runner.process = null
 
   createRunnerView: (editor) ->
-    scriptRunners = []
+    if not @pane?
+      # creates a new pane if there isn't one yet
+      @pane = atom.workspace.getActivePane().splitRight()
+      @pane.onDidDestroy () =>
+        @killAllProcesses(true)
+        @pane = null
+      
+      @pane.onWillDestroyItem (evt) =>
+        # kill the process of the removed view and scratch it from the array
+        runner = @getRunnerBy(evt.item)
+        @killProcess(runner, true)
     
-    # Find all existing ScriptRunnerView instances:
-    for pane in atom.workspace.getPanes()
-      for item in pane.items
-        scriptRunners.push({pane: pane, view: item}) if item instanceof ScriptRunnerView
+    runner = @getRunnerBy(editor, 'editor')
     
-    if scriptRunners.length == 0
-      @runnerView = new ScriptRunnerView(editor.getTitle())
-      panes = atom.workspace.getPanes()
-      @pane = panes[panes.length - 1].splitRight(items: [@runnerView])
+    if not runner?
+      runner = {editor: editor, view: new ScriptRunnerView(editor.getTitle()), process: null}
+      @runners.push(runner)
+    
     else
-      @runnerView = scriptRunners[0].view
-      @pane = scriptRunners[0].pane
+      runner.view.setTitle(editor.getTitle()) # if it changed
+    
+    return runner
 
   run: ->
     editor = atom.workspace.getActiveEditor()
@@ -80,22 +116,22 @@ class ScriptRunner
       alert("Not sure how to run '#{path}' :/")
       return false
     
-    @killProcess(true)
-    @createRunnerView(editor)
+    runner = @createRunnerView(editor)
+    @killProcess(runner, true)
     
-    @runnerView.setTitle(editor.getTitle())
-    @pane.activateItem(@runnerView)
+    @pane.activateItem(runner.view)
     
-    @runnerView.clear()
+    runner.view.clear()
     # In the future it may be useful to support multiple runner views:
     @fetchShellEnvironment (env) =>
-      @process = ScriptRunnerProcess.run(@runnerView, cmd, env, editor)
+      runner.process = ScriptRunnerProcess.run(runner.view, cmd, env, editor)
 
   stop: ->
-    @killProcess()
-
-  runnerView: null
-  pane: null
+    unless @pane
+      return
+    
+    runner = @getRunnerBy(@pane.getActiveItem())
+    @killProcess(runner)
 
   commandFor: (editor) ->
     # Try to extract from the shebang line:
@@ -114,5 +150,13 @@ class ScriptRunner
       else if method.scope
         if scope.match(method.scope)
           return method.command
+  
+  getRunnerBy: (attr_obj, attr_name = 'view') ->
+    # Finds the runner object either by view, editor, or process
+    for runner in @runners
+      if runner[attr_name] is attr_obj
+        return runner
+    
+    return null
 
 module.exports = new ScriptRunner

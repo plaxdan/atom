@@ -1,7 +1,7 @@
 {
   "name": "change-case",
   "main": "./lib/change-case",
-  "version": "0.4.0",
+  "version": "0.5.1",
   "description": "Change the case of selected text using node-change-case",
   "repository": {
     "type": "git",
@@ -35,10 +35,43 @@
     "url": "https://github.com/robhurring/atom-change-case/issues"
   },
   "homepage": "https://github.com/robhurring/atom-change-case",
-  "_id": "change-case@0.4.0",
-  "dist": {
-    "shasum": "67d32b7254d5e04ac205bfed94afbcb41e731b6f"
-  },
-  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114829-1237-15etdiw/package.tgz",
-  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-114829-1237-15etdiw/package.tgz"
+  "_id": "change-case@0.5.1",
+  "_shasum": "3f1f869d611a533fa9eb3370a79e4ebc4fd13f60",
+  "_resolved": "file:../d-115123-774-8htd3v/package.tgz",
+  "_from": "../d-115123-774-8htd3v/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [
+      {
+        "name": "change-case",
+        "version": "1.0.6",
+        "path": "node_modules/change-case/change-case.js"
+      }
+    ],
+    "extensions": {
+      ".coffee": [
+        "lib/change-case.coffee"
+      ],
+      ".js": [
+        "node_modules/change-case/change-case.js",
+        "node_modules/change-case/test.js"
+      ],
+      ".json": [
+        "node_modules/change-case/package.json",
+        "package.json"
+      ]
+    },
+    "folders": [
+      {
+        "paths": [
+          "lib",
+          "",
+          "spec"
+        ],
+        "dependencies": {
+          "change-case": "~1.0.6"
+        }
+      }
+    ]
+  }
 }

@@ -1,25 +1,27 @@
-#
-# Copyright (c) 2014 by Lifted Studios. All Rights Reserved.
-#
+{CompositeDisposable} = require 'atom'
+
+_ = require 'underscore-plus'
 
 module.exports =
-  # Activates the package.
+  # Public: Activates the package.
   activate: ->
-    atom.syntax.getGrammars().map (grammar) -> createCommand(grammar)
-    atom.syntax.on 'grammar-added', (grammar) -> createCommand(grammar)
+    @disposables = new CompositeDisposable
 
-# Creates the command for a given {Grammar}.
-#
-# grammar - {Grammar} the command will be for.
-createCommand = (grammar) ->
-  if grammar?.name?
-    atom.workspaceView.command "set-syntax:#{nameToCommand(grammar.name)}", ->
-      atom.workspace.getActiveEditor()?.setGrammar(grammar)
+    atom.grammars.getGrammars().map (grammar) =>
+      @disposables.add @createCommand(grammar)
 
-# Converts a grammar name into the format expected of commands.
-#
-# name - {String} containing the name of a grammar.
-#
-# Returns a {String} containing the name of the grammar formatted as a command.
-nameToCommand = (name) ->
-  name?.toLowerCase().replace /\s/g, '-'
+    @disposables.add atom.grammars.onDidAddGrammar (grammar) =>
+      @disposables.add @createCommand(grammar)
+
+  # Public: Deactivates the package.
+  deactivate: ->
+    @disposables.dispose()
+
+  # Private: Creates the command for a given {Grammar}.
+  #
+  # * `grammar` {Grammar} the command will be for.
+  createCommand: (grammar) ->
+    if grammar?.name?
+      workspaceElement = atom.views.getView(atom.workspace)
+      atom.commands.add workspaceElement, "set-syntax:#{grammar.name}", ->
+        atom.workspace.getActiveTextEditor()?.setGrammar(grammar)

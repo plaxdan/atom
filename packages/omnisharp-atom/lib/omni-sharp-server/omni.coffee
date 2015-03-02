@@ -21,7 +21,7 @@ module.exports =
       context
 
     @_uri: (path, query) =>
-      port = OmniSharpServer.get().getPortNumber()
+      port = OmniSharpServer.get().port
       Url.format
         hostname: "localhost"
         protocol: "http"
@@ -45,9 +45,14 @@ module.exports =
         method: "POST"
         form: _.extend({}, context, d)
       .then (data) ->
-        json = JSON.parse(data)
-        atom.emit "omni:#{event}", json
-        json
+        try
+          parsedData = JSON.parse(data)
+        catch
+          parsedData = data
+        finally
+          atom.emit "omni:#{event}", parsedData
+
+        parsedData
 
     @syntaxErrors: => @req "syntaxErrors", "syntax-errors"
 
@@ -58,9 +63,21 @@ module.exports =
 
     @goToDefinition: => @req "gotoDefinition", "navigate-to"
 
+    @fixUsings: => @req "fixUsings", "code-format"
+
+    @codeFormat: => @req "codeFormat", "code-format"
+
+    @build: => @req "buildcommand", "build-command"
+
     @autocomplete: (wordToComplete) =>
       data =
         wordToComplete: wordToComplete
         wantDocumentationForEveryCompletionResult: false
 
       @req "autocomplete", "autocomplete", data
+
+    @rename: (wordToRename) =>
+      data =
+        renameTo: wordToRename
+
+      @req "rename", "rename", data

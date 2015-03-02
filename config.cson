@@ -8,13 +8,11 @@
   metrics:
     userId: "40500e3fd44453a1e0c923aff91cee272f96181a"
   editor:
-    fontFamily: "Menlo for Powerline"
-    fontSize: 12
+    fontFamily: "Source Code Pro for Powerline"
     showIndentGuide: true
-    showLineNumbers: false
-    autoIndentOnPaste: false
     scrollPastEnd: true
     invisibles: {}
+    fontSize: 15
   core:
     ignoredNames: [
       ".git"
@@ -30,10 +28,20 @@
       "todo-show"
       "glist"
       "omnisharp-atom"
+      "minimap"
+      "minimap-color-highlight"
+      "minimap-find-and-replace"
+      "minimap-git-diff"
+      "minimap-highlight-selected"
+      "minimap-selection"
+      "live-archive"
+      "styleguide"
+      "autocomplete"
+      "language-diff"
     ]
     themes: [
-      "spacegray-eighties-ui"
-      "no-caffeine-syntax"
+      "one-light-ui"
+      "monokai-light"
     ]
     projectHome: "/Users/daniel/dev/ds"
   "markdown-preview":
@@ -78,3 +86,8 @@
     fontFamily: "Oxygen"
     colorTreeSelection: false
     gutterStyle: false
+  "spell-check": {}
+  "autocomplete-plus":
+    includeCompletionsFromAllBuffers: true
+  "tree-view":
+    hideVcsIgnoredFiles: true

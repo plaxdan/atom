@@ -1,0 +1,23 @@
+.status-bar {
+
+  height: round(@component-line-height);
+  line-height: round(@component-line-height);
+  background: @tool-panel-background-color;
+  font-size: @modular-scale-m * 1rem;
+
+  > * {
+    padding: 0 @modular-scale-s * 1rem;
+  }
+
+  .status-bar-left > *,
+  .status-bar-left .inline-block,
+  .status-bar-right > *,
+  .status-bar-right .inline-block {
+    vertical-align: top;
+  }
+}
+
+body[isotope-ui-spacious='true'] .status-bar {
+  height: round(@component-line-height + 1);
+  line-height: round(@component-line-height + 1);
+}

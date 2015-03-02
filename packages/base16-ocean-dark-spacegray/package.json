@@ -1,7 +1,7 @@
 {
   "name": "base16-ocean-dark-spacegray",
   "theme": "syntax",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "private": true,
   "description": "A port of the Spacegray base16 Ocean Theme",
   "repository": {
@@ -18,12 +18,10 @@
     "url": "https://github.com/carloe/spacegray-base16-ocean-dark/issues"
   },
   "homepage": "https://github.com/carloe/spacegray-base16-ocean-dark",
-  "_id": "base16-ocean-dark-spacegray@0.9.0",
-  "dist": {
-    "shasum": "d2fcef5caa7ec9060fb53edfd3ab77f58373b8d8"
-  },
-  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-1141018-37077-1363te6/package.tgz",
-  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-1141018-37077-1363te6/package.tgz",
+  "_id": "base16-ocean-dark-spacegray@0.10.0",
+  "_shasum": "664509c96e036d266babfc9a1308e764a6bec153",
+  "_resolved": "file:../d-115110-87959-1fzbez3/package.tgz",
+  "_from": "../d-115110-87959-1fzbez3/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

@@ -1,7 +1,7 @@
 {
   "name": "atom-color-highlight",
   "main": "./lib/atom-color-highlight",
-  "version": "3.0.4",
+  "version": "3.0.8",
   "private": true,
   "description": "Highlights color in files",
   "repository": {
@@ -18,7 +18,7 @@
   "dependencies": {
     "q": "1.x",
     "underscore-plus": "1.x",
-    "pigments": ">= 3.0.4",
+    "pigments": ">= 3.2.0",
     "mixto": "1.x",
     "event-kit": "0.7.x",
     "grim": "^1"
@@ -29,12 +29,10 @@
     "url": "https://github.com/abe33/atom-color-highlight/issues"
   },
   "homepage": "https://github.com/abe33/atom-color-highlight",
-  "_id": "atom-color-highlight@3.0.4",
-  "dist": {
-    "shasum": "afcb322b4374886808c7a145ba8e4d43f99536a4"
-  },
-  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-115014-7024-bpd4mn/package.tgz",
-  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-115014-7024-bpd4mn/package.tgz",
+  "_id": "atom-color-highlight@3.0.8",
+  "_shasum": "44d44a906bdbcefee79b065e93a15288cb0620a1",
+  "_resolved": "file:../d-115110-87951-1lb6eoq/package.tgz",
+  "_from": "../d-115110-87951-1lb6eoq/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -125,7 +123,7 @@
       },
       {
         "name": "pigments",
-        "version": "3.0.4",
+        "version": "3.2.0",
         "path": "node_modules/pigments/lib/index.js"
       },
       {
@@ -334,7 +332,6 @@
         "node_modules/pigments/lib/color-variables.js",
         "node_modules/pigments/lib/index.js",
         "node_modules/pigments/lib/named-colors.js",
-        "node_modules/pigments/lib/pigments.js",
         "node_modules/pigments/lib/regexes.js",
         "node_modules/pigments/lib/utils.js",
         "node_modules/pigments/node_modules/css-color-function/lib/adjusters.js",
@@ -393,7 +390,7 @@
         "dependencies": {
           "q": "1.x",
           "underscore-plus": "1.x",
-          "pigments": ">= 3.0.4",
+          "pigments": ">= 3.2.0",
           "mixto": "1.x",
           "event-kit": "0.7.x",
           "grim": "^1"

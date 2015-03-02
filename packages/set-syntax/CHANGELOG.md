@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## **v0.2.1** &mdash; *Released: 6 February 2015*
+
+* :bug: [#6](https://github.com/lee-dohm/set-syntax/issues/6) fixed by [@SalGnt](https://github.com/SalGnt) &mdash; Formatting for commands in command palette now all look correct.
+
+## **v0.2.0** &mdash; *Released: 25 January 2015*
+
+* Fixed deprecations
+* Added tests
+
 ## **v0.1.0** - *Released: 14 July 2014*
 
 * :bug: [#1](https://github.com/lee-dohm/set-syntax/pull/1) @maschs &mdash; Ensures that grammars already loaded are added as commands

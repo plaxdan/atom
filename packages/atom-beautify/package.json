@@ -1,7 +1,7 @@
 {
   "name": "atom-beautify",
   "main": "./lib/beautify",
-  "version": "0.21.2",
+  "version": "0.21.3",
   "private": true,
   "description": "Beautify HTML, CSS, JavaScript, PHP, Python, Ruby, Java, C, C++, C#, Objective-C, CoffeeScript, TypeScript, and SQL in Atom",
   "repository": {
@@ -56,12 +56,13 @@
     "loophole": "^1.0.0",
     "node-dir": "^0.1.6",
     "node-uuid": "^1.4.1",
-    "prettydiff": "^1.6.13",
+    "prettydiff": "^1.8.8",
     "space-pen": "^4.3.0",
     "strip-json-comments": "^0.1.3",
     "temp": "^0.8.0",
     "typescript-formatter": "~0.1.4",
-    "yaml-front-matter": "^3.2.3"
+    "yaml-front-matter": "^3.2.3",
+    "atom-space-pen-views": "^2.0.3"
   },
   "activationCommands": {
     "atom-workspace": [
@@ -121,18 +122,16 @@
   "readme": "# [atom-beautify](https://github.com/donaldpipowitch/atom-beautify)\n\n[![Build Status](https://travis-ci.org/Glavin001/atom-beautify.svg?branch=master)](https://travis-ci.org/Glavin001/atom-beautify)\n[![Gitter chat](https://badges.gitter.im/Glavin001/atom-beautify.png)](https://gitter.im/Glavin001/atom-beautify)\n[![Issue Stats](http://issuestats.com/github/glavin001/atom-beautify/badge/pr?style=flat)](http://issuestats.com/github/glavin001/atom-beautify)\n[![Issue Stats](http://issuestats.com/github/glavin001/atom-beautify/badge/issue?style=flat)](http://issuestats.com/github/glavin001/atom-beautify)\n\n> [Beautify](https://github.com/einars/js-beautify)\nHTML (including [Handlebars](http://handlebarsjs.com/)),\nCSS (including [Sass](http://sass-lang.com/) and [LESS](http://lesscss.org/)),\nJavaScript, and much more in Atom.\n\nAtom Package: https://atom.io/packages/atom-beautify\n\n```bash\napm install atom-beautify\n```\n\nOr Settings/Preferences ➔ Packages ➔ Search for `atom-beautify`\n\n\n## Language Support\n\n- [x] JavaScript and JSON\n- [x] HTML, including\n  - [x] [Handlebars](http://handlebarsjs.com/)\n  - [x] [Mustache](http://mustache.github.io)\n  - [x] [Embedded Ruby (ERB)](https://github.com/Glavin001/atom-beautify/issues/80)\n    - Requires [htmlbeautifier](https://github.com/threedaymonk/htmlbeautifier)\n  - [x] XML\n- [x] CSS, including\n  - [Sass](http://sass-lang.com/)\n  - [LESS](http://lesscss.org/)\n- [x] [SQL](https://github.com/Glavin001/atom-beautify/pull/67)\n  - Requires [python-sqlparse](https://github.com/andialbrecht/sqlparse)\n- [x] [Markdown](https://github.com/Glavin001/atom-beautify/issues/93#issuecomment-55642483)\n  - Requires [Pandoc](http://johnmacfarlane.net/pandoc/) to be already installed\n- [X] [Perl](https://github.com/Glavin001/atom-beautify/issues/33)\n- [x] [PHP](https://github.com/donaldpipowitch/atom-beautify/issues/26)  \n  - Requires [PHP_Beautifier](http://pear.php.net/package/PHP_Beautifier) to be already installed.\n- [x] [Python](https://github.com/donaldpipowitch/atom-beautify/issues/24)\n  - Requires [autopep8](https://github.com/hhatto/autopep8) to be already installed.\n  - Beautifies to [PEP 8](http://legacy.python.org/dev/peps/pep-0008/).\n- [x] [Ruby](https://github.com/donaldpipowitch/atom-beautify/issues/25)\n  - Requires [Ruby Beautify](https://github.com/erniebrodeur/ruby-beautify)\n- [x] [CoffeeScript](https://github.com/donaldpipowitch/atom-beautify/issues/31)\n- [x] [Java](https://github.com/Glavin001/atom-beautify/issues/45)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [C](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [C++](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [C#](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [Objective-C](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [D](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [Pawn](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [Vala](https://github.com/Glavin001/atom-beautify/issues/57)\n  - Requires [Uncrustify](http://sourceforge.net/projects/uncrustify/)\n- [x] [TypeScript](https://github.com/Glavin001/atom-beautify/issues/49)\n\n## Usage\n\nOpen the [Command Palette](https://github.com/atom/command-palette), and type `Beautify`.\n\nIt will only beautify selected text, if a selection is found - if not, the whole file will be beautified.\n\n### Shortcut\n\nYou can also type `ctrl-alt-b` as a shortcut or click `Packages > Beautify` in the menu.\n\n#### Custom Keyboard Shortcuts\n\nSee [Keymaps In-Depth](https://atom.io/docs/latest/advanced/keymaps) for more details.\n\nFor example:\n\n```coffeescript\n'.editor':\n  'ctrl-alt-b': 'beautify:beautify-editor'\n```\n\n### Package Options\n\n- `beautifyOnSave`  (Default *false*)\nYou can also choose to beautify on every file save.\n\n- `beautifyEntireFileOnSave` (Default *true*)\nBeautification will normally only beautify your selected text.\nHowever, when beautification occurs on save then it will\nbe forced to beautify the entire file's contents,\nnot just selected text.\n\n- `disabledLanguages` (Default *empty array*)\nAn array of Grammar names to disable beautification for.\nNote: If using the Atom's Package Settings then an array is\nrepresented as comma-separated string.\n\n- `muteUnsupportedLanguageErrors` (Default *false*)\nMute only *unsupported language* errors.\n\n- `muteAllErrors` (Default *false*)\nDo not show the *Atom Beautify Error Messages* panel\nfor any of the errors occurring while beautifying.\n\n- `analytics`  (Default *true*)\nThere is [Segment.io](https://segment.io/),\nwhich forwards the data to [Google Analytics](http://www.google.com/analytics/),\nto track what languages\nare being used the most and other stats.\nEverything is anonymized and no personal information,\nsuch as source code, is sent.\nSee https://github.com/Glavin001/atom-beautify/issues/47\nfor more details.\n\n## Configuration\n\nEdit your `.jsbeautifyrc` file in any of the following locations:\n\n- Atom Package Settings  \n  `Atom` ➔ `Preferences` ➔ Search for `atom-beautify`\n- Same directory as current file\n- Project root  \n`atom-beautify` will recursively look up from the current file's directory to find `.jsbeautifyrc`.\n- Your User's Home directory\n\n**Note**: *Comments are supported in `.jsbeautifyrc` thanks to [strip-json-comments](https://github.com/sindresorhus/strip-json-comments).*\n\nSee examples of both way inside [`examples/`](https://github.com/donaldpipowitch/atom-beautify/tree/master/examples)\n\nOption table is available at the [js-beautify repo](https://github.com/beautify-web/js-beautify#options).\n\n### Simple\n\nSee [examples/simple-jsbeautifyrc/.jsbeautifyrc](https://github.com/donaldpipowitch/atom-beautify/blob/master/examples/simple-jsbeautifyrc/.jsbeautifyrc).\n\n```json\n{\n  \"indent_size\": 2,\n  \"indent_char\": \" \",\n  \"other\": \" \",\n  \"indent_level\": 0,\n  \"indent_with_tabs\": false,\n  \"preserve_newlines\": true,\n  \"max_preserve_newlines\": 2,\n  \"jslint_happy\": true,\n  \"indent_handlebars\": true\n}\n```\n\n### Nested\n\nSee [examples/nested-jsbeautifyrc/.jsbeautifyrc](https://github.com/donaldpipowitch/atom-beautify/blob/master/examples/nested-jsbeautifyrc/.jsbeautifyrc).\n\n```json\n{\n  \"html\": {\n    \"brace_style\": \"collapse\",\n    \"indent_char\": \" \",\n    \"indent_scripts\": \"normal\",\n    \"indent_size\": 6,\n    \"max_preserve_newlines\": 1,\n    \"preserve_newlines\": true,\n    \"unformatted\": [\"a\", \"sub\", \"sup\", \"b\", \"i\", \"u\"],\n    \"wrap_line_length\": 0\n  },\n  \"css\": {\n    \"indent_char\": \" \",\n    \"indent_size\": 4\n  },\n  \"js\": {\n    \"indent_size\": 2,\n    \"indent_char\": \" \",\n    \"indent_level\": 0,\n    \"indent_with_tabs\": false,\n    \"preserve_newlines\": true,\n    \"max_preserve_newlines\": 2,\n    \"jslint_happy\": true\n  },\n  \"sql\": {\n    \"indent_size\": 4,\n    \"indent_char\": \" \",\n    \"indent_level\": 0,\n    \"indent_with_tabs\": false\n  }\n}\n```\n\n## Advanced Language Setup\n\n### PHP\n\nTo use with PHP we require [PHP_Beautifier](http://pear.php.net/package/PHP_Beautifier)\nand that you set the `Php beautifier path` in the package settings.\n\n#### Retrieve the path on Mac & Linux\n\nRun `which php_beautifier` in your Terminal.\n\n### Python\n\nTo use with Python we require [autopep8](https://github.com/hhatto/autopep8)\nand that you set the `Python autopep8 path` in the package settings.\n\n#### Retrieve the path on Mac & Linux\n\nRun `which autopep8` in your Terminal.\n\n### Markdown\n\nTo use with Markdown we require [pandoc](http://johnmacfarlane.net/pandoc/)\nand you set the `Markdown Pandoc path` in the package settings.\n\n\n## Contributing\n\n[See all contributors on GitHub](https://github.com/donaldpipowitch/atom-beautify/graphs/contributors).\n\nPlease update the [CHANGELOG.md](https://github.com/donaldpipowitch/atom-beautify/blob/master/CHANGELOG.md),\nadd yourself as a contributor to the [package.json](https://github.com/donaldpipowitch/atom-beautify/blob/master/package.json),\nand submit a [Pull Request on GitHub](https://help.github.com/articles/using-pull-requests).\n\n## License\n\n[MIT](https://github.com/donaldpipowitch/atom-beautify/blob/master/LICENSE.md) © [Donald Pipowitch](https://github.com/donaldpipowitch)\n",
   "readmeFilename": "README.md",
   "homepage": "https://github.com/Glavin001/atom-beautify",
-  "_id": "atom-beautify@0.21.2",
-  "dist": {
-    "shasum": "5da2d514eb6aa8f5976b09f98b2cc78be008d035"
-  },
-  "_resolved": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11506-96336-1dqxz3i/package.tgz",
-  "_from": "/private/var/folders/r_/sfdh02q16ybgq6vjvchrysdr0000gn/T/d-11506-96336-1dqxz3i/package.tgz",
+  "_id": "atom-beautify@0.21.3",
+  "_shasum": "0b824d67a5d25c3015bcb28d6c0ac70f039b3c97",
+  "_resolved": "file:../d-115110-87943-1hhrqgs/package.tgz",
+  "_from": "../d-115110-87943-1hhrqgs/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
         "name": "analytics-node",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "path": "node_modules/analytics-node/lib/index.js"
       },
       {
@@ -162,23 +161,38 @@
       },
       {
         "name": "superagent",
-        "version": "0.16.0",
+        "version": "0.19.1",
         "path": "node_modules/analytics-node/node_modules/superagent/lib/node/index.js"
       },
       {
+        "name": "component-emitter",
+        "version": "1.1.2",
+        "path": "node_modules/analytics-node/node_modules/superagent/node_modules/component-emitter/index.js"
+      },
+      {
         "name": "cookiejar",
-        "version": "1.3.0",
+        "version": "2.0.1",
         "path": "node_modules/analytics-node/node_modules/superagent/node_modules/cookiejar/cookiejar.js"
       },
       {
-        "name": "debug",
-        "version": "0.7.4",
-        "path": "node_modules/analytics-node/node_modules/superagent/node_modules/debug/lib/debug.js"
+        "name": "extend",
+        "version": "1.2.1",
+        "path": "node_modules/analytics-node/node_modules/superagent/node_modules/extend/index.js"
       },
       {
-        "name": "emitter-component",
-        "version": "1.0.0",
-        "path": "node_modules/analytics-node/node_modules/superagent/node_modules/emitter-component/index.js"
+        "name": "form-data",
+        "version": "0.1.3",
+        "path": "node_modules/analytics-node/node_modules/superagent/node_modules/form-data/lib/form_data.js"
+      },
+      {
+        "name": "combined-stream",
+        "version": "0.0.7",
+        "path": "node_modules/analytics-node/node_modules/superagent/node_modules/form-data/node_modules/combined-stream/lib/combined_stream.js"
+      },
+      {
+        "name": "delayed-stream",
+        "version": "0.0.5",
+        "path": "node_modules/analytics-node/node_modules/superagent/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/lib/delayed_stream.js"
       },
       {
         "name": "formidable",
@@ -187,18 +201,43 @@
       },
       {
         "name": "methods",
-        "version": "0.0.1",
+        "version": "1.0.1",
         "path": "node_modules/analytics-node/node_modules/superagent/node_modules/methods/index.js"
       },
       {
         "name": "mime",
-        "version": "1.2.5",
+        "version": "1.2.11",
         "path": "node_modules/analytics-node/node_modules/superagent/node_modules/mime/mime.js"
       },
       {
         "name": "qs",
-        "version": "0.6.5",
+        "version": "1.2.0",
         "path": "node_modules/analytics-node/node_modules/superagent/node_modules/qs/index.js"
+      },
+      {
+        "name": "readable-stream",
+        "version": "1.0.27-1",
+        "path": "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/readable.js"
+      },
+      {
+        "name": "core-util-is",
+        "version": "1.0.1",
+        "path": "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/core-util-is/lib/util.js"
+      },
+      {
+        "name": "inherits",
+        "version": "2.0.1",
+        "path": "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/inherits/inherits.js"
+      },
+      {
+        "name": "isarray",
+        "version": "0.0.1",
+        "path": "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/isarray/index.js"
+      },
+      {
+        "name": "string_decoder",
+        "version": "0.10.31",
+        "path": "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/string_decoder/index.js"
       },
       {
         "name": "reduce-component",
@@ -427,7 +466,7 @@
       },
       {
         "name": "source-map",
-        "version": "0.1.42",
+        "version": "0.1.43",
         "path": "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/pac-proxy-agent/node_modules/pac-resolver/node_modules/degenerator/node_modules/escodegen/node_modules/source-map/lib/source-map.js"
       },
       {
@@ -596,6 +635,11 @@
         "path": "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/socks-proxy-agent/node_modules/rainbowsocks/node_modules/debug/node_modules/ms/index.js"
       },
       {
+        "name": "superagent-retry",
+        "version": "0.4.0",
+        "path": "node_modules/analytics-node/node_modules/superagent-retry/lib/index.js"
+      },
+      {
         "name": "uid",
         "version": "0.0.2",
         "path": "node_modules/analytics-node/node_modules/uid/index.js"
@@ -607,8 +651,78 @@
       },
       {
         "name": "atom-message-panel",
-        "version": "1.1.4",
+        "version": "1.2.0",
         "path": "node_modules/atom-message-panel/lib/index.js"
+      },
+      {
+        "name": "atom-space-pen-views",
+        "version": "2.0.3",
+        "path": "node_modules/atom-space-pen-views/lib/main.js"
+      },
+      {
+        "name": "fuzzaldrin",
+        "version": "2.1.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/lib/fuzzaldrin.js"
+      },
+      {
+        "name": "grim",
+        "version": "1.1.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/lib/grim.js"
+      },
+      {
+        "name": "coffeestack",
+        "version": "0.7.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/index.js"
+      },
+      {
+        "name": "coffee-script",
+        "version": "1.7.1",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/coffee-script.js"
+      },
+      {
+        "name": "mkdirp",
+        "version": "0.3.5",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/index.js"
+      },
+      {
+        "name": "source-map",
+        "version": "0.1.43",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map.js"
+      },
+      {
+        "name": "amdefine",
+        "version": "0.1.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js"
+      },
+      {
+        "name": "underscore-plus",
+        "version": "1.6.6",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/lib/underscore-plus.js"
+      },
+      {
+        "name": "underscore",
+        "version": "1.6.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/node_modules/underscore/underscore.js"
+      },
+      {
+        "name": "space-pen",
+        "version": "5.1.1",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/lib/space-pen.js"
+      },
+      {
+        "name": "jquery",
+        "version": "2.1.3",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/dist/jquery.js"
+      },
+      {
+        "name": "underscore-plus",
+        "version": "1.6.6",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/lib/underscore-plus.js"
+      },
+      {
+        "name": "underscore",
+        "version": "1.6.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/node_modules/underscore/underscore.js"
       },
       {
         "name": "coffee-formatter",
@@ -757,7 +871,7 @@
       },
       {
         "name": "prettydiff",
-        "version": "1.7.0",
+        "version": "1.8.15",
         "path": "node_modules/prettydiff/prettydiff.js"
       },
       {
@@ -767,7 +881,7 @@
       },
       {
         "name": "grim",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "path": "node_modules/space-pen/node_modules/grim/lib/grim.js"
       },
       {
@@ -787,7 +901,7 @@
       },
       {
         "name": "source-map",
-        "version": "0.1.42",
+        "version": "0.1.43",
         "path": "node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map.js"
       },
       {
@@ -847,7 +961,7 @@
       },
       {
         "name": "js-yaml",
-        "version": "3.2.5",
+        "version": "3.2.6",
         "path": "node_modules/yaml-front-matter/node_modules/js-yaml/index.js"
       },
       {
@@ -876,8 +990,8 @@
         "lib/beautify.coffee",
         "lib/langs/cli-beautify.coffee",
         "lib/langs/coffeescript-beautify.coffee",
+        "lib/langs/css-prettydiff-beautify.coffee",
         "lib/langs/html-erb-beautify.coffee",
-        "lib/langs/less-beautify.coffee",
         "lib/langs/markdown-beautify.coffee",
         "lib/langs/perl-beautify.coffee",
         "lib/langs/php-beautify.coffee",
@@ -905,16 +1019,26 @@
         "node_modules/analytics-node/node_modules/join-component/component.json",
         "node_modules/analytics-node/node_modules/join-component/package.json",
         "node_modules/analytics-node/node_modules/superagent/component.json",
-        "node_modules/analytics-node/node_modules/superagent/components/RedVentures-reduce/component.json",
         "node_modules/analytics-node/node_modules/superagent/components/component-emitter/component.json",
+        "node_modules/analytics-node/node_modules/superagent/components/component-reduce/component.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/component-emitter/bower.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/component-emitter/component.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/component-emitter/package.json",
         "node_modules/analytics-node/node_modules/superagent/node_modules/cookiejar/package.json",
-        "node_modules/analytics-node/node_modules/superagent/node_modules/debug/package.json",
-        "node_modules/analytics-node/node_modules/superagent/node_modules/emitter-component/component.json",
-        "node_modules/analytics-node/node_modules/superagent/node_modules/emitter-component/package.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/extend/package.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/package.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/form-data/node_modules/combined-stream/package.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/form-data/package.json",
         "node_modules/analytics-node/node_modules/superagent/node_modules/formidable/package.json",
         "node_modules/analytics-node/node_modules/superagent/node_modules/methods/package.json",
         "node_modules/analytics-node/node_modules/superagent/node_modules/mime/package.json",
         "node_modules/analytics-node/node_modules/superagent/node_modules/qs/package.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/core-util-is/package.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/inherits/package.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/isarray/component.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/isarray/package.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/string_decoder/package.json",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/package.json",
         "node_modules/analytics-node/node_modules/superagent/node_modules/reduce-component/component.json",
         "node_modules/analytics-node/node_modules/superagent/node_modules/reduce-component/package.json",
         "node_modules/analytics-node/node_modules/superagent/package.json",
@@ -1007,12 +1131,29 @@
         "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/socks-proxy-agent/package.json",
         "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/package.json",
         "node_modules/analytics-node/node_modules/superagent-proxy/package.json",
+        "node_modules/analytics-node/node_modules/superagent-retry/package.json",
         "node_modules/analytics-node/node_modules/uid/component.json",
         "node_modules/analytics-node/node_modules/uid/package.json",
         "node_modules/analytics-node/package.json",
         "node_modules/async/component.json",
         "node_modules/async/package.json",
         "node_modules/atom-message-panel/package.json",
+        "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/node_modules/underscore/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/api.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/bower.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/node_modules/underscore/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/package.json",
+        "node_modules/atom-space-pen-views/package.json",
         "node_modules/coffee-formatter/node_modules/lazy/package.json",
         "node_modules/coffee-formatter/node_modules/optimist/node_modules/wordwrap/package.json",
         "node_modules/coffee-formatter/node_modules/optimist/package.json",
@@ -1093,11 +1234,12 @@
         "node_modules/analytics-node/node_modules/debug/node.js",
         "node_modules/analytics-node/node_modules/debug/node_modules/ms/index.js",
         "node_modules/analytics-node/node_modules/join-component/index.js",
-        "node_modules/analytics-node/node_modules/superagent/components/RedVentures-reduce/index.js",
         "node_modules/analytics-node/node_modules/superagent/components/component-emitter/index.js",
+        "node_modules/analytics-node/node_modules/superagent/components/component-reduce/index.js",
         "node_modules/analytics-node/node_modules/superagent/lib/client.js",
         "node_modules/analytics-node/node_modules/superagent/lib/node/agent.js",
         "node_modules/analytics-node/node_modules/superagent/lib/node/index.js",
+        "node_modules/analytics-node/node_modules/superagent/lib/node/parsers/image.js",
         "node_modules/analytics-node/node_modules/superagent/lib/node/parsers/index.js",
         "node_modules/analytics-node/node_modules/superagent/lib/node/parsers/json.js",
         "node_modules/analytics-node/node_modules/superagent/lib/node/parsers/text.js",
@@ -1105,11 +1247,12 @@
         "node_modules/analytics-node/node_modules/superagent/lib/node/part.js",
         "node_modules/analytics-node/node_modules/superagent/lib/node/response.js",
         "node_modules/analytics-node/node_modules/superagent/lib/node/utils.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/component-emitter/index.js",
         "node_modules/analytics-node/node_modules/superagent/node_modules/cookiejar/cookiejar.js",
-        "node_modules/analytics-node/node_modules/superagent/node_modules/debug/debug.js",
-        "node_modules/analytics-node/node_modules/superagent/node_modules/debug/index.js",
-        "node_modules/analytics-node/node_modules/superagent/node_modules/debug/lib/debug.js",
-        "node_modules/analytics-node/node_modules/superagent/node_modules/emitter-component/index.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/extend/index.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/form-data/lib/form_data.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/form-data/node_modules/combined-stream/lib/combined_stream.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/lib/delayed_stream.js",
         "node_modules/analytics-node/node_modules/superagent/node_modules/formidable/benchmark/bench-multipart-parser.js",
         "node_modules/analytics-node/node_modules/superagent/node_modules/formidable/example/json.js",
         "node_modules/analytics-node/node_modules/superagent/node_modules/formidable/example/post.js",
@@ -1127,6 +1270,28 @@
         "node_modules/analytics-node/node_modules/superagent/node_modules/mime/mime.js",
         "node_modules/analytics-node/node_modules/superagent/node_modules/mime/test.js",
         "node_modules/analytics-node/node_modules/superagent/node_modules/qs/index.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/qs/lib/index.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/qs/lib/parse.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/qs/lib/stringify.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/qs/lib/utils.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/duplex.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/lib/_stream_duplex.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/lib/_stream_passthrough.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/lib/_stream_readable.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/lib/_stream_transform.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/lib/_stream_writable.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/core-util-is/lib/util.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/core-util-is/util.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/inherits/inherits.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/inherits/inherits_browser.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/inherits/test.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/isarray/build/build.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/isarray/index.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/node_modules/string_decoder/index.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/passthrough.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/readable.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/transform.js",
+        "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/writable.js",
         "node_modules/analytics-node/node_modules/superagent/node_modules/reduce-component/index.js",
         "node_modules/analytics-node/node_modules/superagent/superagent.js",
         "node_modules/analytics-node/node_modules/superagent-proxy/index.js",
@@ -1255,6 +1420,7 @@
         "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/pac-proxy-agent/node_modules/pac-resolver/node_modules/degenerator/node_modules/escodegen/node_modules/source-map/lib/source-map/base64-vlq.js",
         "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/pac-proxy-agent/node_modules/pac-resolver/node_modules/degenerator/node_modules/escodegen/node_modules/source-map/lib/source-map/base64.js",
         "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/pac-proxy-agent/node_modules/pac-resolver/node_modules/degenerator/node_modules/escodegen/node_modules/source-map/lib/source-map/binary-search.js",
+        "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/pac-proxy-agent/node_modules/pac-resolver/node_modules/degenerator/node_modules/escodegen/node_modules/source-map/lib/source-map/mapping-list.js",
         "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/pac-proxy-agent/node_modules/pac-resolver/node_modules/degenerator/node_modules/escodegen/node_modules/source-map/lib/source-map/source-map-consumer.js",
         "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/pac-proxy-agent/node_modules/pac-resolver/node_modules/degenerator/node_modules/escodegen/node_modules/source-map/lib/source-map/source-map-generator.js",
         "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/pac-proxy-agent/node_modules/pac-resolver/node_modules/degenerator/node_modules/escodegen/node_modules/source-map/lib/source-map/source-node.js",
@@ -1382,6 +1548,8 @@
         "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/socks-proxy-agent/node_modules/rainbowsocks/node_modules/debug/node_modules/ms/index.js",
         "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/socks-proxy-agent/node_modules/rainbowsocks/test.js",
         "node_modules/analytics-node/node_modules/superagent-proxy/node_modules/proxy-agent/node_modules/socks-proxy-agent/socks-proxy-agent.js",
+        "node_modules/analytics-node/node_modules/superagent-retry/lib/index.js",
+        "node_modules/analytics-node/node_modules/superagent-retry/lib/retries.js",
         "node_modules/analytics-node/node_modules/uid/index.js",
         "node_modules/async/lib/async.js",
         "node_modules/atom-message-panel/lib/LineMessageView.js",
@@ -1389,6 +1557,148 @@
         "node_modules/atom-message-panel/lib/PlainMessageView.js",
         "node_modules/atom-message-panel/lib/index.js",
         "node_modules/atom-message-panel/lib/utils.js",
+        "node_modules/atom-space-pen-views/lib/main.js",
+        "node_modules/atom-space-pen-views/lib/scroll-view.js",
+        "node_modules/atom-space-pen-views/lib/select-list-view.js",
+        "node_modules/atom-space-pen-views/lib/text-editor-view.js",
+        "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/lib/filter.js",
+        "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/lib/fuzzaldrin.js",
+        "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/lib/matcher.js",
+        "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/lib/scorer.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/lib/deprecation.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/lib/grim.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/index.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/browser.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/cake.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/coffee-script.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/command.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/grammar.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/helpers.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/index.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/lexer.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/nodes.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/optparse.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/parser.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/register.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/repl.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/rewriter.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/scope.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/sourcemap.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/examples/pow.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/index.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/register.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/Makefile.dryice.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/assert-shim.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/mini-require.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/suffix-browser.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/test-prefix.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/test-suffix.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/array-set.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64-vlq.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/binary-search.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/mapping-list.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-consumer.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-generator.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-node.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/util.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/intercept.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/lib/underscore-plus.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/node_modules/underscore/underscore.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/lib/space-pen.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/dist/cdn/jquery-2.1.3.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/dist/cdn/jquery-2.1.3.min.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/dist/jquery.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/dist/jquery.min.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/ajax/jsonp.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/ajax/load.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/ajax/parseJSON.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/ajax/parseXML.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/ajax/script.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/ajax/var/nonce.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/ajax/var/rquery.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/ajax/xhr.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/ajax.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/attributes/attr.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/attributes/classes.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/attributes/prop.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/attributes/support.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/attributes/val.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/attributes.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/callbacks.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/core/access.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/core/init.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/core/parseHTML.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/core/ready.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/core/var/rsingleTag.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/core.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/css/addGetHookIf.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/css/curCSS.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/css/defaultDisplay.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/css/hiddenVisibleSelectors.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/css/support.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/css/swap.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/css/var/cssExpand.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/css/var/getStyles.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/css/var/isHidden.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/css/var/rmargin.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/css/var/rnumnonpx.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/css.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/data/Data.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/data/accepts.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/data/var/data_priv.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/data/var/data_user.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/data.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/deferred.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/deprecated.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/dimensions.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/effects/Tween.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/effects/animatedSelector.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/effects.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/event/ajax.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/event/alias.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/event/support.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/event.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/exports/amd.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/exports/global.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/intro.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/jquery.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/manipulation/_evalUrl.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/manipulation/support.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/manipulation/var/rcheckableType.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/manipulation.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/offset.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/outro.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/queue/delay.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/queue.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/selector-native.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/selector-sizzle.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/selector.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/serialize.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/sizzle/dist/sizzle.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/sizzle/dist/sizzle.min.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/traversing/findFilter.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/traversing/var/rneedsContext.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/traversing.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/var/arr.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/var/class2type.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/var/concat.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/var/hasOwn.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/var/indexOf.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/var/pnum.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/var/push.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/var/rnotwhite.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/var/slice.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/var/strundefined.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/var/support.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/var/toString.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/src/wrap.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/lib/underscore-plus.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/node_modules/underscore/underscore.js",
         "node_modules/coffee-formatter/lib/formatter.js",
         "node_modules/coffee-formatter/node_modules/lazy/lazy.js",
         "node_modules/coffee-formatter/node_modules/optimist/example/bool.js",
@@ -1520,6 +1830,7 @@
         "node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64-vlq.js",
         "node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64.js",
         "node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/binary-search.js",
+        "node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/mapping-list.js",
         "node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-consumer.js",
         "node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-generator.js",
         "node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-node.js",
@@ -1675,12 +1986,13 @@
           "loophole": "^1.0.0",
           "node-dir": "^0.1.6",
           "node-uuid": "^1.4.1",
-          "prettydiff": "^1.6.13",
+          "prettydiff": "^1.8.8",
           "space-pen": "^4.3.0",
           "strip-json-comments": "^0.1.3",
           "temp": "^0.8.0",
           "typescript-formatter": "~0.1.4",
-          "yaml-front-matter": "^3.2.3"
+          "yaml-front-matter": "^3.2.3",
+          "atom-space-pen-views": "^2.0.3"
         }
       },
       {
@@ -1694,8 +2006,9 @@
           "component-type": "~1.0.0",
           "join-component": "~1.0.0",
           "lodash": "~2.4.1",
-          "superagent": "~0.16.0",
+          "superagent": "~0.19.1",
           "superagent-proxy": "~0.3.1",
+          "superagent-retry": "~0.4.0",
           "debug": "~1.0.4",
           "uid": "0.0.2"
         }
@@ -1711,21 +2024,56 @@
       {
         "paths": [
           "node_modules/analytics-node/node_modules/superagent",
-          "node_modules/analytics-node/node_modules/superagent/components/RedVentures-reduce",
           "node_modules/analytics-node/node_modules/superagent/components/component-emitter",
+          "node_modules/analytics-node/node_modules/superagent/components/component-reduce",
           "node_modules/analytics-node/node_modules/superagent/lib",
           "node_modules/analytics-node/node_modules/superagent/lib/node",
           "node_modules/analytics-node/node_modules/superagent/lib/node/parsers"
         ],
         "dependencies": {
-          "qs": "0.6.5",
+          "qs": "1.2.0",
           "formidable": "1.0.14",
-          "mime": "1.2.5",
-          "emitter-component": "1.0.0",
-          "methods": "0.0.1",
-          "cookiejar": "1.3.0",
-          "debug": "~0.7.2",
-          "reduce-component": "1.0.1"
+          "mime": "1.2.11",
+          "component-emitter": "1.1.2",
+          "methods": "1.0.1",
+          "cookiejar": "2.0.1",
+          "debug": "~1.0.1",
+          "reduce-component": "1.0.1",
+          "extend": "~1.2.1",
+          "form-data": "0.1.3",
+          "readable-stream": "1.0.27-1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/analytics-node/node_modules/superagent/node_modules/form-data/lib",
+          "node_modules/analytics-node/node_modules/superagent/node_modules/form-data"
+        ],
+        "dependencies": {
+          "combined-stream": "~0.0.4",
+          "mime": "~1.2.11",
+          "async": "~0.9.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/analytics-node/node_modules/superagent/node_modules/form-data/node_modules/combined-stream/lib",
+          "node_modules/analytics-node/node_modules/superagent/node_modules/form-data/node_modules/combined-stream"
+        ],
+        "dependencies": {
+          "delayed-stream": "0.0.5"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream",
+          "node_modules/analytics-node/node_modules/superagent/node_modules/readable-stream/lib"
+        ],
+        "dependencies": {
+          "core-util-is": "~1.0.0",
+          "isarray": "0.0.1",
+          "string_decoder": "~0.10.x",
+          "inherits": "~2.0.1"
         }
       },
       {
@@ -2033,6 +2381,88 @@
         ],
         "dependencies": {
           "space-pen": "^4"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/lib",
+          "node_modules/atom-space-pen-views"
+        ],
+        "dependencies": {
+          "fuzzaldrin": "^2.1.0",
+          "grim": "^1.0.0",
+          "space-pen": "^5.0.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/grim/lib",
+          "node_modules/atom-space-pen-views/node_modules/grim"
+        ],
+        "dependencies": {
+          "coffeestack": "^0.7.0",
+          "emissary": "^1.2.0",
+          "underscore-plus": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack"
+        ],
+        "dependencies": {
+          "coffee-script": "~1.7.0",
+          "source-map": "~0.1.31"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script",
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script"
+        ],
+        "dependencies": {
+          "mkdirp": "~0.3.5"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map",
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build",
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map",
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib",
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/test",
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/test/source-map"
+        ],
+        "dependencies": {
+          "amdefine": ">=0.0.4"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/lib",
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus"
+        ],
+        "dependencies": {
+          "underscore": "~1.6.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/lib"
+        ],
+        "dependencies": {
+          "grim": "^1.0.0",
+          "jquery": "^2.1.3",
+          "underscore-plus": "1.x"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/lib",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus"
+        ],
+        "dependencies": {
+          "underscore": "~1.6.0"
         }
       },
       {

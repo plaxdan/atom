@@ -2,29 +2,13 @@ CompletionProvider = require "./lib/completion-provider"
 
 module.exports =
 class Completion
-  editorSubscription: null
-  autocomplete: null
-  providers: []
+  autocompleteService: null
   constructor: ->
-    atom.packages.activatePackage("autocomplete-plus-async")
-      .then (pkg) =>
-        @autocomplete = pkg.mainModule
-        @registerProviders()
+    @registerProviders()
 
   registerProviders: ->
-    @editorSubscription = atom.workspaceView.eachEditorView (editorView) =>
-      if editorView.attached and not editorView.mini
-        provider = new CompletionProvider editorView
-
-        @autocomplete.registerProviderForEditorView provider, editorView
-
-        @providers.push provider
+    provider = new CompletionProvider
+    @autocompleteService = atom.services.provide 'autocomplete.provider', '1.0.0', provider: provider
 
   deactivate: ->
-    @editorSubscription?.off()
-    @editorSubscription = null
-
-    @providers.forEach (provider) =>
-      @autocomplete.unregisterProvider provider
-
-    @providers = []
+    @autocompleteService?.dispose()

@@ -2,21 +2,19 @@
 //  Base
 // ---------------------------------------------------------------------------
 
-    .editor, :host {
+    atom-text-editor, :host {
         background: @color-charcoal;
         color: @color-white_dark;
         line-height: 1.5em;
 
         .selection .region { background: rgba(255, 255, 255, @opacity-highlight); }
-        .scroll-view .underlayer { background: @image-noise; }
+        .underlayer { background: @image-noise; }
         .wrap-guide { background: @color-charcoal_light; }
 
     // -------------------------------------
     //  Scrollbar
     // -------------------------------------
-        .vertical-scrollbar {
-            top: 5px; right: 5px; bottom: 5px;
-        }
+        .vertical-scrollbar { top: 5px; right: 5px; bottom: 5px; }
 
     // -------------------------------------
     //  Gutter

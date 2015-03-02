@@ -1,0 +1,210 @@
+@modified-icon-width: @component-icon-size / 2;
+@tab-top-padding: @modular-scale-xxs * 1rem;
+@tab-max-width: 160px;
+@tab-min-width: @tab-height * 4;
+
+@tab-text-color: @fg-subtle;
+
+.close-icon-mixin() {
+  margin-top: -6px;
+  top: 50%;
+  right: 1rem;
+  width: 12px;
+  height: 12px;
+  border: none !important; //overrule default modified indicator
+  transform: scale(0);
+  transition: transform .2s .1s, color .2s .1s;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+    line-height: 1;
+    color: inherit;
+  }
+
+  &:hover {
+    color: @ui-accent;
+    transition: transform .1s, color .1s;
+  }
+}
+
+.tab-bar {
+
+  height: @tab-height + @tab-top-padding;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: @tab-bar-background-color;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    top: @tab-top-padding;
+    max-width: @tab-max-width;
+    min-width: @tab-min-width;
+    height: @tab-height;
+    line-height: @tab-height;
+    font-size: @modular-scale-m * 1rem;
+    padding: 0;
+    margin: 0;
+    color: @tab-text-color;
+    background: transparent;
+    border-top-left-radius: @component-border-radius;
+    border-top-right-radius: @component-border-radius;
+
+    &:hover {
+      color: @base-fg;
+      .close-icon {
+        transform: scale(1);
+        color: @base-fg;
+      }
+    }
+
+    .title {
+      padding:  0 @modular-scale-xxl * 1rem 0 @modular-scale-xl * 1rem;
+    }
+    &.active .title {
+      padding: 0 @modular-scale-xxl * 1rem 0 @modular-scale-xl * 1rem;
+    }
+
+    .close-icon {
+      .close-icon-mixin();
+    }
+  }
+
+  .tab.modified .close-icon:before {
+    content: "\f052";
+  }
+  .tab.modified:not(:hover) .close-icon {
+    .close-icon-mixin();
+    transform: scale(1);
+    &:before {
+      display: block; // overrule default style
+    }
+  }
+  .tab.modified:hover .close-icon {
+    color: @base-fg;
+    transform: scale(1);
+
+    &:hover {
+      color: @ui-accent;
+    }
+  }
+
+  .tab.is-dragging {
+    background: darken(@level-2-bg, 6%);
+    border-color: transparent;
+    opacity: .5;
+    & .close-icon,
+    &:before,
+    &:after {
+      visibility: hidden;
+    }
+  }
+
+  .placeholder {
+    margin: 0;
+    height: @tab-height + @tab-top-padding;
+    background: @level-5-bg;
+    pointer-events: none;
+    &:after {
+      top: @tab-height/2 + @tab-top-padding - 5px ;
+      width: 10px;
+      height: 10px;
+      margin: 0;
+      border-radius: 0;
+      border: 5px solid;
+      border-color: transparent transparent transparent @level-5-bg;
+      background: transparent;
+    }
+
+    &:last-child {
+      margin-left: -2px;
+
+      &:after {
+        margin-left: -10px;
+        border-color: transparent @level-5-bg transparent transparent;
+      }
+    }
+  }
+}
+
+// only show active tab in the active pane
+atom-pane.active .tab.active {
+  z-index: 1;
+  flex: 2 0 auto;
+  background-color: @tab-background-color-active;
+  color: contrast(@ui-theme-color, @base-fg, @level-1-bg);
+  padding: 0;
+
+  -webkit-filter: drop-shadow(0 0 1px rgba(0,0,0,.33));
+
+  .title {
+    padding: 0 @modular-scale-xxl * 1rem 0 @modular-scale-l * 1rem;
+  }
+
+  & .close-icon {
+    color: contrast(@ui-theme-color, @base-fg, @level-1-bg);
+    transform: scale(1);
+  }
+
+  &:hover .close-icon {
+    color: contrast(@ui-theme-color, @base-fg, @level-1-bg);
+  }
+  &:hover .close-icon:hover {
+    color: @ui-accent;
+  }
+
+  &:not([data-type="TextEditor"]) {
+    background-color: @level-3-bg;
+    color: contrast(@level-3-bg, @base-fg, @level-1-bg);
+    & .close-icon {
+      color:contrast(@level-3-bg, @base-fg, @level-1-bg);
+    }
+    &:hover .close-icon {
+      color: contrast(@level-3-bg, @base-fg, @level-1-bg);
+
+      &:hover {
+        color: @ui-accent;
+      }
+    }
+    &[data-type="MarkdownPreviewView"] {
+      background-color: #fff;
+      color: contrast(#fff, @base-fg, @level-1-bg);
+      & .close-icon {
+        color:contrast(#fff, @base-fg, @level-1-bg);
+      }
+      &:hover .close-icon {
+        color: contrast(#fff, @base-fg, @level-1-bg);
+
+        &:hover {
+          color: @ui-accent;
+        }
+      }
+    }
+    &[data-type="GitControlView"] {
+      background-color: @level-2-bg;
+      color: contrast(@level-2-bg, @base-fg, @level-1-bg);
+      & .close-icon {
+        color:contrast(@level-2-bg, @base-fg, @level-1-bg);
+      }
+      &:hover .close-icon {
+        color: contrast(@level-2-bg, @base-fg, @level-1-bg);
+
+        &:hover {
+          color: @ui-accent;
+        }
+      }
+    }
+  }
+}
+
+atom-pane .tab-bar .tab .title:before {
+  // importants overrule file-icons package
+  font-size: 1rem !important;
+  vertical-align: top !important;
+  line-height: @tab-height !important;
+}
