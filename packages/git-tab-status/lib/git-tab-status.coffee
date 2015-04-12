@@ -3,7 +3,7 @@ fs = require "fs"
 
 class GitTabStatus
     activate: ->
-        @_updateTabs();
+        @_updateTabs()
         @_setupWatchConditions()
 
     deactivate: ->
@@ -18,14 +18,17 @@ class GitTabStatus
 
     _getEditors: -> atom.workspace.getTextEditors()
 
-    _getRepo: -> atom.project.getRepo()
+    _getRepositories: -> atom.project.getRepositories()
 
     _updateTabStylesForPath: (path) =>
         if @_pathExists path
-            repo = @_getRepo()
-            isModified = repo?.isPathModified path
-            isNew = repo?.isPathNew path
-            isIgnored = repo?.isPathIgnored path
+            [isModified, isNew, isIgnored] = []
+
+            @_getRepositories().forEach (repo) ->
+                isModified ||= repo?.isPathModified(path)
+                isNew ||= repo?.isPathNew(path)
+                isIgnored ||= repo?.isPathIgnored(path)
+
             tab = @_findTabForPath path
             if isModified
                 tab?.addClass "status-modified"

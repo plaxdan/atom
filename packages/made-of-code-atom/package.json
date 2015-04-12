@@ -1,0 +1,34 @@
+{
+  "name": "made-of-code-atom",
+  "theme": "syntax",
+  "version": "0.2.2",
+  "description": "Made of Code Theme for Atom",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mkdynamic/made-of-code-atom"
+  },
+  "license": "",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "readme": "# Made of Code\n\n### An Atom Theme\n\n\n<img src=\"http://madeofcode.s3.amazonaws.com/assets/production/9/medium.png\" width=\"75%\" />\n\n\n## Install\n\n`$ apm install made-of-code-atom`\n\n---\nhttp://madeofcode.com/posts/29\n\nConverted from: https://github.com/mkdynamic/made-of-code-tmbundle\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/mkdynamic/made-of-code-atom/issues"
+  },
+  "homepage": "https://github.com/mkdynamic/made-of-code-atom",
+  "_id": "made-of-code-atom@0.2.2",
+  "_shasum": "58a05bf7ee03791e5bfa3d4d2d421c1190f9e7ec",
+  "_resolved": "file:../d-11524-16581-1kifdy1/package.tgz",
+  "_from": "../d-11524-16581-1kifdy1/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}

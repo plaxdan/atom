@@ -8,34 +8,34 @@ module.exports =
     # functions
 
     applyFont = (font) ->
-      body.setAttribute('isotope-light-ui-font', font)
+      body.setAttribute('data-isotope-light-ui-font', font)
 
     applyFontWeight = (weight) ->
-      body.setAttribute('isotope-light-ui-fontweight', weight)
+      body.setAttribute('data-isotope-light-ui-fontweight', weight)
 
     applyBackgroundGradient = () ->
       if atom.config.get('isotope-light-ui.backgroundGradient')
-        body.setAttribute('isotope-light-ui-bg-gradient', 'true')
+        body.setAttribute('data-isotope-light-ui-bg-gradient', 'true')
         atom.config.set('isotope-light-ui.backgroundImage', 'false')
       else
-        body.setAttribute('isotope-light-ui-bg-gradient', 'false')
+        body.setAttribute('data-isotope-light-ui-bg-gradient', 'false')
 
     applyBackgroundImage = () ->
       if atom.config.get('isotope-light-ui.backgroundImage')
         atom.config.set('isotope-light-ui.customBackgroundColor', 'false')
         atom.config.set('isotope-light-ui.backgroundGradient', 'false')
-        body.setAttribute('isotope-light-ui-bg-image', 'true')
+        body.setAttribute('data-isotope-light-ui-bg-image', 'true')
         body.style.backgroundImage =
           'url(' + atom.config.get('isotope-light-ui.backgroundImagePath') + ')'
       else
-        body.setAttribute('isotope-light-ui-bg-image', 'false')
+        body.setAttribute('data-isotope-light-ui-bg-image', 'false')
         body.style.backgroundImage = ''
 
     applyTooltipContrast = () ->
       if atom.config.get('isotope-light-ui.lowContrastTooltip')
-        body.setAttribute('isotope-light-ui-tooltip-lowcontrast', 'true')
+        body.setAttribute('data-isotope-light-ui-tooltip-lowcontrast', 'true')
       else
-        body.setAttribute('isotope-light-ui-tooltip-lowcontrast', 'false')
+        body.setAttribute('data-isotope-light-ui-tooltip-lowcontrast', 'false')
 
     applyEditorFont = () ->
       if atom.config.get('isotope-light-ui.matchEditorFont')
@@ -46,6 +46,12 @@ module.exports =
       else
         body.style.fontFamily = ''
 
+    applySpaciousMode = () ->
+      if atom.config.get('isotope-ui.spaciousMode')
+        body.setAttribute('data-isotope-ui-spacious', 'true')
+      else
+        body.setAttribute('data-isotope-ui-spacious', 'false')
+
 
     # run when atom is ready
     applyFont(atom.config.get('isotope-light-ui.fontFamily'))
@@ -54,6 +60,7 @@ module.exports =
     applyBackgroundImage()
     applyTooltipContrast()
     applyEditorFont()
+    applySpaciousMode()
 
 
     # run when configs change
@@ -78,6 +85,9 @@ module.exports =
 
     atom.config.onDidChange 'isotope-light-ui.matchEditorFont', ->
       applyEditorFont()
+
+    atom.config.onDidChange 'isotope-ui.spaciousMode', ->
+      applySpaciousMode()
 
     atom.config.onDidChange 'editor.fontFamily', ->
       applyEditorFont()

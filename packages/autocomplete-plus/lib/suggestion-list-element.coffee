@@ -1,9 +1,25 @@
-{CompositeDisposable} = require('atom')
-_ = require('underscore-plus')
+{CompositeDisposable} = require 'atom'
+_ = require 'underscore-plus'
+
+ItemTemplate = """
+  <span class="icon-container"></span>
+  <span class="left-label"></span>
+  <span class="word-container">
+    <span class="word"></span>
+    <span class="right-label"></span>
+  </span>
+"""
+
+IconTemplate = '<i class="icon"></i>'
+
+DefaultSuggestionTypeIconHTML =
+  'snippet': '<i class="icon-move-right"></i>'
 
 class SuggestionListElement extends HTMLElement
-  maxItems: 1000
+  maxItems: 200
   snippetRegex: /\$\{[0-9]+:([^}]+)\}/g
+  snippetMarkerChar: '|'
+  snippetMarkerRegex: /\|/g
 
   createdCallback: ->
     @subscriptions = new CompositeDisposable
@@ -47,7 +63,8 @@ class SuggestionListElement extends HTMLElement
 
   itemsChanged: ->
     @selectedIndex = 0
-    @renderItems()
+    atom.views.pollAfterNextUpdate?()
+    atom.views.updateDocument => @renderItems()
 
   addActiveClassToEditor: ->
     editorElement = atom.views.getView(atom.workspace.getActiveTextEditor())
@@ -103,66 +120,110 @@ class SuggestionListElement extends HTMLElement
     li.textContent = 'test'
     @ol.appendChild(li)
     itemHeight = li.offsetHeight
-    @ol.style['max-height'] = "#{maxVisibleItems * itemHeight}px"
+    paddingHeight = parseInt(getComputedStyle(this)['padding-top']) + parseInt(getComputedStyle(this)['padding-bottom']) ? 0
+    @style['max-height'] = "#{maxVisibleItems * itemHeight + paddingHeight}px"
     li.remove()
 
   renderItems: ->
-    items = @visibleItems() or []
-    items.forEach ({snippet, word, label, renderLabelAsHtml, className, prefix}, index) =>
-      li = @ol.childNodes[index]
-      unless li
-        li = document.createElement('li')
-        @ol.appendChild(li)
-        li.dataset.index = index
-
-      li.className = ''
-      li.classList.add(className) if className
-      li.classList.add('selected') if index is @selectedIndex
-      @selectedLi = li if index is @selectedIndex
-
-      wordSpan = li.childNodes[0]
-      unless wordSpan
-        wordSpan = document.createElement('span')
-        li.appendChild(wordSpan)
-        wordSpan.className = 'word'
-
-      replacement = word
-      if _.isString(snippet)
-        replacement = snippet.replace @snippetRegex, (match, snippetText) ->
-          "<span class=\"snippet-completion\">#{snippetText}</span>"
-
-      # highlight the prefix
-      displayHtml = ''
-      wordIndex = 0
-      lastWordIndex = 0
-      for ch, i in prefix
-        while wordIndex < replacement.length and replacement[wordIndex].toLowerCase() isnt ch.toLowerCase()
-          wordIndex += 1
-        preChar = replacement.substring(lastWordIndex, wordIndex)
-        highlightedChar = "<span class=\"character-match\">#{replacement[wordIndex]}</span>"
-        displayHtml = "#{displayHtml}#{preChar}#{highlightedChar}"
-        wordIndex += 1
-        lastWordIndex = wordIndex
-      displayHtml += replacement.substring(lastWordIndex)
-      wordSpan.innerHTML = displayHtml
-
-      labelSpan = li.childNodes[1]
-      if label
-        unless labelSpan
-          labelSpan = document.createElement('span')
-          li.appendChild(labelSpan) if label
-          labelSpan.className = 'completion-label text-smaller text-subtle'
-
-        if renderLabelAsHtml
-          labelSpan.innerHTML = label
-        else
-          labelSpan.textContent = label
-      else
-        labelSpan?.remove()
-
+    items = @visibleItems() ? []
+    @renderItem(item, index) for item, index in items
     li.remove() while li = @ol.childNodes[items.length]
-
     @selectedLi?.scrollIntoView(false)
+
+    firstChild = @ol.childNodes[0]
+    wordContainer = firstChild?.querySelector('.word-container')
+    marginLeft = 0
+    marginLeft = -wordContainer.offsetLeft if wordContainer?
+    @style['margin-left'] = "#{marginLeft}px"
+
+  renderItem: ({iconHTML, type, snippet, text, className, replacementPrefix, leftLabel, leftLabelHTML, rightLabel, rightLabelHTML}, index) ->
+    li = @ol.childNodes[index]
+    unless li
+      li = document.createElement('li')
+      li.innerHTML = ItemTemplate
+      li.dataset.index = index
+      @ol.appendChild(li)
+
+    li.className = ''
+    li.classList.add(className) if className
+    li.classList.add('selected') if index is @selectedIndex
+    @selectedLi = li if index is @selectedIndex
+
+    typeIconContainer = li.querySelector('.icon-container')
+    typeIconContainer.innerHTML = ''
+
+    sanitizedType = if _.isString(type) then type else ''
+    sanitizedIconHTML = if _.isString(iconHTML) then iconHTML else undefined
+    defaultLetterIconHTML = if sanitizedType then "<span class=\"icon-letter\">#{sanitizedType[0]}</span>" else ''
+    defaultIconHTML = DefaultSuggestionTypeIconHTML[sanitizedType] ? defaultLetterIconHTML
+    if (sanitizedIconHTML or defaultIconHTML) and iconHTML isnt false
+      typeIconContainer.innerHTML = IconTemplate
+      typeIcon = typeIconContainer.childNodes[0]
+      typeIcon.innerHTML = sanitizedIconHTML ? defaultIconHTML
+      typeIcon.classList.add(type) if type
+
+    wordSpan = li.querySelector('.word')
+    wordSpan.innerHTML = @getHighlightedHTML(text, snippet, replacementPrefix)
+
+    leftLabelSpan = li.querySelector('.left-label')
+    if leftLabelHTML?
+      leftLabelSpan.innerHTML = leftLabelHTML
+    else if leftLabel?
+      leftLabelSpan.textContent = leftLabel
+    else
+      leftLabelSpan.textContent = ''
+
+    rightLabelSpan = li.querySelector('.right-label')
+    if rightLabelHTML?
+      rightLabelSpan.innerHTML = rightLabelHTML
+    else if rightLabel?
+      rightLabelSpan.textContent = rightLabel
+    else
+      rightLabelSpan.textContent = ''
+
+  getHighlightedHTML: (text, snippet, replacementPrefix) ->
+    # 1. Pull the snippets out, replacing with placeholder
+    # 2. Highlight relevant characters
+    # 3. Place snippet HTML back at the placeholders
+
+    # Pull out snippet
+    # e.g. replacementPrefix: 'a', snippet: 'abc(${d}, ${e})f'
+    # ->   replacement: 'abc(|, |)f'
+    replacement = text
+    snippetCompletions = []
+    if _.isString(snippet)
+      replacement = snippet.replace @snippetRegex, (match, snippetText) =>
+        snippetCompletions.push "<span class=\"snippet-completion\">#{snippetText}</span>"
+        @snippetMarkerChar
+
+    # Add spans for replacement prefix
+    # e.g. replacement: 'abc(|, |)f'
+    # ->   highlightedHTML: '<span class="character-match">a</span>bc(|, |)f'
+    highlightedHTML = ''
+    wordIndex = 0
+    lastWordIndex = 0
+    for ch, i in replacementPrefix
+      while wordIndex < replacement.length and replacement[wordIndex].toLowerCase() isnt ch.toLowerCase()
+        wordIndex += 1
+
+      break if wordIndex >= replacement.length
+      preChar = replacement.substring(lastWordIndex, wordIndex)
+      highlightedChar = "<span class=\"character-match\">#{replacement[wordIndex]}</span>"
+      highlightedHTML = "#{highlightedHTML}#{preChar}#{highlightedChar}"
+      wordIndex += 1
+      lastWordIndex = wordIndex
+
+    highlightedHTML += replacement.substring(lastWordIndex)
+
+    # Place the snippets back at the placeholders
+    # e.g. highlightedHTML: '<span class="character-match">a</span>bc(|, |)f'
+    # ->   highlightedHTML: '<span class="character-match">a</span>bc(<span class="snippet-completion">d</span>, <span class="snippet-completion">e</span>)f'
+    if snippetCompletions.length
+      completionIndex = 0
+      highlightedHTML = highlightedHTML.replace @snippetMarkerRegex, (match, snippetText) ->
+        snippetCompletions[completionIndex++]
+
+    highlightedHTML
 
   dispose: ->
     @subscriptions.dispose()

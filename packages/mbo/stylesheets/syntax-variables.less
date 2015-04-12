@@ -1,0 +1,43 @@
+@import "colors";
+
+// This defines all syntax variables that syntax themes must implement when they
+// include a syntax-variables.less file.
+
+// General colors
+@syntax-text-color: @white-pastel;
+@syntax-cursor-color: @white-pastel;
+@syntax-selection-color: @gray-brownish;
+@syntax-background-color: @gray-very-dark;
+
+// Guide colors
+@syntax-wrap-guide-color: @gray-dark;
+@syntax-indent-guide-color: @gray-dark;
+@syntax-invisible-character-color: @gray-dark;
+
+// For find and replace markers
+@syntax-result-marker-color: @gray-light;
+@syntax-result-marker-color-selected: white;
+
+// Gutter colors
+@syntax-gutter-text-color: @gray;
+@syntax-gutter-text-color-selected: mix(@white-pastel, @gray-light);
+@syntax-gutter-background-color: lighten(@gray-very-dark, 5%);
+@syntax-gutter-background-color-selected: @gray-dark;
+
+// For git diff info. i.e. in the gutter
+@syntax-color-renamed: @blue;
+@syntax-color-added: @green;
+@syntax-color-modified: @orange;
+@syntax-color-removed: @red;
+
+// js syntax variables
+@syntax-js-entity-name-function: @blue;  // .entity.name.function (function name)
+@syntax-js-support-class: @white-pastel; // .support.class (global variable, e.g. window)
+@syntax-js-support-function: @blue;      // .support.function (global function call, e.g. require)
+@syntax-js-support-constant: @blue;      // .support.constant.dom (global function call, e.g. require)
+@syntax-js-function-keyword: @orange;    // .storage.type.function (function keyword)
+@syntax-js-brace: @white-pastel;         // .brace
+@syntax-js-operator: @white-pastel;      // .operator
+@syntax-js-var: @orange;                 // .storage.modifier (var)
+@syntax-js-number: @blue-dark;           // .constant.numeric (number)
+@syntax-js-quotes: @orange-light;        // .punctuation.definition.string (quotes)

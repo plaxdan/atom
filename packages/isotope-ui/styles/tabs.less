@@ -1,5 +1,5 @@
 @modified-icon-width: @component-icon-size / 2;
-@tab-top-padding: @modular-scale-xxs * 1rem;
+@tab-top-padding: @space;
 @tab-max-width: 160px;
 @tab-min-width: @tab-height * 4;
 
@@ -7,11 +7,13 @@
 
 .close-icon-mixin() {
   margin-top: -6px;
+  margin-right: -6px;
   top: 50%;
-  right: 1rem;
+  right: @scale-a-l * 1rem;
   width: 12px;
   height: 12px;
   border: none !important; //overrule default modified indicator
+  background: inherit;
   transform: scale(0);
   transition: transform .2s .1s, color .2s .1s;
 
@@ -37,6 +39,18 @@
   overflow-y: hidden;
   background: @tab-bar-background-color;
 
+  &:before {
+    content: '';
+    position: absolute;
+    top: @tab-height + @space;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    margin-top: -1px;
+    background: @stroke;
+    z-index: 1;
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -44,19 +58,21 @@
   .tab {
     top: @tab-top-padding;
     max-width: @tab-max-width;
-    min-width: @tab-min-width;
     height: @tab-height;
     line-height: @tab-height;
-    font-size: @modular-scale-m * 1rem;
+    font-size: @scale-a-m * 1rem;
     padding: 0;
     margin: 0;
     color: @tab-text-color;
     background: transparent;
-    border-top-left-radius: @component-border-radius;
-    border-top-right-radius: @component-border-radius;
+    border-top-left-radius: @component-border-radius * 1.5;
+    border-top-right-radius: @component-border-radius * 1.5;
+    border: 1px solid transparent;
+    border-bottom: none;
 
     &:hover {
       color: @base-fg;
+      background: @level-3-bg;
       .close-icon {
         transform: scale(1);
         color: @base-fg;
@@ -64,10 +80,7 @@
     }
 
     .title {
-      padding:  0 @modular-scale-xxl * 1rem 0 @modular-scale-l * 1rem;
-    }
-    &.active .title {
-      padding: 0 @modular-scale-xxl * 1rem 0 @modular-scale-l * 1rem;
+      padding: 0 20px 0 @space;
     }
 
     .close-icon {
@@ -75,40 +88,31 @@
     }
   }
 
-  .tab.modified .close-icon:before {
-    content: "\f052";
-  }
-  .tab.modified:not(:hover) .close-icon {
-    .close-icon-mixin();
-    transform: scale(1);
-    &:before {
-      display: block; // overrule default style
+  .tab.modified {
+    .close-icon:before {
+      content: "\f052";
     }
-  }
-  .tab.modified:hover .close-icon {
-    color: @base-fg;
-    transform: scale(1);
-
-    &:hover {
-      color: @ui-accent;
+    &:not(:hover) .close-icon {
+      .close-icon-mixin();
+      transform: scale(1);
+      &:before {
+        display: block; // overrule default style
+      }
     }
-  }
+    &:hover .close-icon {
+      color: @base-fg;
+      transform: scale(1);
 
-  .tab.is-dragging {
-    background: darken(@level-2-bg, 6%);
-    border-color: transparent;
-    opacity: .5;
-    & .close-icon,
-    &:before,
-    &:after {
-      visibility: hidden;
+      &:hover {
+        color: @ui-accent;
+      }
     }
   }
 
   .placeholder {
     margin: 0;
     height: @tab-height + @tab-top-padding;
-    background: @level-5-bg;
+    background: @ui-accent;
     pointer-events: none;
     &:after {
       top: @tab-height/2 + @tab-top-padding - 5px ;
@@ -117,7 +121,7 @@
       margin: 0;
       border-radius: 0;
       border: 5px solid;
-      border-color: transparent transparent transparent @level-5-bg;
+      border-color: transparent transparent transparent @ui-accent;
       background: transparent;
     }
 
@@ -126,25 +130,28 @@
 
       &:after {
         margin-left: -10px;
-        border-color: transparent @level-5-bg transparent transparent;
+        border-color: transparent @ui-accent transparent transparent;
       }
     }
   }
 }
 
-// only show active tab in the active pane
-atom-pane.active .tab.active {
+atom-pane .tab-bar .tab.active {
   z-index: 1;
-  flex: 2 0 auto;
+  background: @level-3-bg;
+  min-width: @tab-min-width;
+  border-color: @stroke;
+  .title {
+    padding-right: 20px; //overrule default
+  }
+}
+
+// only show active tab in the active pane
+atom-pane.active .tab-bar .tab.active {
   background-color: @tab-background-color-active;
   color: contrast(@ui-theme-color, @base-fg, @level-1-bg);
-  padding: 0;
 
-  .title {
-    padding: 0 @modular-scale-xxl * 1rem 0 @modular-scale-l * 1rem;
-  }
-
-  & .close-icon {
+  .close-icon {
     color: contrast(@ui-theme-color, @base-fg, @level-1-bg);
     transform: scale(1);
   }
@@ -201,23 +208,19 @@ atom-pane.active .tab.active {
 }
 
 
-atom-pane .tab-bar .tab .title:before {
-  // importants overrule file-icons package
-  font-size: 1rem !important;
-  vertical-align: top !important;
-  line-height: @tab-height !important;
-}
-
-
-body[isotope-ui-spacious='true'] {
+body[data-isotope-ui-spacious='true'] {
   .tab-bar {
-    height: @tab-height + @tab-top-padding + 1;
+    padding-top: 1px; //correct possible rounding error
+    height: pow(@scale-b, 4) * 1rem + @tab-top-padding;
+    &:before {
+      top: pow(@scale-b, 4) * 1rem + @tab-top-padding;
+    }
     .tab {
-      height: @tab-height + 1;
-      line-height: @tab-height + 1;
+      height: pow(@scale-b, 4) * 1rem;
+      line-height: pow(@scale-b, 4) * 1rem;
     }
   }
   atom-pane .tab-bar .tab .title:before {
-    line-height: @tab-height + 1;
+    line-height: pow(@scale-b, 4) * 1rem;
   }
 }

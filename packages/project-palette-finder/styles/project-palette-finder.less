@@ -1,0 +1,169 @@
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/stylesheets/ui-variables.less
+// for a full listing of what's available.
+@import "ui-variables";
+@import "syntax-variables";
+
+.palette {
+  overflow-y: auto;
+  .palette-controls {
+    margin-bottom: 10px;
+  }
+
+  input[type=checkbox] + label{
+    margin-left: 8px;
+  }
+
+  .color {
+    margin-bottom: 10px;
+    border: 1px solid @base-border-color;
+    overflow: hidden;
+
+    &:last-child {
+      margin: 0;
+    }
+
+    .color {
+      border: none;
+      margin: 0;
+    }
+
+    .color-preview {
+      display: block;
+      float: left;
+      margin-right: 10px;
+      width: 60px;
+      height: 60px;
+      position: relative;
+
+      &:before {
+        content: '';
+        background: url(atom://project-palette-finder/resources/transparent-background.png);
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+
+      &:after {
+        content: '';
+        background: inherit;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+    }
+
+    .color-name {
+      color: @text-color;
+    }
+
+    .color-line {
+      padding: 5px;
+      margin-top: 5px;
+      margin-left: 70px;
+    }
+
+    .color-path {
+      color: @text-color-info;
+      margin-left: 10px;
+    }
+  }
+
+  .grid {
+    .color {
+      float: left;
+      margin-right: 10px;
+      .color-preview {
+        margin: 0;
+      }
+      .color-name, .color-line, .color-path {
+        display: none;
+      }
+    }
+  }
+
+}
+
+.preview-pane {
+  position: relative;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+
+  .panel-heading {
+    -webkit-flex-shrink: 0;
+  }
+
+  .no-results-overlay {
+    visibility: hidden;
+  }
+
+  &.no-results .no-results-overlay {
+    visibility: visible;
+  }
+
+  .results-view {
+    overflow: auto;
+    position: relative;
+    padding: 0 @component-padding;
+    -webkit-flex: 1;
+
+    .search-result {
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+
+    .line-number {
+      margin-right: 1ex;
+      text-align: right;
+      display: inline-block;
+    }
+    .selected .line-number {
+      color: @text-color-selected;
+    }
+
+    .path-match-number {
+      padding-left: @component-padding;
+      color: @text-color-subtle;
+    }
+
+    .preview {
+      word-break: break-all;
+      font-family: monospace;
+    }
+
+    .selected {
+      .highlight-info {
+        box-shadow: inset 0 0 1px lighten(@background-color-info, 50%);
+      }
+
+      .highlight-error {
+        box-shadow: inset 0 0 1px lighten(@background-color-error, 25%);
+      }
+
+      .highlight-success {
+        box-shadow: inset 0 0 1px lighten(@background-color-success, 25%);
+      }
+    }
+
+    .color-match {
+      padding: 3px;
+      margin: -3px 0 0;
+      border-radius: 2px;
+    }
+  }
+}
+
+.color-suggestion .label {
+  opacity: 1 !important;
+}
+.color-suggestion-preview {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}

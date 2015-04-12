@@ -1,7 +1,7 @@
 {
   "name": "atom-alignment",
   "main": "./lib/atom-alignment",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "private": true,
   "description": "A simple key-binding for aligning multi-line and multiple selections in Atom (Based on the sublime text plugin)",
   "repository": {
@@ -21,10 +21,10 @@
     "url": "https://github.com/Freyskeyd/atom-alignment/issues"
   },
   "homepage": "https://github.com/Freyskeyd/atom-alignment",
-  "_id": "atom-alignment@0.11.0",
-  "_shasum": "794aa09b0e9a8859502f9bac61c83faf52d13ca0",
-  "_resolved": "file:../d-115125-40164-w6y2r5/package.tgz",
-  "_from": "../d-115125-40164-w6y2r5/package.tgz",
+  "_id": "atom-alignment@0.12.0",
+  "_shasum": "1fc901d8f79b4ee3a64eab8d4d615c4ae2a23999",
+  "_resolved": "file:../d-115220-687-f1yu84/package.tgz",
+  "_from": "../d-115220-687-f1yu84/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [

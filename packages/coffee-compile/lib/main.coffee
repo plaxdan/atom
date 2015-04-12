@@ -26,6 +26,11 @@ module.exports =
     focusEditorAfterCompile:
       type: 'boolean'
       default: false
+    compileCjsx:
+      type: 'boolean'
+      default: false
+      description: 'Provides support for an equivalent of JSX syntax in Coffeescript'
+      title: 'Compile CJSX'
 
   activate: ->
     atom.commands.add 'atom-workspace', 'coffee-compile:compile': => @display()

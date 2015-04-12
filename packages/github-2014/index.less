@@ -2,8 +2,12 @@ atom-text-editor, :host {
   background-color: rgb(255, 255, 255);
   color: rgb(51, 51, 51);
 
-  .invisible-character, .wrap-guide, .indent-guide, .invisible {
+  .invisible-character, .indent-guide, .invisible {
     color: rgb(232, 233, 232);
+  }
+
+  .wrap-guide {
+    background-color: rgb(232, 233, 232);
   }
 
   .gutter {
@@ -30,7 +34,7 @@ atom-text-editor, :host {
   }
 
   .selection .region {
-    background-color: rgb(175, 196, 218);
+    background-color: rgba(221, 221, 221, 0.4);
   }
 
   .cursor {
@@ -44,17 +48,24 @@ atom-text-editor, :host {
 }
 
 .comment {
-  color: rgb(150, 152, 150);
+  color: rgb(202, 203, 202);
 
-  &.yard {
-    color: darken(rgb(150, 152, 150), 2);
+  .xxx,
+  .yard,
+  .todo,
+  .fixme,
+  .changed,
+  .idea,
+  .hack,
+  .note {
+    color: darken(rgb(202, 203, 202), 9);
   }
 }
 
 .string {
   .punctuation.section.embedded,
   .punctuation.section.embedded .source, & {
-    color: rgb(24, 54, 145);
+    color: rgb(223, 80, 0);
   }
 
   .meta.embedded.line,
@@ -65,11 +76,17 @@ atom-text-editor, :host {
 
 .constant {
   &.numeric,
-  &.language,
   &.other.symbol,
-  &.character,
-  &.other {
+  &.language {
     color: rgb(0, 134, 179);
+  }
+
+  &.character {
+    color: rgb(99, 163, 92);
+  }
+
+  &.other {
+    color: rgb(51, 51, 51);
   }
 }
 
@@ -115,6 +132,11 @@ atom-text-editor, :host {
     background-color: rgb(255, 221, 221);
     color: rgb(255, 170, 170);
   }
+
+  &.inserted {
+    color: rgb(128, 200, 117);
+    background-color: rgb(221, 255, 224);
+  }
 }
 
 .invalid {
@@ -129,7 +151,8 @@ atom-text-editor, :host {
 
 .meta {
   &.structure.dictionary.json > .string.quoted.double.json,
-  &.structure.dictionary.json > .string.quoted.double.json .punctuation.string {
+  &.structure.dictionary.json > .string.quoted.double.json
+      .punctuation.string {
     color: rgb(0, 134, 179);
   }
 
@@ -174,7 +197,6 @@ atom-text-editor, :host {
 .bracket-matcher {
   .region {
     border-bottom: 0 none;
-    background-color: rgb(175, 196, 218);
-    opacity: 0.7;
+    background-color: rgb(221, 221, 221);
   }
 }

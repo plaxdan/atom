@@ -1,3 +1,22 @@
+# 2.0.0 - Even better everything
+* Improved pretty much everything
+* Now uses a stranded modular scale for better rhythm
+* Outlined elements for better contrast
+* More pizazz to the color variations
+* Better tabs, trees, editors, buttons, etc. etc.
+
+# 1.5.0 - The best Isotope yet
+* Improvements to background colors
+* Improved contrast
+* Better buttons
+* Better tabs
+
+# 1.4.1 - Whitespace
+* Store settings in data-* attributes for html standards compliance
+
+# 1.4.0 - Whitespace
+* Tweaks to the modular scale and overall spacing and layout improvements
+
 # 1.3.0 - Seamless tabs
 * Editor tabs not use the editor's background, others like settings have a default background.
 

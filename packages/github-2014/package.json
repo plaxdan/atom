@@ -1,7 +1,7 @@
 {
   "name": "github-2014",
   "theme": "syntax",
-  "version": "2.1.2",
+  "version": "2.3.0",
   "description": "Github's 2014 Syntax Theme.",
   "repository": {
     "type": "git",
@@ -17,10 +17,10 @@
     "url": "https://github.com/envygeeks/atom-github-2014-syntax-theme/issues"
   },
   "homepage": "https://github.com/envygeeks/atom-github-2014-syntax-theme",
-  "_id": "github-2014@2.1.2",
-  "_shasum": "6b5b3c48419ad61d7aba329864b5b847ed3edf78",
-  "_resolved": "file:../d-115123-791-1tsuw38/package.tgz",
-  "_from": "../d-115123-791-1tsuw38/package.tgz",
+  "_id": "github-2014@2.3.0",
+  "_shasum": "630134e4f7d8f63347338c864f2ce0c90cd0b2c1",
+  "_resolved": "file:../d-115219-24884-vajy2b/package.tgz",
+  "_from": "../d-115219-24884-vajy2b/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

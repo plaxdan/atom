@@ -1,6 +1,6 @@
 # Isotope Light UI theme
 
-This is a light fork of [isotope-light-ui](https://atom.io/themes/isotope-light-ui).
+This is a light fork of [isotope-ui](https://atom.io/themes/isotope-ui).
 
 A UI theme that offers endless possibilities: one Atom, many Isotopes ;) Isotope adapts to match any syntax theme and you can change its appearance quite extensively. It provides an easy-on-the-eyes backdrop for your code, with well balanced typography, whitespace and contrast.
 
@@ -14,7 +14,7 @@ A UI theme that offers endless possibilities: one Atom, many Isotopes ;) Isotope
 
 - Automatically adapts to your favourite syntax theme
 - Tweaks [minimap](https://atom.io/packages/minimap), [color-highlight](https://atom.io/packages/atom-color-highlight), [web-browser](https://atom.io/packages/web-browser) (more to come)
-- Looks awesome in [Distraction free mode](https://atom.io/packages/distraction-free-mode)
+- Looks awesome in [Zen](https://atom.io/packages/Zen)
 - Configurable!
 
 
@@ -26,8 +26,8 @@ A UI theme that offers endless possibilities: one Atom, many Isotopes ;) Isotope
 - Select hip 'thin' fonts, or trusty old 'regular'
 - Choose between a flat or gradient background.
 - Or even use any image as background (from your computer or [the internets](http://hubblesite.org)).
-- Make the layout take up less vertical space (e.g. for small screens).
 - Choose low contrast tooltips (or fancy colorful ones).
+- Choose a more spacious layout for your 27"
 - Change font-sizes for the entire UI (everything will scale to fit) by putting this in your stylesheet:
 
 ```
@@ -36,6 +36,7 @@ html, body { font-size: 9px; }
 
 
 ## Fonts
+
 This package includes a number of fonts that were designed especially for user interfaces. You can pick and choose without having to find and install anything:
 
 - Cantarell - the system font for GNOME 3 (by Dave Crossland)
@@ -48,10 +49,5 @@ This package includes a number of fonts that were designed especially for user i
 - Ubuntu - Ubuntu's system font (by Dalton Maag)
 - System default - Attempts to match your OS using this stack: 'Helvetica Neue', 'Segoe UI', Ubuntu, Cantarell, sans-serif
 
-## Plans
-
-- Tweak and improve stuff for specific packages
-- Use it every day
-- [Make it better almost every day](https://github.com/braver/isotope-light-ui/issues/2)
 
 Thanks to [@simurai](https://github.com/simurai) for the work on the [one-dark-ui](https://github.com/atom/one-dark-ui) theme that Isotope was forked from.

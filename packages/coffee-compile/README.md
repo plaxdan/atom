@@ -9,6 +9,7 @@ Preview, compile and/or save CoffeeScript in editor to Javascript
 - Compile on save (default: false)
 - Compile on save without preview pane (default: false)
 - Focus editor after compile (default: false)
+- Compile CJSX (default: false)
 
 ![](https://raw.github.com/adrianlee44/atom-coffee-compile/master/screenshot.png)
 
@@ -18,6 +19,7 @@ Preview, compile and/or save CoffeeScript in editor to Javascript
 - Add sourcemap support
 
 ## Changelog
+- 2015-04-09   v0.12.0   Added `Compile CJSX` option (disabled by default)
 - 2015-03-01   v0.11.0   Fixed compiled not searchable. Added coffee-compile to menu
 - 2015-01-29   v0.10.0   Updated coffee-script to 1.9.0
 - 2015-01-26   v0.9.1   Fixed `No top level function wrapper` not working

@@ -8,11 +8,11 @@
   metrics:
     userId: "40500e3fd44453a1e0c923aff91cee272f96181a"
   editor:
-    fontFamily: "Source Code Pro for Powerline"
     showIndentGuide: true
     scrollPastEnd: true
     invisibles: {}
-    fontSize: 15
+    fontFamily: "Source Code Pro for Powerline"
+    fontSize: 13
   core:
     ignoredNames: [
       ".git"
@@ -35,15 +35,14 @@
       "minimap-highlight-selected"
       "minimap-selection"
       "live-archive"
-      "styleguide"
-      "autocomplete"
       "language-diff"
-    ]
-    themes: [
-      "one-light-ui"
-      "monokai-light"
+      "crosshairs"
     ]
     projectHome: "/Users/daniel/dev/ds"
+    themes: [
+      "one-dark-ui"
+      "plaxdan-syntax"
+    ]
   "markdown-preview":
     breakOnSingleNewline: true
     grammars: [
@@ -67,8 +66,8 @@
   "highlight-selected":
     highlightBackgorund: false
     highlightBackground: true
-    lightTheme: true
     hideHighlightOnSelectedWord: true
+    lightTheme: true
   "atom-beautify":
     analytics: false
     _analyticsUserId: "13a9ebb4-3214-4a69-b0d5-c6c30f2d0481"
@@ -89,5 +88,22 @@
   "spell-check": {}
   "autocomplete-plus":
     includeCompletionsFromAllBuffers: true
-  "tree-view":
-    hideVcsIgnoredFiles: true
+    suggestionListFollows: "Word"
+  "tree-view": {}
+  "block-cursor":
+    preview: "The quick brown fox jumps over the lazy dog"
+    secondaryColor:
+      red: 0
+      green: 250
+      blue: 146
+      alpha: 1
+    primaryColor:
+      red: 0
+      green: 253
+      blue: 255
+      alpha: 1
+    pulseDuration: 800
+  "project-palette-finder":
+    paletteDisplay: "grid"
+    paletteSort: true
+  "ease-blink": {}
