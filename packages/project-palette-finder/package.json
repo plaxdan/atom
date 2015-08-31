@@ -1,7 +1,7 @@
 {
   "name": "project-palette-finder",
   "main": "./lib/project-palette-finder",
-  "version": "2.4.16",
+  "version": "2.4.17",
   "description": "Finds and archive colors defined in a project's less/sass/stylus files",
   "repository": {
     "type": "git",
@@ -35,58 +35,58 @@
       }
     }
   },
-  "readme": "# project-palette-finder package\n\n[![Build Status](https://travis-ci.org/abe33/atom-project-palette-finder.svg)](https://travis-ci.org/abe33/atom-project-palette-finder)\n\nFinds and exposes colors defined in a project's CSS, Less, Sass or Stylus files.\n\nThis package provides the following commands:\n\n * `palette:refresh` - Scans the project directory for Less, Sass (scss & sass) and Stylus files and search for variables containing colors. It do so at startup and everytime you trigger the `palette:refresh` command.\n * `palette:view` - Scans the project and display a view in the active pane that lists all the colors defined in the palette, with source and path to the definition.\n    <br> ![Palette View](https://raw.github.com/abe33/atom-project-palette-finder/master/screenshot.gif)\n * `palette:find-all-colors` - Scans the project for all colors in CSS, Less, Sass and Stylus files.\n    <br>![Palette Search](https://raw.github.com/abe33/atom-project-palette-finder/master/search.gif)\n\nIn that context the project's *palette* contains all the variables in the project that contains a color. And not all the color references in the project.\nTheses colors are then stored in a `Palette` object that is exposed by the package and can be used in several context (autocompletion, colors preview). After a project scan the colors can be retrieved with their name (the name of variable that hold them).\n\n### autocomplete-plus Binding\n\nIf the [autocomplete-plus](https://atom.io/packages/autocomplete-plus) package is installed, this package will automatically register a provider to preview and complete colors name as you type:\n\n![Palette View](https://raw.github.com/abe33/atom-project-palette-finder/master/autocomplete.gif)\n\n### API\n\nTo access the package you can use the following snippets:\n\n```coffee\nProjectPaletteFinder =\nrequire atom.packages.activePackages['project-palette-finder'].path\n\nProjectPaletteFinder =\nrequire atom.packages.getLoadedPackage('project-palette-finder').path\n```\n\n#### Retrieving The Palette\n\nTo access the project palette use:\n\n```coffee\npalette = ProjectPaletteFinder.palette\n```\n\nIt references a `Palette` instance containing as many `PaletteItem` as variables holding colors found in the project files.\n\n#### Retrieving Palette Items\n\nYou can retrieve items using the following methods:\n\n```coffee\npalette.getItemByName('@less_variable_name') # :PaletteItem\npalette.getItemsForPath('/path/to/file.sass') # :Array<PaletteItem>\npalette.getItemsForPathInRange('/path/to/file.styl', [[startRow, startCol], [endRow, endCol]]) # :Array<PaletteItem>\n```\n\n#### Palette Items\n\nA `PaletteItem` instance has the following properties:\n\n * `name` - The name of the variable holding the color\n * `filePath` - The path to the file that defines that color\n * `row` - The row at which the color is defined\n * `lineRange` - An array containing the start and end index of the color definition\n * `colorString` - The color string that was found during the project scan\n * `color` - The `Color` object representing this color.\n\nAnd the following method:\n\n * `getRange()` - Returns an Array representing the color string range as a valid Atom range in the form `[[startRow, startCol], [endRow, endCol]]`\n\n#### Color\n\nThe `Color` class is provided by the [pigments module](https://github.com/abe33/pigments) and offers conversions from many color spaces such RGB, HSL or HSV.\n\nThe `Color` class registers expressions to match and parse colors in strings, allowing to create a color with any valid strings such as:\n\n```coffee\n# All this colors are equal\nnew Color('red')\nnew Color('#f00')\nnew Color('#ff0000')\nnew Color('rgba(255,0,0,1)')\nnew Color('saturate(desaturate(rgba(255,0,0,1), 50%), 50%)')\nnew Color('vec4(1,0,0,1)')\nnew Color('0xffff0000')\n```\n\nBy default, the class offer support for every CSS color notations, Less, Sass, and Stylus color functions, GLSL `vec4` type and hexadecimal integer notation.\n\nThe project palette finder will also creates its own expression using the variables names, meaning that if a Sass file defines the following variable:\n\n```sass\n$color-red: red\n```\n\nCreating a color with `new Color('$color-red')` will produces the same color as `new Color('red')`.\n\nIt'll also enable to parse color operations that uses a color variable. For instance, the two following colors will be equal:\n\n```coffee\nnew Color('darken($color-red, 20%)')\nnew Color('darken(red, 20%)')\n```\n\n#### Accessing The Color Class\n\nThe class can be retrieved directly from the palette using:\n\n```coffee\nColor = palette.Color\n```\n\n#### Real World Example\n\nThe [atom-color-highlight package](https://atom.io/packages/atom-color-highlight) will make uses of the palette colors if the package is installed, allowing to highlights all the places a variable holding a color is used in a file.\n",
+  "readme": "<div class='alert alert-danger'>\nThis package is no longer maintained as it is now replaced by the [pigments package](https://atom.io/packages/pigments).\n<br/>If both packages are installed this package will not activate.\n</div>\n\n# project-palette-finder package\n\n[![Build Status](https://travis-ci.org/abe33/atom-project-palette-finder.svg)](https://travis-ci.org/abe33/atom-project-palette-finder)\n\nFinds and exposes colors defined in a project's CSS, Less, Sass or Stylus files.\n\nThis package provides the following commands:\n\n * `palette:refresh` - Scans the project directory for Less, Sass (scss & sass) and Stylus files and search for variables containing colors. It do so at startup and everytime you trigger the `palette:refresh` command.\n * `palette:view` - Scans the project and display a view in the active pane that lists all the colors defined in the palette, with source and path to the definition.\n    <br> ![Palette View](https://raw.github.com/abe33/atom-project-palette-finder/master/screenshot.gif)\n * `palette:find-all-colors` - Scans the project for all colors in CSS, Less, Sass and Stylus files.\n    <br>![Palette Search](https://raw.github.com/abe33/atom-project-palette-finder/master/search.gif)\n\nIn that context the project's *palette* contains all the variables in the project that contains a color. And not all the color references in the project.\nTheses colors are then stored in a `Palette` object that is exposed by the package and can be used in several context (autocompletion, colors preview). After a project scan the colors can be retrieved with their name (the name of variable that hold them).\n\n### autocomplete-plus Binding\n\nIf the [autocomplete-plus](https://atom.io/packages/autocomplete-plus) package is installed, this package will automatically register a provider to preview and complete colors name as you type:\n\n![Palette View](https://raw.github.com/abe33/atom-project-palette-finder/master/autocomplete.gif)\n\n### API\n\nTo access the package you can use the following snippets:\n\n```coffee\nProjectPaletteFinder =\nrequire atom.packages.activePackages['project-palette-finder'].path\n\nProjectPaletteFinder =\nrequire atom.packages.getLoadedPackage('project-palette-finder').path\n```\n\n#### Retrieving The Palette\n\nTo access the project palette use:\n\n```coffee\npalette = ProjectPaletteFinder.palette\n```\n\nIt references a `Palette` instance containing as many `PaletteItem` as variables holding colors found in the project files.\n\n#### Retrieving Palette Items\n\nYou can retrieve items using the following methods:\n\n```coffee\npalette.getItemByName('@less_variable_name') # :PaletteItem\npalette.getItemsForPath('/path/to/file.sass') # :Array<PaletteItem>\npalette.getItemsForPathInRange('/path/to/file.styl', [[startRow, startCol], [endRow, endCol]]) # :Array<PaletteItem>\n```\n\n#### Palette Items\n\nA `PaletteItem` instance has the following properties:\n\n * `name` - The name of the variable holding the color\n * `filePath` - The path to the file that defines that color\n * `row` - The row at which the color is defined\n * `lineRange` - An array containing the start and end index of the color definition\n * `colorString` - The color string that was found during the project scan\n * `color` - The `Color` object representing this color.\n\nAnd the following method:\n\n * `getRange()` - Returns an Array representing the color string range as a valid Atom range in the form `[[startRow, startCol], [endRow, endCol]]`\n\n#### Color\n\nThe `Color` class is provided by the [pigments module](https://github.com/abe33/pigments) and offers conversions from many color spaces such RGB, HSL or HSV.\n\nThe `Color` class registers expressions to match and parse colors in strings, allowing to create a color with any valid strings such as:\n\n```coffee\n# All this colors are equal\nnew Color('red')\nnew Color('#f00')\nnew Color('#ff0000')\nnew Color('rgba(255,0,0,1)')\nnew Color('saturate(desaturate(rgba(255,0,0,1), 50%), 50%)')\nnew Color('vec4(1,0,0,1)')\nnew Color('0xffff0000')\n```\n\nBy default, the class offer support for every CSS color notations, Less, Sass, and Stylus color functions, GLSL `vec4` type and hexadecimal integer notation.\n\nThe project palette finder will also creates its own expression using the variables names, meaning that if a Sass file defines the following variable:\n\n```sass\n$color-red: red\n```\n\nCreating a color with `new Color('$color-red')` will produces the same color as `new Color('red')`.\n\nIt'll also enable to parse color operations that uses a color variable. For instance, the two following colors will be equal:\n\n```coffee\nnew Color('darken($color-red, 20%)')\nnew Color('darken(red, 20%)')\n```\n\n#### Accessing The Color Class\n\nThe class can be retrieved directly from the palette using:\n\n```coffee\nColor = palette.Color\n```\n\n#### Real World Example\n\nThe [atom-color-highlight package](https://atom.io/packages/atom-color-highlight) will make uses of the palette colors if the package is installed, allowing to highlights all the places a variable holding a color is used in a file.\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/abe33/atom-project-palette-finder/issues"
   },
   "homepage": "https://github.com/abe33/atom-project-palette-finder",
-  "_id": "project-palette-finder@2.4.16",
-  "_shasum": "3e784afde85279c8afd22de2d8a4b58be8667b3b",
-  "_resolved": "file:../d-115217-69139-18nhkvn/package.tgz",
-  "_from": "../d-115217-69139-18nhkvn/package.tgz",
+  "_id": "project-palette-finder@2.4.17",
+  "_shasum": "95da76926c348a23aca3b071de86d84f731863d7",
+  "_resolved": "file:../d-115322-16324-t9newh/package.tgz",
+  "_from": "../d-115322-16324-t9newh/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
       {
         "name": "atom-space-pen-views",
-        "version": "2.0.4",
+        "version": "2.0.5",
         "path": "node_modules/atom-space-pen-views/lib/main.js"
-      },
-      {
-        "name": "grim",
-        "version": "1.2.0",
-        "path": "node_modules/atom-space-pen-views/node_modules/grim/lib/grim.js"
-      },
-      {
-        "name": "coffeestack",
-        "version": "1.1.1",
-        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/index.js"
-      },
-      {
-        "name": "coffee-script",
-        "version": "1.8.0",
-        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/coffee-script.js"
-      },
-      {
-        "name": "mkdirp",
-        "version": "0.3.5",
-        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/index.js"
-      },
-      {
-        "name": "source-map",
-        "version": "0.1.43",
-        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map.js"
-      },
-      {
-        "name": "amdefine",
-        "version": "0.1.0",
-        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js"
       },
       {
         "name": "space-pen",
         "version": "5.1.1",
         "path": "node_modules/atom-space-pen-views/node_modules/space-pen/lib/space-pen.js"
+      },
+      {
+        "name": "grim",
+        "version": "1.2.2",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/lib/grim.js"
+      },
+      {
+        "name": "coffeestack",
+        "version": "1.1.1",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/index.js"
+      },
+      {
+        "name": "coffee-script",
+        "version": "1.8.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/coffee-script.js"
+      },
+      {
+        "name": "mkdirp",
+        "version": "0.3.5",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/index.js"
+      },
+      {
+        "name": "source-map",
+        "version": "0.1.43",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map.js"
+      },
+      {
+        "name": "amdefine",
+        "version": "0.1.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js"
       },
       {
         "name": "jquery",
@@ -100,7 +100,7 @@
       },
       {
         "name": "es6-weak-map",
-        "version": "0.1.2",
+        "version": "0.1.4",
         "path": "node_modules/emissary/node_modules/es6-weak-map/index.js"
       },
       {
@@ -110,13 +110,8 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.6",
+        "version": "0.10.7",
         "path": "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
-      },
-      {
-        "name": "es6-symbol",
-        "version": "2.0.1",
-        "path": "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
         "name": "es6-iterator",
@@ -126,11 +121,6 @@
       {
         "name": "es6-symbol",
         "version": "2.0.1",
-        "path": "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/index.js"
-      },
-      {
-        "name": "es6-symbol",
-        "version": "0.1.1",
         "path": "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/index.js"
       },
       {
@@ -140,7 +130,7 @@
       },
       {
         "name": "grim",
-        "version": "1.2.0",
+        "version": "1.2.2",
         "path": "node_modules/event-kit/node_modules/grim/lib/grim.js"
       },
       {
@@ -170,7 +160,7 @@
       },
       {
         "name": "fs-plus",
-        "version": "2.5.0",
+        "version": "2.7.1",
         "path": "node_modules/fs-plus/lib/fs-plus.js"
       },
       {
@@ -285,7 +275,7 @@
       },
       {
         "name": "es6-weak-map",
-        "version": "0.1.2",
+        "version": "0.1.4",
         "path": "node_modules/property-accessors/node_modules/es6-weak-map/index.js"
       },
       {
@@ -295,13 +285,8 @@
       },
       {
         "name": "es5-ext",
-        "version": "0.10.6",
+        "version": "0.10.7",
         "path": "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/index.js"
-      },
-      {
-        "name": "es6-symbol",
-        "version": "2.0.1",
-        "path": "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js"
       },
       {
         "name": "es6-iterator",
@@ -311,11 +296,6 @@
       {
         "name": "es6-symbol",
         "version": "2.0.1",
-        "path": "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/index.js"
-      },
-      {
-        "name": "es6-symbol",
-        "version": "0.1.1",
         "path": "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-symbol/index.js"
       },
       {
@@ -346,48 +326,48 @@
         "node_modules/atom-space-pen-views/lib/scroll-view.js",
         "node_modules/atom-space-pen-views/lib/select-list-view.js",
         "node_modules/atom-space-pen-views/lib/text-editor-view.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/lib/deprecation.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/lib/grim.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/index.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/browser.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/cake.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/coffee-script.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/command.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/grammar.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/helpers.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/index.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/lexer.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/nodes.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/optparse.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/parser.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/register.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/repl.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/rewriter.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/scope.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/sourcemap.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/examples/pow.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/index.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/register.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/repl.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/Makefile.dryice.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/assert-shim.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/mini-require.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/suffix-browser.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/test-prefix.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/test-suffix.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/array-set.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64-vlq.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/binary-search.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/mapping-list.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-consumer.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-generator.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-node.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/util.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/intercept.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/lib/space-pen.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/lib/deprecation.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/lib/grim.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/index.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/browser.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/cake.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/coffee-script.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/command.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/grammar.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/helpers.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/index.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/lexer.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/nodes.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/optparse.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/parser.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/register.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/repl.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/rewriter.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/scope.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/sourcemap.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/examples/pow.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/index.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/register.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/repl.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/Makefile.dryice.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/assert-shim.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/mini-require.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/suffix-browser.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/test-prefix.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/test-suffix.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/array-set.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64-vlq.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/binary-search.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/mapping-list.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-consumer.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-generator.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-node.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/util.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/intercept.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/dist/cdn/jquery-2.1.3.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/dist/cdn/jquery-2.1.3.min.js",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/dist/jquery.js",
@@ -622,6 +602,11 @@
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/function/valid-function.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/global.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/index.js",
+        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/for-each.js",
+        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/index.js",
+        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/is.js",
+        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/validate-object.js",
+        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable/validate.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/_pack-ieee754.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/_unpack-ieee754.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/acosh/implement.js",
@@ -693,13 +678,6 @@
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/index.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/is-implemented.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/shim.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/implement.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-implemented.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-native-implemented.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-symbol.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/polyfill.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/#/index.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/#/pad.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/number/epsilon/implement.js",
@@ -783,6 +761,10 @@
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/valid-callable.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/valid-object.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/valid-value.js",
+        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-array-like-object.js",
+        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-array-like.js",
+        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-stringifiable-value.js",
+        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-stringifiable.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/reg-exp/#/index.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/reg-exp/#/is-sticky.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/reg-exp/#/is-unicode.js",
@@ -868,13 +850,6 @@
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/get.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/index.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/is-iterable.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/implement.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/index.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/is-implemented.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/is-native-implemented.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/is-symbol.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/polyfill.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/string.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/valid-iterable.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/implement.js",
@@ -883,7 +858,7 @@
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/is-native-implemented.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/is-symbol.js",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/polyfill.js",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/valid-symbol.js",
+        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/emissary/node_modules/es6-weak-map/polyfill.js",
         "node_modules/emissary/node_modules/es6-weak-map/valid-weak-map.js",
         "node_modules/event-kit/lib/composite-disposable.js",
@@ -1164,6 +1139,11 @@
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/function/valid-function.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/global.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/index.js",
+        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/iterable/for-each.js",
+        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/iterable/index.js",
+        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/iterable/is.js",
+        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/iterable/validate-object.js",
+        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/iterable/validate.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/math/_pack-ieee754.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/math/_unpack-ieee754.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/math/acosh/implement.js",
@@ -1235,13 +1215,6 @@
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/index.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/is-implemented.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/math/trunc/shim.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/implement.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/index.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-implemented.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-native-implemented.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/is-symbol.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/polyfill.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/number/#/index.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/number/#/pad.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/number/epsilon/implement.js",
@@ -1325,6 +1298,10 @@
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/object/valid-callable.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/object/valid-object.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/object/valid-value.js",
+        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-array-like-object.js",
+        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-array-like.js",
+        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-stringifiable-value.js",
+        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/object/validate-stringifiable.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/reg-exp/#/index.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/reg-exp/#/is-sticky.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/reg-exp/#/is-unicode.js",
@@ -1410,13 +1387,6 @@
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/get.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/index.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/is-iterable.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/implement.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/index.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/is-implemented.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/is-native-implemented.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/is-symbol.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/polyfill.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/string.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/valid-iterable.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-symbol/implement.js",
@@ -1425,7 +1395,7 @@
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-symbol/is-native-implemented.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-symbol/is-symbol.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-symbol/polyfill.js",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-symbol/valid-symbol.js",
+        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-symbol/validate-symbol.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/polyfill.js",
         "node_modules/property-accessors/node_modules/es6-weak-map/valid-weak-map.js",
         "node_modules/underscore-plus/lib/underscore-plus.js",
@@ -1433,21 +1403,19 @@
         "node_modules/underscore-plus/node_modules/underscore/underscore.js"
       ],
       ".json": [
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/package.json",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/package.json",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/package.json",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/package.json",
-        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/package.json",
-        "node_modules/atom-space-pen-views/node_modules/grim/package.json",
         "node_modules/atom-space-pen-views/node_modules/space-pen/api.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/package.json",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/bower.json",
         "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/jquery/package.json",
         "node_modules/atom-space-pen-views/node_modules/space-pen/package.json",
         "node_modules/atom-space-pen-views/package.json",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/d/package.json",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/package.json",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/package.json",
-        "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/package.json",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/package.json",
         "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/package.json",
         "node_modules/emissary/node_modules/es6-weak-map/package.json",
@@ -1485,9 +1453,7 @@
         "node_modules/pigments/package.json",
         "node_modules/prolix/package.json",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/d/package.json",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/package.json",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/package.json",
-        "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/package.json",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/package.json",
         "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-symbol/package.json",
         "node_modules/property-accessors/node_modules/es6-weak-map/package.json",
@@ -1526,50 +1492,7 @@
         ],
         "dependencies": {
           "fuzzaldrin": "^2.1.0",
-          "grim": "^1.0.0",
           "space-pen": "^5.0.1"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/atom-space-pen-views/node_modules/grim/lib",
-          "node_modules/atom-space-pen-views/node_modules/grim"
-        ],
-        "dependencies": {
-          "coffeestack": "^1",
-          "emissary": "^1.2.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack"
-        ],
-        "dependencies": {
-          "coffee-script": "~1.8.0",
-          "fs-plus": "^2.5.0",
-          "source-map": "~0.1.43"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script",
-          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script"
-        ],
-        "dependencies": {
-          "mkdirp": "~0.3.5"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map",
-          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build",
-          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map",
-          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib",
-          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/test",
-          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/coffeestack/node_modules/source-map/test/source-map"
-        ],
-        "dependencies": {
-          "amdefine": ">=0.0.4"
         }
       },
       {
@@ -1581,6 +1504,48 @@
           "grim": "^1.0.0",
           "jquery": "^2.1.3",
           "underscore-plus": "1.x"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/lib",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim"
+        ],
+        "dependencies": {
+          "coffeestack": "^1",
+          "emissary": "^1.2.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack"
+        ],
+        "dependencies": {
+          "coffee-script": "~1.8.0",
+          "fs-plus": "^2.5.0",
+          "source-map": "~0.1.43"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script"
+        ],
+        "dependencies": {
+          "mkdirp": "~0.3.5"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/test",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/test/source-map"
+        ],
+        "dependencies": {
+          "amdefine": ">=0.0.4"
         }
       },
       {
@@ -1602,9 +1567,9 @@
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.4",
-          "es6-iterator": "~0.1.1",
-          "es6-symbol": "0.1.x"
+          "es5-ext": "~0.10.6",
+          "es6-iterator": "~0.1.3",
+          "es6-symbol": "~2.0.1"
         }
       },
       {
@@ -1643,6 +1608,7 @@
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/function/#",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/function",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext",
+          "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/iterable",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/acosh",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/math/asinh",
@@ -1718,6 +1684,7 @@
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/error",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/function/#",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/function",
+          "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/iterable",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/math",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/math/acosh",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/test/math/asinh",
@@ -1776,16 +1743,6 @@
       },
       {
         "paths": [
-          "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol",
-          "node_modules/emissary/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/test"
-        ],
-        "dependencies": {
-          "d": "~0.1.1",
-          "es5-ext": "~0.10.5"
-        }
-      },
-      {
-        "paths": [
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/#",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/test/#",
@@ -1799,22 +1756,12 @@
       },
       {
         "paths": [
-          "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol",
-          "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/test"
-        ],
-        "dependencies": {
-          "d": "~0.1.1",
-          "es5-ext": "~0.10.5"
-        }
-      },
-      {
-        "paths": [
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol",
           "node_modules/emissary/node_modules/es6-weak-map/node_modules/es6-symbol/test"
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.4"
+          "es5-ext": "~0.10.5"
         }
       },
       {
@@ -1994,9 +1941,9 @@
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.4",
-          "es6-iterator": "~0.1.1",
-          "es6-symbol": "0.1.x"
+          "es5-ext": "~0.10.6",
+          "es6-iterator": "~0.1.3",
+          "es6-symbol": "~2.0.1"
         }
       },
       {
@@ -2035,6 +1982,7 @@
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/function/#",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/function",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext",
+          "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/iterable",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/math",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/math/acosh",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/math/asinh",
@@ -2110,6 +2058,7 @@
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/test/error",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/test/function/#",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/test/function",
+          "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/test/iterable",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/test/math",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/test/math/acosh",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/test/math/asinh",
@@ -2168,16 +2117,6 @@
       },
       {
         "paths": [
-          "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol",
-          "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es5-ext/node_modules/es6-symbol/test"
-        ],
-        "dependencies": {
-          "d": "~0.1.1",
-          "es5-ext": "~0.10.5"
-        }
-      },
-      {
-        "paths": [
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/#",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/test/#",
@@ -2191,22 +2130,12 @@
       },
       {
         "paths": [
-          "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol",
-          "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-iterator/node_modules/es6-symbol/test"
-        ],
-        "dependencies": {
-          "d": "~0.1.1",
-          "es5-ext": "~0.10.5"
-        }
-      },
-      {
-        "paths": [
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-symbol",
           "node_modules/property-accessors/node_modules/es6-weak-map/node_modules/es6-symbol/test"
         ],
         "dependencies": {
           "d": "~0.1.1",
-          "es5-ext": "~0.10.4"
+          "es5-ext": "~0.10.5"
         }
       },
       {

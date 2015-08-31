@@ -1,0 +1,18 @@
+@import "ui-variables";
+
+.editor.is-focused {
+  .crosshair {
+    height: 100%;
+    width: 1px; // overridden in CrosshairsView
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    background-color: white;
+    opacity: 0.1;
+  }
+  .has-selection {
+    .crosshair {
+      display: none !important;
+    }
+  }
+}

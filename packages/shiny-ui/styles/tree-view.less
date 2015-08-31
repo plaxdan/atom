@@ -1,0 +1,100 @@
+@import "ui-variables";
+
+.tree-view-resizer {
+    &.tool-panel {
+        //border-right: 1px solid #ddd;
+    }
+
+    .tree-view-scroller {
+        overflow-x: hidden;
+    }
+}
+
+.tree-view,
+.tree-view:focus {
+    transition: all .2s ease;
+    font-size: @font-size;
+    padding: 10px 20px 10px 5px;
+    border-right: none;
+    background: @tree-view-background-color;
+
+    .list-item,
+    .list-item > span {
+        color: @text-color;
+        &:before {
+            color: lighten(@text-color, 10%);
+        }
+
+    }
+
+    .status-added {
+        > .list-item,
+        > .list-item > span,
+        > span {
+            color: @text-color-added;
+            &:before {
+                color: @text-color-added;
+            }
+        }
+    }
+
+    .status-renamed {
+        > .list-item,
+        > .list-item > span,
+        > span {
+            color: @text-color-renamed;
+            &:before {
+                color: @text-color-renamed;
+            }
+        }
+    }
+
+    .status-removed {
+        > .list-item,
+        > .list-item > span,
+        > span {
+            color: @text-color-removed;
+            &:before {
+                color: @text-color-removed;
+            }
+        }
+    }
+
+    .status-modified {
+        > .list-item,
+        > .list-item > span,
+        > span {
+            color: @text-color-modified;
+            &:before {
+                color: @text-color-modified;
+            }
+        }
+    }
+
+    .status-ignored {
+        > .list-item,
+        > .list-item > span,
+        > span {
+            color: @text-color-ignored;
+            &:before {
+                color: @text-color-ignored;
+            }
+        }
+    }
+
+    .selected {
+        > .list-item,
+        > .list-item > span,
+        > span {
+            background-color: transparent;
+            color: #fff;
+            &:before {
+                color: #fff;
+            }
+        }
+        &:before {
+            display: block !important;
+        }
+    }
+
+}

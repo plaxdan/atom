@@ -1,8 +1,5 @@
-coffee = require 'coffee-script'
-fs     = require 'fs'
-path   = require 'path'
-
-cjsx_transform = null
+fsUtil        = require './fs-util'
+pluginManager = require './plugin-manager'
 
 module.exports =
   ###
@@ -18,20 +15,25 @@ module.exports =
 
   ###
   @name compile
-  @param {Editor} editor
   @param {String} code
+  @param {Editor} editor
   @returns {String} Compiled code
   ###
-  compile: (code, literate = false) ->
-    bare  = atom.config.get('coffee-compile.noTopLevelFunctionWrapper')
-    bare ?= true
+  compile: (code, editor) ->
+    language = pluginManager.getLanguageByScope editor.getGrammar().scopeName
 
-    if atom.config.get('coffee-compile.compileCjsx')
-      unless cjsx_transform
-        cjsx_transform = require 'coffee-react-transform'
-      code = cjsx_transform(code)
+    return code unless language?
 
-    return coffee.compile code, {bare, literate}
+    for preCompiler in language.preCompilers
+      code = preCompiler code, editor
+
+    for compiler in language.compilers
+      code = compiler code, editor
+
+    for postCompiler in language.postCompilers
+      code = postCompiler code, editor
+
+    return code
 
   ###
   @name getSelectedCode
@@ -49,34 +51,25 @@ module.exports =
     return text
 
   ###
-  @name isLiterate
-  @param {Editor} editor
-  @returns {Boolean}
-  ###
-  isLiterate: (editor) ->
-    grammarScopeName = editor.getGrammar().scopeName
-
-    return grammarScopeName is "source.litcoffee"
-
-  ###
   @name compileToFile
   @param {Editor} editor
-  @param {Function} callback
   ###
-  compileToFile: (editor, callback) ->
+  compileToFile: (editor) ->
     try
-      literate = @isLiterate editor
-      text     = @compile editor.getText(), literate
-      srcPath  = editor.getPath()
-      srcExt   = path.extname srcPath
-      destPath = path.join(
-        path.dirname(srcPath), "#{path.basename(srcPath, srcExt)}.js"
-      )
-      fs.writeFile destPath, text, callback
+      srcPath = editor.getPath()
+
+      return unless fsUtil.isPathInSrc srcPath
+
+      text     = @compile editor.getText(), editor
+      destPath = fsUtil.resolvePath editor.getPath()
+
+      unless atom.project.contains(destPath)
+        atom.notifications.addError "Compile-compile: Failed to compile to file",
+          detail: "Cannot write outside of project root"
+
+      destPath = fsUtil.toExt destPath, 'js'
+      fsUtil.writeFile destPath, text
 
     catch e
-      console.error "Coffee-compile: #{e.stack}"
-
-  checkGrammar: (editor) ->
-    grammars = atom.config.get('coffee-compile.grammars') or []
-    return (grammar = editor.getGrammar().scopeName) in grammars
+      atom.notifications.addError "Compile-compile: Failed to compile to file",
+        detail: e.stack

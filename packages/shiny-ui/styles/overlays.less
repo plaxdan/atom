@@ -1,0 +1,75 @@
+@import "ui-variables";
+
+atom-panel.modal:not(.select-list) {
+    padding: @component-padding;
+
+    atom-text-editor[mini] {
+        margin: @component-padding 0px;
+    }
+
+    > div {
+        padding: @component-padding;
+    }
+}
+
+atom-panel.modal {
+    color: @text-color;
+    background-color: @overlay-background-color;
+    padding: 0px;
+    border: none;
+    box-shadow: 0 5px 40px darken(@base-border-color, 20%);
+    border-radius: @component-border-radius;
+
+    atom-text-editor[mini] {
+        margin: @component-padding;
+        padding: @component-padding/2;
+        height: @component-line-height + @component-padding;
+        max-height: @component-line-height + @component-padding;
+        box-shadow: 0px 0px 0px 4px lighten(@background-color-selected, 25%);
+        border: 1px solid @background-color-selected;
+    }
+
+    .select-list ol.list-group,
+    &.select-list ol.list-group {
+
+        background-color: @base-background-color;
+
+        li {
+            padding: @component-padding/2 @component-padding;
+            font-size: @font-size;
+            border-top: 1px solid @inset-panel-border-color;
+
+            &:last-child {
+                border-bottom: 1px solid @inset-panel-border-color;
+            }
+
+            &.selected {
+                border-radius: 0px;
+            }
+            &.two-lines {
+                padding: @component-padding @component-padding;
+
+                .primary-line {
+                    line-height: 1.4;
+                }
+                .secondary-line {
+                    line-height: 1.4;
+                }
+            }
+
+            .status.icon {
+                float: right;
+                margin-left: @component-icon-padding;
+                &:before {
+                    margin-right: 0;
+                }
+            }
+        }
+
+    }
+
+    .error-message,
+    .loading-message {
+        padding: @component-padding;
+    }
+}

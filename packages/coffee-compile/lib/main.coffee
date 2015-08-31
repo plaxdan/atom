@@ -1,44 +1,39 @@
 url         = require 'url'
 querystring = require 'querystring'
+cson        = require 'season'
 
 CoffeeCompileEditor = require './coffee-compile-editor'
+coffeeProvider      = require './providers/coffee-provider'
+configManager       = require './config-manager'
+fsUtil              = require './fs-util'
+pluginManager       = require './plugin-manager'
 util                = require './util'
+{CompositeDisposable} = require 'atom'
 
 module.exports =
-  config:
-    grammars:
-      type: 'array'
-      default: [
-        'source.coffee'
-        'source.litcoffee'
-        'text.plain'
-        'text.plain.null-grammar'
-      ]
-    noTopLevelFunctionWrapper:
-      type: 'boolean'
-      default: true
-    compileOnSave:
-      type: 'boolean'
-      default: false
-    compileOnSaveWithoutPreview:
-      type: 'boolean'
-      default: false
-    focusEditorAfterCompile:
-      type: 'boolean'
-      default: false
-    compileCjsx:
-      type: 'boolean'
-      default: false
-      description: 'Provides support for an equivalent of JSX syntax in Coffeescript'
-      title: 'Compile CJSX'
-
+  config: require '../config'
   activate: ->
+    configManager.initProjectConfig()
+
+    @saveDisposables = new CompositeDisposable
+    @pkgDisposables = new CompositeDisposable
+
     atom.commands.add 'atom-workspace', 'coffee-compile:compile': => @display()
 
-    if atom.config.get('coffee-compile.compileOnSaveWithoutPreview')
-      atom.commands.add 'atom-workspace', 'core:save': => @save()
+    @pkgDisposables.add configManager.observe 'compileOnSaveWithoutPreview', (value) =>
+      @saveDisposables.dispose()
+      @saveDisposables = new CompositeDisposable
 
-    atom.workspace.addOpener (uriToOpen) ->
+      if value
+        @saveDisposables.add atom.workspace.observeTextEditors (editor) =>
+          @saveDisposables.add editor.onDidSave =>
+            @save(editor)
+
+    # NOTE: Remove once coffeescript provider is moved to a new package
+    unless pluginManager.isPluginRegistered(coffeeProvider)
+      @registerProviders coffeeProvider
+
+    @pkgDisposables.add atom.workspace.addOpener (uriToOpen) ->
       {protocol, pathname} = url.parse uriToOpen
       pathname = querystring.unescape(pathname) if pathname
 
@@ -51,12 +46,16 @@ module.exports =
 
       return new CoffeeCompileEditor {sourceEditor}
 
-  save: ->
-    editor = atom.workspace.getActiveTextEditor()
+  deactivate: ->
+    @pkgDisposables.dispose()
 
-    return if not editor? or not util.checkGrammar editor
+  save: (editor) ->
+    return unless editor?
 
-    util.compileToFile editor
+    isPathInSrc = !!editor.getPath() and fsUtil.isPathInSrc(editor.getPath())
+
+    if isPathInSrc and pluginManager.isEditorLanguageSupported(editor)
+      util.compileToFile editor
 
   display: ->
     editor     = atom.workspace.getActiveTextEditor()
@@ -64,12 +63,17 @@ module.exports =
 
     return unless editor?
 
-    unless util.checkGrammar editor
-      return console.warn("Cannot compile non-Coffeescript to Javascript")
+    unless pluginManager.isEditorLanguageSupported editor
+      return console.warn("Coffee compile: Invalid language")
 
     atom.workspace.open "coffeecompile://editor/#{editor.id}",
       searchAllPanes: true
       split: "right"
-    .then ->
-      if atom.config.get('coffee-compile.focusEditorAfterCompile')
+    .then (editor) ->
+      editor.renderCompiled()
+
+      if configManager.get('focusEditorAfterCompile')
         activePane.activate()
+
+  registerProviders: (provider) ->
+    pluginManager.register provider

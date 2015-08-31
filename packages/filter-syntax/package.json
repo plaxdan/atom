@@ -1,0 +1,40 @@
+{
+  "name": "filter-syntax",
+  "theme": "syntax",
+  "version": "0.1.0",
+  "description": "An Atom syntax theme with unbleached paper background colors and vibrant foreground colors.",
+  "keywords": [
+    "colorful",
+    "light",
+    "syntax",
+    "theme"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikol/filter-syntax"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "readme": "# filter-syntax theme\n\nA positive contrast Atom syntax theme with unbleached paper background colors,\nvibrant foreground colors, and cursor line highlighting.\n\n![Screenshot: JavaScript grammar.](https://raw.githubusercontent.com/mikol/filter-syntax/master/screenshots/javascript.png)\n\n![Screenshot: JavaScript grammar with selection region.](https://raw.githubusercontent.com/mikol/filter-syntax/master/screenshots/javascript-selection.png)\n\n![Screenshot: HTML grammar.](https://raw.githubusercontent.com/mikol/filter-syntax/master/screenshots/html.png)\n\n![Screenshot: LESS grammar.](https://raw.githubusercontent.com/mikol/filter-syntax/master/screenshots/less-css.png)\n\n![Screenshot: Markdown grammar.](https://raw.githubusercontent.com/mikol/filter-syntax/master/screenshots/markdown.png)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/mikol/filter-syntax/issues"
+  },
+  "homepage": "https://github.com/mikol/filter-syntax",
+  "_id": "filter-syntax@0.1.0",
+  "_shasum": "53081ba62775d08d8fd729b69f696bd31f5e3f8b",
+  "_resolved": "file:../d-115725-1389-1ai8mf/package.tgz",
+  "_from": "../d-115725-1389-1ai8mf/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}

@@ -8,11 +8,10 @@
   metrics:
     userId: "40500e3fd44453a1e0c923aff91cee272f96181a"
   editor:
-    showIndentGuide: true
     scrollPastEnd: true
     invisibles: {}
-    fontFamily: "Source Code Pro for Powerline"
-    fontSize: 13
+    showIndentGuide: true
+    fontSize: 11
   core:
     ignoredNames: [
       ".git"
@@ -28,20 +27,19 @@
       "todo-show"
       "glist"
       "omnisharp-atom"
-      "minimap"
       "minimap-color-highlight"
-      "minimap-find-and-replace"
-      "minimap-git-diff"
-      "minimap-highlight-selected"
-      "minimap-selection"
       "live-archive"
       "language-diff"
       "crosshairs"
+      "language-jsx"
+      "url-encode"
+      "atom-color-highlight"
     ]
     projectHome: "/Users/daniel/dev/ds"
+    destroyEmptyPanes: false
     themes: [
-      "one-dark-ui"
-      "plaxdan-syntax"
+      "one-light-ui"
+      "paradise-light-syntax"
     ]
   "markdown-preview":
     breakOnSingleNewline: true
@@ -76,15 +74,15 @@
   minimap:
     plugins:
       selection: true
-      "git-diff": true
       "highlight-selected": true
       "color-highlight": true
       "find-and-replace": true
+      "minimap-hide": true
+      bookmarks: true
+      pigments: true
+      "git-diff": true
     v4Preview: true
-  "isotope-ui":
-    fontFamily: "Oxygen"
-    colorTreeSelection: false
-    gutterStyle: false
+    scrollAnimation: true
   "spell-check": {}
   "autocomplete-plus":
     includeCompletionsFromAllBuffers: true
@@ -107,3 +105,26 @@
     paletteDisplay: "grid"
     paletteSort: true
   "ease-blink": {}
+  "git-plus": {}
+  "git-blame": {}
+  "one-dark-ui":
+    layoutMode: "Compact"
+  "apathy-theme": {}
+  "base16-syntax":
+    scheme: "Twilight"
+    matchUserInterfaceTheme: false
+  "one-light-ui":
+    layoutMode: "Compact"
+  tabs:
+    usePreviewTabs: true
+  typewriter:
+    scopes: "source.coffee,source.litcoffee,source.coffee.md,source.json"
+  pigments: {}
+  "file-icons":
+    forceShow: true
+"source.json":
+  editor:
+    softWrap: true
+"source.coffee":
+  editor:
+    softWrap: true

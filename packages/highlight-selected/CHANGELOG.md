@@ -1,5 +1,19 @@
 ## Change Log
 
+### v0.10.1 (2015/06/17)
+- Ensure border for highlighted region doesn't overlap other lines ([@richrace])
+
+### v0.10.0 (2015/06/14)
+- Add special case for PHP variables beginning with `$` ([@richrace])
+- Add debounce/timeout when selections change ([@richrace])
+- Remove `atom-space-pen-views` ([@JCCR])
+
+### v0.9.3 (2015/05/15)
+- Fix `Uncaught TypeError: Cannot read property 'dispose' of undefined` ([@yongkangchen])
+
+### v0.9.2 (2015/04/18)
+- Fix hide highlight on multi select ([@hmatsuda])
+
 ### v0.9.1 (2015/03/01)
 - Fix 1px border on panel ([@richrace])
 
@@ -159,3 +173,4 @@
 [@yongkangchen]: https://github.com/yongkangchen
 [@hmatsuda]: https://github.com/hmatsuda
 [@izuzak]: https://github.com/izuzak
+[@JCCR]: https://github.com/JCCR

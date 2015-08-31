@@ -1,32 +1,46 @@
-{Range} = require 'atom'
-{View} = require 'atom-space-pen-views'
+{Range, CompositeDisposable} = require 'atom'
 _ = require 'underscore-plus'
 
 module.exports =
-class HighlightedAreaView extends View
-  @content: ->
-    @div class: 'highlight-selected'
+class HighlightedAreaView
 
-  initialize: ->
+  constructor: ->
     @views = []
+    @listenForTimeoutChange()
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
+      @debouncedHandleSelection()
       @subscribeToActiveTextEditor()
     @subscribeToActiveTextEditor()
 
-  attach: ->
-    panel = atom.workspace.addBottomPanel(item: this)
-    panel.hide()
-
   destroy: =>
+    clearTimeout(@handleSelectionTimeout)
     @activeItemSubscription.dispose()
     @selectionSubscription?.dispose()
-    @remove()
-    @detach()
+
+  debouncedHandleSelection: =>
+    clearTimeout(@handleSelectionTimeout)
+    @handleSelectionTimeout = setTimeout =>
+      @handleSelection()
+    , atom.config.get('highlight-selected.timeout')
+
+  listenForTimeoutChange: ->
+    atom.config.onDidChange 'highlight-selected.timeout', =>
+      @debouncedHandleSelection()
 
   subscribeToActiveTextEditor: ->
     @selectionSubscription?.dispose()
-    @selectionSubscription = @getActiveEditor()?.onDidChangeSelectionRange =>
-      @handleSelection()
+
+    editor = @getActiveEditor()
+    return unless editor
+
+    @selectionSubscription = new CompositeDisposable
+
+    @selectionSubscription.add(
+      editor.onDidAddSelection @debouncedHandleSelection
+    )
+    @selectionSubscription.add(
+      editor.onDidChangeSelectionRange @debouncedHandleSelection
+    )
     @handleSelection()
 
   getActiveEditor: ->
@@ -60,8 +74,14 @@ class HighlightedAreaView extends View
 
     @ranges = []
     regexSearch = result[0]
+
     if atom.config.get('highlight-selected.onlyHighlightWholeWords')
-      regexSearch =  "\\b" + regexSearch + "\\b"
+      if regexSearch.indexOf("\$") isnt -1 \
+      and editor.getGrammar()?.name is 'PHP'
+        regexSearch = regexSearch.replace("\$", "\$\\b")
+      else
+        regexSearch =  "\\b" + regexSearch
+      regexSearch = regexSearch + "\\b"
 
     editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
       (result) =>

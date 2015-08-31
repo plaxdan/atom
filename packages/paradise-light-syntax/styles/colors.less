@@ -1,0 +1,37 @@
+
+// Config -----------------------------------
+@syntax-hue:          40;
+@syntax-saturation:   2%;
+@syntax-brightness:   97%;
+
+// Base colors -----------------------------------
+@syntax-base-accent-color:      hsl(@syntax-hue, 100%, 66% );
+@syntax-base-background-color:  hsv(@syntax-hue, @syntax-saturation, @syntax-brightness);
+@syntax-base-text-color:        @dark-gray;
+@syntax-base-guide-color:       fade(@syntax-base-text-color, 40%);
+
+
+// Colors: Mix Base16 Atelier Dune with Theme hue -----------------------------------
+@syntax-mix-grey:    -12%;
+@syntax-mix-color:    50%;
+@syntax-mix-contrast: 20%;
+
+// Grayscale
+@black:           darken( saturate( #141112, @syntax-mix-grey ), @syntax-mix-contrast ); // 00
+@light-black:     darken( saturate( #1e1a1b, @syntax-mix-grey ), @syntax-mix-contrast ); // 01
+@very-dark-gray:  darken( saturate( #66595c, @syntax-mix-grey ), @syntax-mix-contrast ); // 02
+@dark-gray:       darken( saturate( #75696c, @syntax-mix-grey ), @syntax-mix-contrast ); // 03
+@gray:            darken( saturate( #938a8c, @syntax-mix-grey ), @syntax-mix-contrast ); // 04
+@light-gray:      darken( saturate( #b2acad, @syntax-mix-grey ), @syntax-mix-contrast ); // 05
+@very-light-gray: darken( saturate( #d1cdce, @syntax-mix-grey ), @syntax-mix-contrast ); // 06
+@white:           darken( saturate( #efeeee, @syntax-mix-grey ), @syntax-mix-contrast ); // 07
+
+// Colors
+@red:             darken( saturate( #e55757, @syntax-mix-color ), @syntax-mix-contrast ); // 08
+@orange:          darken( saturate( #efa250, @syntax-mix-color ), @syntax-mix-contrast ); // 09
+@light-orange:    darken( saturate( #ffb41f, @syntax-mix-color ), @syntax-mix-contrast ); // 0A
+@green:           darken( saturate( #4ac978, @syntax-mix-color ), @syntax-mix-contrast ); // 0B
+@cyan:            darken( saturate( #26cab9, @syntax-mix-color ), @syntax-mix-contrast ); // 0C
+@blue:            darken( saturate( #477ddb, @syntax-mix-color ), @syntax-mix-contrast ); // 0D
+@purple:          darken( saturate( #bd85da, @syntax-mix-color ), @syntax-mix-contrast ); // 0E
+@dark-red:        darken( saturate( #9b1616, @syntax-mix-color ), @syntax-mix-contrast ); // 0F

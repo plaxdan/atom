@@ -1,0 +1,38 @@
+
+// Config -----------------------------------
+@syntax-hue:          45;
+@syntax-saturation:   20%;
+@syntax-brightness:   90%;
+
+// Base colors -----------------------------------
+@syntax-accent: hsl(@syntax-hue, @syntax-saturation, 30% );
+@syntax-guide:  fade(@syntax-fg, 15%);
+@syntax-fg:     @mono-1;
+@syntax-bg:     hsl(@syntax-hue, @syntax-saturation, @syntax-brightness);
+
+// Monochrome -----------------------------------
+@mono-1: hsl(@syntax-hue, @syntax-saturation, 40%); // default text
+@mono-2: hsl(@syntax-hue,  @syntax-saturation, 55%);
+@mono-3: hsl(@syntax-hue, @syntax-saturation, 60%);
+
+
+// Colors -----------------------------------
+// Examples:
+// 1 - __init__, selfs
+// 2 - builders, methods
+// 3 - keywords
+// 4 - Strings
+// 5 - selfs tags.
+// 5-2 - expression languages, delimiters
+// 6 - numbers
+// 6-2 - class name
+@hue-1:   hsl(145, 69%, 40%); // <-blue
+@hue-2:   hsl(100, 54%, 40%); // <-purple
+@hue-3:   hsl(75, 60%, 40%); // <-green
+@hue-4:   hsl(50, 55%, 45%); // <-cyan
+
+@hue-5:   hsl(20, 50%, 40%); // <-green-lemon 1
+@hue-5-2: hsl(20, 60%, 36%); // <-green-lemon 2
+
+@hue-6:   hsl(30, 74%, 47%); // <-yellow 1
+@hue-6-2: hsl(30, 77%, 40%); // <-yellow 2

@@ -1,7 +1,7 @@
 {
   "name": "monokai-light",
   "theme": "syntax",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "A port of the textmate monokai-light theme for atom.",
   "repository": {
     "type": "git",
@@ -17,10 +17,10 @@
     "url": "https://github.com/rjfranco/atom-monokai-light/issues"
   },
   "homepage": "https://github.com/rjfranco/atom-monokai-light",
-  "_id": "monokai-light@0.3.6",
-  "_shasum": "0bea1dd689151c09a9f1f994af3eeddd2257cdeb",
-  "_resolved": "file:../d-115110-87991-1f8voik/package.tgz",
-  "_from": "../d-115110-87991-1f8voik/package.tgz",
+  "_id": "monokai-light@0.3.7",
+  "_shasum": "4ecd4bf11da43142865f23657aa39a13ba358d5f",
+  "_resolved": "file:../d-115421-1130-yza31y/package.tgz",
+  "_from": "../d-115421-1130-yza31y/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

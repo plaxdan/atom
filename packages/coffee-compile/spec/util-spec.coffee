@@ -25,7 +25,7 @@ describe "util", ->
 
       """
 
-      expect(util.compile('hello world')).toBe expected
+      expect(util.compile('hello world', editor)).toBe expected
 
     it 'should compile with wrapper', ->
       atom.config.set('coffee-compile.noTopLevelFunctionWrapper', false)
@@ -38,7 +38,18 @@ describe "util", ->
 
       """
 
-      expect(util.compile('hello world')).toBe expected
+      expect(util.compile('hello world', editor)).toBe expected
+
+  describe 'compile litcoffee', ->
+    litcoffeeEditor = null
+
+    beforeEach ->
+      waitsForPromise ->
+        atom.packages.activatePackage('language-coffee-script')
+
+      waitsForPromise ->
+        atom.workspace.open('test.litcoffee').then (o) ->
+          litcoffeeEditor = o
 
     it 'should compile literate', ->
       source = """
@@ -57,7 +68,7 @@ describe "util", ->
 
       """
 
-      expect(util.compile(source, true)).toBe expected
+      expect(util.compile(source, litcoffeeEditor)).toBe expected
 
   describe 'getSelectedCode', ->
     text = """
@@ -78,22 +89,6 @@ describe "util", ->
 
       expect(util.getSelectedCode(editor)).toBe "# This is a test"
 
-  describe 'isLiterate', ->
-    beforeEach ->
-      waitsForPromise ->
-        atom.packages.activatePackage('language-coffee-script')
-
-    it 'should return true', ->
-      waitsForPromise ->
-        atom.project.open('test.litcoffee').then (o) ->
-          editor = o
-
-      runs ->
-        expect(util.isLiterate(editor)).toBe true
-
-    it 'should return false', ->
-      expect(util.isLiterate(editor)).toBe false
-
   describe 'compileToFile', ->
     filePath = null
 
@@ -105,13 +100,8 @@ describe "util", ->
       fs.unlink(filePath) if fs.existsSync(filePath)
 
     it 'should create a js file', ->
-      callback = jasmine.createSpy 'save'
-
-      runs ->
-        util.compileToFile editor, callback
-
-      waitsFor ->
-        callback.callCount > 0
+      waitsForPromise ->
+        util.compileToFile editor
 
       runs ->
         expect(fs.existsSync(filePath)).toBe true

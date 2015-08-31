@@ -8,8 +8,16 @@
         line-height: 1.5em;
 
         .selection .region { background: rgba(255, 255, 255, @opacity-highlight); }
-        .underlayer { background: @image-noise; }
-        .wrap-guide { background: @color-charcoal_light; }
+        .tile, .lines { background: @image-noise; }
+
+        &::shadow .wrap-guide { background: @color-charcoal_light; }
+
+    // -------------------------------------
+    //  Highlights
+    // -------------------------------------
+        .bracket-matcher .region {
+            background-color: #323337;
+            border-bottom: 1px solid @color-blue; }
 
     // -------------------------------------
     //  Scrollbar
@@ -19,50 +27,41 @@
     // -------------------------------------
     //  Gutter
     // -------------------------------------
-        .gutter {
-            background: @color-midnight;
-            margin-right: 3px;
-            overflow: visible;
-            box-shadow: inset -1px 0 @color-charcoal_light; }
+        .gutter { background: @color-midnight; }
+
+            .line-numbers { box-shadow: inset -1px 0 0 rgba(255, 255, 255, .1); }
 
             .line-number {
                 color: @color-grey;
 
                 &.cursor-line {
                     background: rgba(255, 255, 255, .04);
-                    position: relative;
-
-                    &:after {
-                        content: '';
-                        background: rgba(255, 255, 255, @opacity-highlight);
-                        width: 4px; height: 100%;
-                        position: absolute;
-                        top: 0; right: -3px; bottom: 0; }
-                }
+                    box-shadow: inset -1px 0 0 rgba(255, 255, 255, @opacity-highlight + .07); }
 
                 &.cursor-line-no-selection {
                     background: rgba(0, 0, 0, .4);
+                    box-shadow: inset -1px 0 0 rgba(255, 255, 255, .2);
 
-                    &:after {
-                        background: rgba(0, 0, 0, .3);
-                        width: 3px; }
+                    &.git-line-removed { padding-left: 10px; }
                 }
             }
 
     // -------------------------------------
     //  Lines
     // -------------------------------------
-        .lines { box-shadow: none; }
+        .lines {
+            padding-left: @indent-padding;
+            box-shadow: none; }
 
             .indent-guide {
                 box-shadow: none;
 
-                &:not(:first-child) {
-                    box-shadow: inset 1px 0 @color-charcoal_light; }
+                &:not(:first-child) { box-shadow: inset 1px 0 rgba(255, 255, 255, .1); }
             }
 
             .line.cursor-line {
-                background: rgba(0, 0, 0, .3); }
+                background: rgba(0, 0, 0, .3);
+                box-shadow: -( @indent-padding ) 0 0 rgba(0, 0, 0, .3); }
 
                 .invisible-character { color: @color-brown_dark; }
 
@@ -109,9 +108,7 @@
             .storage {
                 // Coffee: ->
                 &.type.function { color: @color-brown; }
-
                 &.modifier { color: @color-brown; }
-
                 &.class { color: @color-red_pale; }
             }
 

@@ -1,6 +1,8 @@
-## ONE light Syntax theme
+## One Light Syntax theme
 
-![one-syntax-light](https://cloud.githubusercontent.com/assets/378023/5795479/39221ce2-9fd4-11e4-8895-b4782835bac6.png)
+![one-syntax-light](https://cloud.githubusercontent.com/assets/378023/7783214/c146b4e6-0174-11e5-8377-a57cf0274d5d.png)
+
+> The font used in the screenshot is [Fira Mono](https://github.com/mozilla/Fira).
 
 There is also a matching [UI theme](https://atom.io/themes/one-light-ui).
 

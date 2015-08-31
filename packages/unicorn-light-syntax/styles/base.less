@@ -1,0 +1,99 @@
+@import "colors";
+
+:host, atom-text-editor {
+  background-color: @eggshell;
+  color: @coffee;
+}
+
+:host, atom-text-editor {
+  .invisible-character,
+  .indent-guide {
+    color: darken(@eggshell, 7%);
+  }
+
+  .gutter {
+    background-color: lighten(@eggshell, 2%);
+  }
+
+  .gutter .line-number.folded,
+  .gutter .line-number:after,
+  .fold-marker:after {
+    color: @orange;
+  }
+
+  .cursor {
+    border-color: @coffee;
+  }
+
+  .selection .region {
+    background-color: darken(@eggshell, 8%);
+  }
+
+  .line-number.cursor-line-no-selection {
+    background-color: darken(@eggshell, 5%);
+  }
+}
+
+.bracket-matcher .region {
+  background-color: lighten(@eggshell, 20%);
+}
+
+// This is a comment
+.comment {
+  color: lighten(@coffee, 25%);
+  font-style: italic;
+}
+
+.entity {
+  color: @orange;
+}
+
+.keyword {
+  color: @yellow;
+}
+
+.storage.type {
+  color: @green;
+}
+
+.constant {
+  color: @yellow;
+}
+
+.variable {
+  color: @blue;
+}
+
+.delimiter, .brace {
+  color: @blue;
+}
+
+.delimiter.period {
+  color: @green;
+}
+
+.invalid.deprecated {
+  text-decoration: underline;
+  color: @red;
+}
+
+.invalid.illegal {
+  color: @red;
+}
+
+.string {
+  color: lighten(@coffee, 10%);
+
+  .constant.character.escape {
+    color: @red;
+  }
+
+  &.regexp {
+    color: @magenta;
+
+    .source.ruby.embedded,
+    .string.regexp.arbitrary-repitition {
+      color: @red;
+    }
+  }
+}
